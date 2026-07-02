@@ -1,0 +1,5458 @@
+Bueno, sigamos.
+
+Como les comenté en las clases,
+
+ya de la primera clase,
+
+ahora vemos algunas cositas que sirven para el TP
+
+y seguimos con otras cosas
+
+un poco más tranqui que las primeras tres sesiones.
+
+Hemos visto un montón de temas,
+
+hemos visto mucho aprendizaje supervisado,
+
+hasta XGBUS que vimos la semana pasada,
+
+y ya me estimó, por lo que estoy viendo en el leaderboard,
+
+que algunos grupos están usando.
+
+Los grupos que van arriba van muy, muy bien, digamos.
+
+De hecho, en todos los TPE los practico un poco.
+
+Yo un script básico, un script un poquito más,
+
+y un poco, no le pongo mucho, le pongo una hora,
+
+una hora y media, y el que va ganando,
+
+va ganando a mi script, digamos.
+
+Así que está súper bien.
+
+No sé quién lo hizo, pero me da intriga
+
+después qué están haciendo.
+
+Así que está buenísimo.
+
+Vimos algo del comienzo de Kamedias.
+
+hoy vamos a ver otro tema de clustering.
+
+Pero al igual que la que se pasa,
+
+empecemos con algo que sirve para el TP
+
+y que tiene que ver con un polivisado.
+
+Y puntualmente,
+
+déjenme ver si puedo sacar esto.
+
+Y puntualmente,
+
+cuando vimos aquí G-Boost,
+
+había una slide que decía
+
+típicamente se modifican estos hiperparámetros.
+
+Y eran siete hiperparámetros,
+
+la cantidad largo, la profundidad máxima del árbol,
+
+las observaciones por hoja,
+
+dos desampleos, uno de columna, otro de columna,
+
+había un eta que era el learning rate,
+
+había un par de cosas más,
+
+ya no sé hasta cuáles dije ahora,
+
+pero eran siete, ¿no?
+
+¿Ok?
+
+Hicimos un pequeño calculito,
+
+que dijimos, bueno, che,
+
+si yo de esos siete hiperparámetros
+
+quiero probar diez valores,
+
+básicamente voy a obtener
+
+10 a la 7
+
+¿no?
+
+que es
+
+uno lo va a probar
+
+con 10 valores diferentes
+
+al otro también
+
+al otro también
+
+se va multiplicando
+
+¿no?
+
+y nos queda 10 a la 7
+
+y eso era
+
+si no recuerdo mal
+
+10 millones
+
+¿no?
+
+entonces
+
+son 10 millones de pruebas
+
+combinar
+
+todas las combinaciones
+
+de esos 7 hiperparámetros
+
+de a 10
+
+¿está?
+
+y nada más
+
+si uno
+
+si cada modelito
+
+tomase un minuto
+
+ya eso va a tomar
+
+creo que un paro de meses
+
+uno hace el cálculo.
+
+Entonces no tiene mucho sentido, digamos.
+
+Seguro para el TP no, porque es bastante
+
+más tarde que el deadline.
+
+Entonces uno dice, che, está
+
+buenísimo.
+
+XGBoost. Pero bueno, quizás
+
+para hacerlo andar bien bien,
+
+tengo que hacer una prueba muy exhaustiva, o que
+
+me ha tocado mucho tiempo.
+
+Y si uno lo quiere hacer así,
+
+con esta estrategia que se llama Grid Search,
+
+que es probar todas las combinaciones,
+
+sí. Pero
+
+curiosamente no hace tanto
+
+como que se vio que la mejor estrategia
+
+no es aprobar todas las combinaciones de hiperparámetros,
+
+como dice en un loop en la clase 3 para árboles,
+
+que era en la clase 2 de árboles,
+
+sino que hay algunas estrategias que
+
+no solamente se espera que demoren menos tiempo,
+
+sino también que lleguen a mejores resultados.
+
+Entonces, fíjense, si uno dice,
+
+yo tengo dos hiperparámetros,
+
+¿No? Y para cada uno creo
+
+tres valores.
+
+Es básicamente
+
+un for.
+
+Y parámetro uno,
+
+in, vamos a
+
+darle bajo, medio, alto.
+
+Y después otro for.
+
+Y parámetro dos,
+
+in, también
+
+darle bajo,
+
+medio, alto. Así que yo creo tres cosas.
+
+Y acá hago algo
+
+y estos tres por tres son nueve.
+
+combinaciones que estoy probando.
+
+¿Qué es un poquito lo que dice acá?
+
+Si yo hago eso,
+
+estoy probando
+
+tres valores de un hiperparante y tres de otro.
+
+Y fíjense que cuando yo
+
+fijo, por ejemplo,
+
+el uno en vasco, creo tres combinaciones.
+
+Y para cada uno de los del dos
+
+también estoy probando tres combinaciones del otro.
+
+Básicamente estoy haciendo una grilla
+
+de este estilo.
+
+¿Está?
+
+Ok.
+
+Y lo que dice esta figura,
+
+que es de un paper de Benjo, Benjo es premio Turing,
+
+que es como el Nobel de Computación,
+
+no por este paper, pero este paper es de su autoría también,
+
+dice, che, imagínate que este parámetro te modifica,
+
+uno te modifica la performance del modelo,
+
+en los datos de evaluación o lo que fuera,
+
+y este no tanto.
+
+Lo que te dice es, che, hay uno que es importante y otro que no lo es.
+
+¿Está?
+
+Genial.
+
+Si uno sigue esta estrategia y dice algo más, dice, che,
+
+este es importante y la función que vos querés maximizar tiene esta pinta,
+
+en donde los máximos se encuentran por este valor del hiperparámetro.
+
+Ok.
+
+Lo que te dice es, che, si vos seguís esta estrategia de grilla,
+
+en realidad de cada uno de los hiperparámetros está probando solo tres valores,
+
+por más que tirás nueve puntos.
+
+¿Está?
+
+entonces básicamente efectivo
+
+y preparando lo importante está probando tres valores
+
+combinados con otros
+
+dos valores
+
+digamos si uno está acá o con otros más
+
+del no importante
+
+y fíjense que explorar esta parte
+
+del espacio de atributos mucho no nos importa
+
+es más en esta dimensión que sucede
+
+¿no?
+
+entonces al armar esta grilla
+
+vos estás tirando estos nueve puntos
+
+pero estás explorando el espacio
+
+está bien, lo estás cubriendo con una grilla
+
+pero es como que a cada uno de manera individual
+
+no lo estás explorando un montón
+
+sino en este caso
+
+tres puntos
+
+en el caso de 10
+
+en el que yo puse inicialmente serían 10 valores diferentes
+
+entonces dice che ojo
+
+quizás otra estrategia
+
+es no
+
+hacer una grilla
+
+sino hacer
+
+puntos al azar en una región del espacio
+
+de atributos
+
+entonces el que dice che
+
+supongamos que yo digo el parámetro 1
+
+lo voy a probar de un mínimo máximo
+
+y el 2 de un mínimo máximo
+
+ya no va a ser un doble foro
+
+sino algo que va a tirar un sampleo
+
+va a salir un punto
+
+al azar en esa región del espacio atributo
+
+y vas a probar el modelo A
+
+acá también hay 9 puntos
+
+la misma cantidad, fíjese
+
+1, 2, 3, 4, 5, 6, 7, 8, 9
+
+pero si uno se fija
+
+también estás
+
+y eventualmente uno converge
+
+que explora toda la región esa
+
+que uno está analizando.
+
+Pero también lo que sucede es que si uno se fija,
+
+está probando más valores
+
+de cada hiperparámetro,
+
+no solamente 3SB.
+
+De hecho está probando 9 valores diferentes
+
+de este hiperparámetro,
+
+y 9 valores diferentes de este hiperparámetro también.
+
+Entonces lo que conseguís acá es que
+
+en vez de haber explorado 3 puntos,
+
+vos estás explorando
+
+como 9 y mejor distribuidos.
+
+De hecho, distribuido de una manera bastante uniforme
+
+en cada una de las dimensiones.
+
+¿Está?
+
+Entonces lo que sucede es que en casos como este
+
+es más probable que vos logres
+
+alcanzar un máximo de la función.
+
+¿Está?
+
+Entonces un poquito lo que ves es que, nada,
+
+esta estrategia grilla es cómoda
+
+porque uno hace un for, digamos,
+
+pero no explora bien el espacio de atributos,
+
+esa la explora mejor.
+
+Y de hecho lo que uno puede hacer es decir,
+
+bueno, en vez de probar
+
+10 a las 7 valores diferentes,
+
+uno dice, ¿cuántos badges tengo?
+
+¿Cuánto tiempo tengo?
+
+Y voy a probar 100 modelos.
+
+Y uno dice, bueno, en vez de probar 10 millones,
+
+dice, voy a probar 100 modelos elegidos al azar
+
+en el espacio de atributos,
+
+que uno diga en la región del espacio de atributos,
+
+y me quedo con el mejor, ¿no?
+
+Y lo que se encuentra es que típicamente eso,
+
+toma menos cómputo, digamos, como tal,
+
+y típicamente encontramos mejores combinaciones
+
+de hiperparámetros, ¿va?
+
+Entonces la estrategia un poquito más moderna, después vamos a ver otras, es decir, no armar gridas, sino tirar puntos de manera aleatoria en el espacio de tributos, de hiperparamentos básicamente, y dejarse y elegir el que mejor te da.
+
+¿Ok?
+
+En el espacio de preparamientos.
+
+Ok, esta estrategia
+
+se llama random search.
+
+La de la izquierda se llama grid search,
+
+la de la derecha se llama random search, ¿no?
+
+Y es algo más moderno
+
+a lo que al menos yo estuve haciendo
+
+en el código de clases.
+
+¿Está?
+
+Entonces, acá lo que yo hice fue,
+
+como esto toma un poquito de tiempo,
+
+le subí el script de clases,
+
+En un segundito attack
+
+Y lo primero es
+
+Es una pavada, es nada más para ver un poquito
+
+Visualmente, che
+
+Que las cosas que dicen más o menos
+
+Va por ahí, dice, bueno, che, si yo tuviese
+
+Seis hiperparámetros, ¿no?
+
+¿Ok?
+
+Y para cada uno, básicamente, estoy probando
+
+Este
+
+Seis valores
+
+También
+
+Uno tendría algo
+
+como esto.
+
+Uno, dos, tres, cuatro, perdón, cinco valores, ¿se ve?
+
+Entonces fíjense, acá no estoy haciendo una sola grilla,
+
+sino estoy en un espacio como de seis dimensiones,
+
+estoy haciendo los cruces de a pares,
+
+y fíjense que se mantiene esta idea de que estás con una grilla.
+
+¿Va?
+
+Y acá, ¿cuántos puntos estoy probando?
+
+Acá son 15.625 puntos, ¿se ve?
+
+Que están hechos.
+
+Muchos están solapados, ahí esa es la idea,
+
+que muchos están encima del otro.
+
+Y fíjense qué pasa si yo tiro de manera aleatoria
+
+en esta misma región, básicamente de espacio hiperparámetros,
+
+no estos 515.625, sino simplemente 150 puntos.
+
+Y fíjense cómo da toda la impresión
+
+que se está como explorando mejor, ¿se ve?
+
+Entonces, y es con un 1% básicamente de los puntos.
+
+Entonces este es un caso donde, bueno, che, parece que tiene buen sentido hacer esto.
+
+¿Ok?
+
+Entonces, el segundo código, que es el que demora un poquito,
+
+lo que hace es lo de siempre, cargar los datos, castear las columnas,
+
+hacer algunas variables de fecha,
+
+limpiar algunas columnas para hacer one-con-encoding, todas las cosas.
+
+Una cosa que yo cambié acá por una cuestión de tiempo,
+
+es que estoy ampliando muy poquito el dataset, un 2,5%.
+
+Para que demore poco tiempo,
+
+En realidad ni siquiera están dando esta compu,
+
+están dando la compu de mi oficina esto, ¿no?
+
+Lo que les voy a mostrar.
+
+Y fíjense, lo que voy a hacer es,
+
+en esta parte del código,
+
+acá lo que tengo es, che,
+
+si alguno de ustedes tiene una GPU,
+
+para que use la GPU básicamente,
+
+que yo en mi oficina lo tengo.
+
+Y fíjense, acá está lo importante, lo nuevo.
+
+Que, che, voy a probar,
+
+no solo en la mejor región del espacio de atributos, seguro,
+
+yo estoy diciendo, che, voy a probar,
+
+ampliar en esta región del espacio de atributos,
+
+en que en profundidad de 2 a 4,
+
+en eta de 0,001 a 0,05,
+
+en gamma entre 0 y 1, uniforme,
+
+en call sample entre estos valores,
+
+que quizás son muy bajitos,
+
+estoy ampliando en esa región,
+
+le estoy diciendo,
+
+entre,
+
+Minchak Way puede valer 1, 2, 3,
+
+por ejemplo,
+
+call sample battery puede ser entre 0,3 y 0,5,
+
+y vas a ampliar uniforme en esa región,
+
+va viendo cómo vas a ampliar en esa área,
+
+Básicamente
+
+Algunas cosas como son enteras
+
+No es uniforme
+
+Sino es ampliar un entero
+
+Entonces yo acá lo que digo es
+
+No la grilla
+
+Sino
+
+De dónde va a sacar los puntos
+
+El área donde puede caer
+
+Una combinación de hiperparámetros
+
+Y después lo que tiene una funcioncita
+
+Es que
+
+Ahí
+
+Estos rangos que le estamos poniendo
+
+Para cada uno de los hiperparámetros
+
+¿Son medios estándares?
+
+No, no, de hecho yo te digo son malos
+
+Ahí eso va a ser
+
+Ustedes van a tener que empezar a sacar la intuición
+
+De dónde, seguramente varían por problema
+
+Ah, eso te iba a preguntar, según el contexto
+
+De cada problema varían
+
+Sí, sí, incluso eso varía
+
+Tiene sentido
+
+Hacer una prueba inicial con rangos
+
+Como más grandes, más amplios
+
+Y vas viendo por dónde va la mano
+
+Y después la cortas un poquito, eso no es extraño
+
+Que sea
+
+Rangos más amplios me van a tardar más
+
+Bueno, te va a tardar más
+
+Pero yo que se tira 30 puntos
+
+Y ves por donde están los mejores
+
+Y después tira 30 puntos en un área más acotada
+
+Típicamente vos
+
+Si tiras 30 puntos vas a tener
+
+Las 30 combinaciones por parámetros que comprobaste
+
+Una performance dada
+
+Y ordenas en modo descendiente
+
+Esa performance y vas viendo
+
+Cuáles son los valores de profundidad máxima
+
+Que más sentido tiene
+
+Esa tablita es súper informativa
+
+Que está por acá dando vueltas a la tablita
+
+Bien, una función que toma hiperparámetros
+
+y toma otro que es la cantidad de árboles que XG busque todas separadas.
+
+Y después un reporte de valores, básicamente.
+
+Y fíjense, acá es random search, básicamente.
+
+Lo que hace es que saca unos hiperparámetros.
+
+Sí, esto para iniciar esa búsqueda aleatoria.
+
+Y acá va a ir ampliando, básicamente, TAC.
+
+Y eventualmente se amplía los hiperparámetros,
+
+se amplía la cantidad de árboles que va a haber
+
+básicamente
+
+y prueba, y dice
+
+si el score que tuviste fue mejor que el que tenés
+
+hasta ahora, guardalo básicamente
+
+como el modelo final
+
+entonces, haces eso, y cuando lo ejecutas
+
+acá estoy ejecutándolo con 25
+
+puntitos
+
+con 25 combinaciones
+
+llegas a esto
+
+y lo que te dice en la iteración 1
+
+acuérdense, estos valores son bajos porque estoy trabajando
+
+con el 2,5% de los datos
+
+y estoy armando un conjunto de validación mal hecho.
+
+Todo está mal acá.
+
+Lo único que quiero es que ustedes lo hagan bien,
+
+pero darle el código para que puedan hacer esto si quieren.
+
+Fíjense que hay variabilidad en resultados
+
+y te dice, bueno, el mejor que encontraste
+
+es un área bajo la curva de 0,8, 0,8035.
+
+Ok, perfecto.
+
+Y lo encontró nada, con 25 iteraciones.
+
+Seguramente si ustedes le ponen
+
+o sea por más grande
+
+más árbol
+
+en la región
+
+todos esos valores
+
+van a subir
+
+y van sacando
+
+intuiciones
+
+de por dónde debe ir
+
+que están los
+
+super parámetros
+
+fuentes
+
+¿va?
+
+ahora bien
+
+esto es súper potente
+
+y yo
+
+medio que uso esto
+
+y no uso otras cosas
+
+y la verdad
+
+tampoco es todo cierto
+
+yo cuando trabajo
+
+con XGBoS
+
+también es como que
+
+un poco voy probando a mano
+
+pruebo algo
+
+y como tengo intuiciones
+
+voy subiendo
+
+cosas por el estilo
+
+que también es súper válido
+
+pero uno puede
+
+automatizar
+
+algunas partecitas
+
+también, si quiere, de esta manera.
+
+Bien.
+
+Pero hay otra estrategia
+
+que es un poquito más moderna.
+
+Ahí está la primera vez que la doy.
+
+No la daba antes en la materia, pero me parece que
+
+está bueno porque se usa bastante.
+
+Que es decir, che,
+
+quizás se pueda automatizar
+
+un poquito mejor la búsqueda de hiperparámetros.
+
+¿No? Y que la misma computadora
+
+lo vaya haciendo, ¿no?
+
+Entonces, hay
+
+algoritmos de optimización,
+
+diferencia baseiana, típicamente, y tenga un componente de ese estilo,
+
+donde uno dice, che, voy a tirar al azar 10 puntos, ¿no?
+
+Y de alguna manera el algoritmo va detectando por dónde están
+
+las regiones buenas de hiperparámetros, ¿no?
+
+Entonces los siguientes 10 puntos, o el siguiente punto, lo que sea,
+
+no se tira al azar en cualquier lugar, sino que se va enfocando
+
+en las lugares que cree que son buenos.
+
+De hecho, lo que va diciendo, che, yo no conozco para nada esta función,
+
+y a medida que voy quitando puntos voy teniendo como estimaciones
+
+de qué pinta tiene el desempeño en lo que estés midiendo,
+
+función de los hiperparámetros, y va estimando esa función.
+
+Y va diciendo, bueno, si tiene esta pinta me conviene enfocar en esta región,
+
+con algunos matices también, con los matices,
+
+che, por ahí me estoy enfocando mucho en esta región porque creo que es buena,
+
+pero todavía no exploré esta, entonces por ahí tira algunos puntitos por ahí.
+
+Y hay todo un, se llama trade-off, exploración, explotación.
+
+Pero básicamente lo que va a hacer es decir, che,
+
+van a construir de manera secuencial
+
+los modelitos, las pruebas,
+
+y va a ir usando la información que va obteniendo
+
+para guiar por donde tiene que hacer
+
+la siguiente búsqueda de hiperparámetros.
+
+¿Estamos con esa idea?
+
+Entonces, típicamente empieza así.
+
+Se prueban algunas combinaciones iniciales,
+
+típicamente con algo aleatorio.
+
+Se evalúa la performance en cada combinación.
+
+Se identifica las regiones que parecen trometeoras
+
+y regiones que todavía no están exploradas.
+
+Y ahí se prueban nuevas combinaciones.
+
+tratando de controlar este trade-off
+
+che, enfoquémonos en las áreas
+
+que parecen prometedoras pero no dejemos
+
+sin explorar las partes que todavía
+
+no le hemos dado mucha bola del espacio
+
+de preparámetros, ¿no?
+
+y típicamente empieza explorando más
+
+y después va convergiendo a explotar más
+
+básicamente, a decir, che, enfoquémonos en las
+
+partes que son más prometedoras
+
+una vez que tiras estos puntos
+
+bueno, se identifican regiones, se vuelven a
+
+probar y se va iterando así hasta que en algún
+
+momento, vos decís, che, probar
+
+30, 40, cosas diferentes y converge.
+
+No converge, sino que
+
+termina, ¿no? Bien.
+
+La idea es que el propio
+
+sistema va aprendiendo
+
+por dónde tiene que ir buscando. No
+
+tirar al azar por completo, sino que va guiando
+
+un poquito la búsqueda por dónde están los buenos y pro parámetros.
+
+En Python
+
+hay dos librerías que son muy populares.
+
+La inicial era
+
+eProp, que ya quedó un poco
+
+fuera de... un poquito vieja
+
+parece. Y la que se está usando
+
+mucho ahora es una que se llama Optuna.
+
+y es justamente esa idea
+
+uno va a plantear una función
+
+objetivo, en su caso en el TP
+
+va a ser la performance invalidation
+
+seguramente, lo que ustedes van a querer maximizar
+
+que va a depender
+
+de alguna combinación de unas variables
+
+que en su caso van a ser los hiperparámetros
+
+y lo que va a hacer
+
+es que van a ser
+
+muchos trials secuenciales en donde
+
+cada trial se propone una nueva combinación de hiperparámetros
+
+se observa el resultado y se usa esa información
+
+para ver qué hiperparámetro
+
+a probar a continuación, hasta que sacara un budget de cómputo, básicamente.
+
+Yo digo, che, voy a probar 25 pruebas, voy a probar algo.
+
+¿Se ve?
+
+Bueno, el sistema de esto es cómo se seleccionan los nuevos puntos,
+
+o sea, ahí hay las estimaciones de por ahí viene,
+
+por acá está la buena performance, la mala performance, cosas prestigios.
+
+No nos vamos a meter en la parte técnica de eso, tampoco hace falta, ¿no?
+
+Pero la idea es que sepan que hay una estrategia como más guiada
+
+de búsqueda de hiperparámetros.
+
+A su vez la librería esta, yo no lo usé esto, pero parece bastante piola,
+
+pero hay redes neuronales, y también para QGBoost,
+
+que se da cuenta, digamos, que si hay modelos que,
+
+mira que QGBoost es secuencial también, ¿no?
+
+Entonces se da cuenta que si ya empieza mal, por ejemplo,
+
+que vos decís, bueno, voy a probar mil árboles, está,
+
+pero en los primeros 50 ya va muy mal comparado con otros modelos,
+
+dicen, ni sigo probando esto, entonces todavía ahorra un poquitito más de cómplico.
+
+El código que yo le estoy haciendo, todas esas variantes en principio no las tiene, digamos,
+
+pero sepan lo que es, se puede optimizar un poquito más.
+
+¿Va?
+
+Fíjense.
+
+Fíjense.
+
+El tercer bloque del código hace eso,
+
+declara la función objetivo,
+
+esta que va a ser la performance validation,
+
+básicamente lo que trata de optimizar,
+
+que va a tomar una serie de hiperparámetros
+
+y va a entrenar un modelo
+
+y va a tener performance en validación.
+
+Y acá se genera sampler, básicamente,
+
+se dice que lo querés maximizar
+
+y se dice cuántos trials.
+
+Y eventualmente vos, acá lo podés optimizar,
+
+y lo que va a hacer básicamente es
+
+empezar a correr el código.
+
+Fíjense, cada uno de estos son trials.
+
+Y fíjense que empieza con 0.79,
+
+baja porque está aflorando 0.79,
+
+pero a medida que va avanzando,
+
+también son 25,
+
+va subiendo esta función.
+
+Acá ya está en 0,80, en algún lugar baja,
+
+porque vuelve a explorar, cosas por el estilo.
+
+No es monótona creciente, sino que dice,
+
+bueno, che, va creciendo por acá, pero no esplora este lado,
+
+entonces por ahí lo explora y sabe, no servía, vuelve por acá.
+
+Y fíjense que con las mismas cantidades de cómputo,
+
+en este caso, que son 25 iteraciones,
+
+llegamos a un bóloro, nada, superior.
+
+El otro era 0,83, este 0,84.
+
+También es cierto que no es dramáticamente superior,
+
+pero no deja de ser superior y tampoco
+
+mucho más complejo
+
+de generar. Quizás
+
+si a los dos solo trabajo con más data set
+
+y con más trials en vez de 25 o 100,
+
+este ya tiene una mejora más grande.
+
+¿Cuánto es una ganancia esperada, razonable?
+
+No, nada, eso valores.
+
+Yo te diría que
+
+ande...
+
+No entiendo la pregunta entonces.
+
+O sea, si vos tuneas
+
+en los superparámetros, ¿cuánto más
+
+le dices?
+
+No, no, depende del problema, no tengo ni idea.
+
+Sí, sí, sí, sí.
+
+Si yo no sé acá cuánto puede subir, digamos.
+
+Para saber cuánto subiría, digamos, lo dejaría con toda la tacera,
+
+andando una noche y me levanto y veo por dónde va.
+
+No, una noche no es nada, digamos.
+
+Estamos hablando...
+
+Sí, sí, esto es...
+
+Por eso las laptops no son muy buenas tampoco para el mundo.
+
+No se interesa ni, digamos, hay que dejar las cosas andando,
+
+los servidores, eso por el estilo.
+
+Acá no, pero en la práctica sí.
+
+Bien
+
+Sí
+
+Más que no sé si bien sobre esto
+
+Pero todo lo que estamos viendo hoy
+
+Entiendo que ya es
+
+Como el último paso
+
+Cuando ya tenemos definido
+
+El dataset y el modelo que vamos a usar
+
+Sí
+
+Si yo
+
+En el contexto del TP
+
+O sea
+
+¿Qué se suele hacer yo?
+
+Si estoy probando variables
+
+¿Qué conviene hacer?
+
+Pensar todas de una
+
+Y tirárselas todas al modelo
+
+Con un modelo básico
+
+O sea
+
+para cualquier set de hiperparámetros
+
+si una variable es buena debería mejorar
+
+y no, ese es un tema
+
+pero vos por ahí ponés una variable nueva
+
+y cuáles son los hiperparámetros
+
+óptimos dado ese nuevo dataset
+
+quizá no es el mismo
+
+entonces bueno, para ser muy
+
+matista, yo cambio los datos
+
+y estaría bueno hacer una pequeña
+
+optimización de hiperparámetros
+
+para este nuevo dataset que armaste
+
+yo acá ya te estoy hablando de mi experiencia
+
+no me ha pasado mucho
+
+que uno agregue una variable
+
+como informativa
+
+y no te suba ya con la combinación
+
+de parámetros de la performance
+
+que ya cuando el modelo va por ese lado
+
+sube
+
+quizás después lo puedo estudiar un poco
+
+lo puedo hacer algo
+
+y esto es muy de experiencia mía
+
+es como que no noto que
+
+obviamente si es un par de variables
+
+cambias todas las variables
+
+de golpe sacas todo y vas a cambiar las cosas
+
+pero esa parte iterativa
+
+en mi experiencia no ha implicado tener que
+
+optimizar un montón de hiperparámetros
+
+pero también es cierto que si yo fuera
+
+ustedes
+
+yo que sé, el último día
+
+cuando ya no queda tiempo, ya no quedan
+
+ideas de variables, ya está y no queda quizás tiempo
+
+para armar una nueva variable, lo que sea
+
+bueno, quizás lo que haría
+
+optimizar hiperparámetros como el paso final
+
+porque algo seguramente vas a poder
+
+mejorar en ese día. En principio
+
+podemos optimizar, después seguir con
+
+variables, la última ya
+
+Sí, sí, sí, bueno, en algún momento en el medio
+
+es jugar un poquito para ver si cambió, digamos
+
+pero es cierto, es como
+
+es secuencial el proceso, datos
+
+y el último es esto
+
+si vos cambias esto, quizás
+
+la decisión óptima acá te cambia
+
+en mi experiencia no un montonazo
+
+digamos, o no lo suficiente
+
+para que si haces algo bueno acá
+
+no te suba
+
+mi combinación
+
+Sí
+
+Se ve la ventaja
+
+pero digo
+
+Es cuando ya
+
+Descubiste todo el modelo
+
+Y no te queda más nada
+
+Pero la ventaja va a ser
+
+La mejora va a ser incremental
+
+¿La mejora de qué respecto a qué?
+
+No
+
+No, pero pará
+
+Una vez lo tenés que hacer bien
+
+Porque, a ver
+
+Una vez, incluso al comienzo te diría
+
+Lo tenés que hacer bien
+
+Porque aquí es que vos si no haces
+
+Una vez la selección viene y preparada
+
+no sabes por dónde va la mano, no va a andar muy bien el modelo.
+
+Hay otros modelos que son muy robustos, random forest, que lo van a ver después,
+
+a mí me gusta, porque es como una vara, sin tener muchos hiperparámetros,
+
+hiperparámetros sabes por dónde va la mano.
+
+No es así XGBoost, que anda bien si pones bien el hiperparámetro.
+
+Entonces, yo haría algo como un dataset más o menos razonable,
+
+alguna selección de hiperparámetros para ver por dónde están
+
+hiperparámetros razonables también para este problema
+
+y después volver y trabajar un poquito sobre los datos, digamos.
+
+De hecho, una muy buena estrategia,
+
+típicamente, y no lo digo yo,
+
+te lo dice cualquiera que trabaje en esto,
+
+es que lo primero sea como armar un pipeline completo
+
+de punta a punta, más o menos digno, digamos.
+
+Después va incrementalmente mejorando partes, digamos.
+
+Pero no vas a che, hago todas las variables ahora
+
+y no pruebo el modelo.
+
+Y después pruebo el modelo.
+
+Y después, estás.
+
+te conviene hacer un modelo punta a punta,
+
+que incluso saque las predicciones
+
+como lo que le estoy dando yo un poquito en clases,
+
+y después ir tuneando y mejorando, digamos.
+
+Pero además el modelo punta a punta
+
+implica un poquito
+
+haber jugado con el hiperparámetro
+
+y ver por dónde va la mano.
+
+Está bien.
+
+Te veo dudando.
+
+No, no, pero digo, no, no, estoy pensando.
+
+Un porcentaje, digamos, de data set.
+
+Un porcentaje de data set puede ser también.
+
+A mí no me queda claro que...
+
+Pero también parece razonable eso que vos decís,
+
+si podés ampliar el data cell y tiene sentido y no te rompe las cosas,
+
+como podrías pasar,
+
+hacer esta prueba inicial para que sea más rápido,
+
+con algún sample bien seleccionado,
+
+que no es lo que yo hice.
+
+Seguramente lo que yo hice no tiene mucho sentido.
+
+Pero eso, sacar un modelito digno, rápido,
+
+es como que garpa, digamos,
+
+y después empezar a mejorarlo a todas las cosas.
+
+¿Estamos bien?
+
+Genial.
+
+Esta clase no es que está terminando, no se ilusionen para nada,
+
+va a no tener rectilio, va a no tener, pero va a ser corta, digamos.
+
+Lo que es TP viene por acá, digamos.
+
+Ok.
+
+Ahora veamos un poquito algo más de aprendizaje no supervisado.
+
+Entonces dijimos que no supervisado, la diferencia que tienes es que solo tenés las X y no hay una Y a predecir.
+
+Sino que querés encontrar patrones útiles en las X, como podría ser,
+
+si hay alguna forma informativa de solzar los datos, subgrupos similares de observaciones,
+
+que es lo que estamos haciendo, clusters, o subgrupos de variables relacionadas,
+
+que no lo vamos a ver, pero en el libro lo presenta como PSA,
+
+Principal Component Analysis.
+
+Nosotros nos enfocamos un poquito en esto,
+
+en la clase anterior y en esta,
+
+y la clase pasada vimos una estrategia muy popular,
+
+que es la de K-medias.
+
+Pero recuerden, el objetivo es diferente.
+
+El objetivo es no predecir, sino encontrar grupos similares a situaciones,
+
+porque me puede servir para hacer una campaña de marketing o para algo.
+
+¿Estamos?
+
+como targeteado a grupos similares
+
+o cosas por el estilo.
+
+Ahora vamos a ver
+
+lo que se conoce como clustering jerárquico.
+
+¿Ok?
+
+Y el clustering jerárquico es otra estrategia
+
+para encontrar clusters.
+
+Y básicamente es lo que se conoce como un método
+
+bottom-up o aglomerativo,
+
+porque van a ver por qué es bottom-up, porque dice
+
+che, empieza diciendo que observación
+
+es un propio cluster, y después va
+
+uniendo clusters entre sí.
+
+¿Está? Entonces,
+
+lo que vamos a hacer básicamente
+
+es no casarnos de antemano con un número
+
+de K fijo, sino
+
+construir algo que me diga, che, si K fuese
+
+de tanto, esto sería un clúster, si K fuese
+
+de tres, esto, si fuese de cinco
+
+tanto, así, ¿no?
+
+Y eso básicamente es lo que se conoce como
+
+un dendrograma.
+
+¿Ok? Que un dendrograma es
+
+una representación del dataset con
+
+esta pinta, ¿está?
+
+Y medio que todo lo que
+
+vamos a hacer ahora va a ser tratar de construir
+
+esto.
+
+y entender un poquito qué es esto.
+
+Si tenés este dataset, por ejemplo,
+
+este sería el entrograma asociado a este dataset
+
+dado a una media distancia,
+
+a una función de enlace, algunas cosas.
+
+Vamos a ir viendo todo eso.
+
+Entonces, nuestro objetivo va a ser construir esto.
+
+Fíjense.
+
+Este entrograma
+
+es un árbol también,
+
+como la gente de computación de arriba para abajo.
+
+En donde cada hoja
+
+representa básicamente
+
+una observación.
+
+Fíjense que tenemos este dataset
+
+que tiene nueve observaciones.
+
+Para cada observación tenemos dos atributos,
+
+x1 y x2.
+
+Y que cada uno, la 1 está acá,
+
+la 2 está por acá, y así.
+
+¿Estamos?
+
+Eventualmente vamos a ver que las hojas,
+
+por ejemplo el 5 y el 7,
+
+se unen entre sí.
+
+Y a medida que nosotros vamos subiendo
+
+en el holograma,
+
+dos cosas unidas se van a unir con otras más.
+
+¿Se ve? A modo de ejemplo, acá
+
+yo tengo unido todas estas observaciones
+
+y acá yo tengo unido todas estas observaciones
+
+y es como que la subunida es como un árbol.
+
+Digamos, uno está en rama y uno para arriba
+
+y están todas estas ramas
+
+para arriba.
+
+Ok.
+
+Una cosa importante
+
+es que
+
+por más que este eje
+
+no tenga mucho significado
+
+primero que sería el mismo del programa si yo
+
+pongo esto de este lado y esto de este lado
+
+el eje Y sí lo tiene
+
+y el eje Y mide distancias
+
+y cuando ahora construyamos
+
+en el programa Manu y van a ver que se puede
+
+hacer, van a ver
+
+que nada, que esto
+
+esta unión se produce a esta altura
+
+implica que la distancia
+
+está en el orden de 1.20
+
+tiene un significado ese eje
+
+el eje del Y
+
+mientras que este
+
+no
+
+ok, fíjense
+
+Yo acá lo que estoy diciendo es, ¿qué observaciones se unen si yo formo una línea acá?
+
+¿Qué quiere decir que se unen o qué clases se unen?
+
+Es que esto de acá está por debajo de esta línea.
+
+Y acá, ¿qué se unió? El 5 con el 7.
+
+Por eso acá hago esto y se une el 5 con el 7.
+
+Si yo subo la línea un poquito de acá, un poquito más arriba,
+
+por debajo se une también el 5 con el 7,
+
+pero pasa a unirse el 1 con el 6.
+
+¿Está?
+
+En este momento,
+
+si yo tuviese así partido de la 3,
+
+diría, esto es un clúster, esto es un clúster,
+
+esto es otro clúster, esto es otro clúster,
+
+esto es otro clúster, y estas dos son un clúster,
+
+y estas
+
+une, ¿está? Bien, yo la subo un poquito más, ¿qué se une? El 4 con el 1 y 6, entonces va a pasar esto de acá. Si la subo un poquito más, el 3 con el 1, 6, 4, ¿está? Y si la subo un poquito más, se va a unir el 2 con el 8, 5, 7, o sea, va a haber un circulito ahí, ¿está?
+
+Después se va a unir el 9 con eso.
+
+Y después se va a unir todas estas con todas estas.
+
+Y va a quedar un gran clúster.
+
+¿Estamos?
+
+Entonces, el endrograma, un poquito lo que te da es como la historia.
+
+Si yo tengo un endrograma, yo puedo decir, bueno, che, si tuviese dos clústeres, ¿cuáles serían?
+
+Y serían estos dos.
+
+Si tuviese tres clústeres, ¿cuáles serían?
+
+Bueno, sería este, este y un trastecito de una observación.
+
+Si tuviese cuatro clústeres, bueno, este, este
+
+Y estos dos, ¿ves?
+
+Entonces es como un poquito que te va diciendo
+
+Che, para toda cantidad de clústeres
+
+De uno a la n
+
+La cantidad de observaciones
+
+¿Cómo lo vas particionando a la data set?
+
+Es como más la historia
+
+De cómo se van uniendo las observaciones
+
+¿Se entiende qué es lo que capta
+
+El entorograma?
+
+¿O qué es lo que muestra?
+
+Ok
+
+Vamos a ver
+
+no se olviden que la altura tiene un significado
+
+¿no? esto me está diciendo
+
+que el 9 se une con esta observación
+
+a una distancia de
+
+1,75
+
+o por ahí, sí
+
+yo no dije cómo se arma
+
+dije que es el enrograma, ¿no?
+
+ahora vamos a ver cómo se arma
+
+¿está? bien
+
+perdón
+
+otra consulta
+
+el primero que teníamos solo el 7 y el 5
+
+¿por qué no se
+
+o sea necesariamente es porque
+
+clúster y no hay dos porque estoy diciendo que tiene que haber uno porque porque ahí no estaría
+
+uniendo el 1 y el 6 eso no lo veo porque quizás no lo ves pero está un poquito por debajo su unión
+
+de esta línea está bien
+
+otra consulta
+
+bien fíjense justamente que ya lo dije pero la asignación sobre observación de
+
+clusters se puede deducir haciendo cortes en el enneagrama si yo tengo este enneagrama y
+
+voy a tener dos clusters corto por ahí y me queda un cluster este verde y otro cluster
+
+sobre esta observación violeta mientras que si yo quiero tener tres clusters corto ahí y me
+
+queda esta esta y esta se ve bien
+
+Entonces, veamos cómo se construyen los endrogramas.
+
+Y como todos los algoritmos que venimos viendo,
+
+tienen una inicialización y después un paso iterativo.
+
+La inicialización, de clase en jerárquico, dice,
+
+che, tenés alguna medida de distancia.
+
+La que venimos usando siempre es distancia euclidia,
+
+pero podría ser otra.
+
+¿Está? No pasa nada.
+
+Y lo que tenés que construir es lo que se conoce como la matriz de distancia,
+
+que son, para todas las observaciones del dataset,
+
+para las observaciones, calculadas las distancias para a para.
+
+Entonces, si vos tenés 1, 2, 3, 4, 5, 6, 7 observaciones,
+
+vas a tener una matriz de 7 por 7,
+
+en donde cada ítem es la distancia entre un par de observaciones.
+
+¿Qué quiere decir este punto que es 0,71?
+
+la distancia entre B y C,
+
+medida, por ejemplo, con la distancia de Euclidia,
+
+es de 0,71.
+
+Como las distancias son simétricas,
+
+la de B con C también es 0,71.
+
+Entonces, esa matriz es simétrica,
+
+o sea, esa matriz y sus transpuestas son iguales,
+
+y tienen un cero en la diagonal.
+
+¿Estamos?
+
+Porque la distancia de un punto con sí mismo,
+
+por definición es cero.
+
+Pero es una propiedad de distancia que tiene que cumplir.
+
+Ok.
+
+Entonces lo cierto es que tenés que computar, calcular, el triángulo como inferior o el superior, uno o los dos, pero no todos los pares, ¿no?
+
+Sino que con un subconjunto ya te alcanza.
+
+Y de hecho, si lo piensan un poquito, vos ya sabes, por ejemplo, si tenés una matriz de n por n, básicamente si yo hiciese todas para distancia, calcularía n por n.
+
+¿Está?
+
+pero en realidad
+
+yo ya sé que no tengo que calcular todas
+
+la diagonal
+
+no la tengo que calcular
+
+entonces hay n
+
+porque son n ceros
+
+que no tengo que calcular
+
+y de hecho también sé
+
+que de lo que me queda
+
+no tengo que calcular todo
+
+sino que tengo que calcular
+
+la mitad
+
+entonces
+
+propiamente lo que hay que calcular
+
+es esta cantidad
+
+que si ustedes hacen el calculito
+
+es n por n menos 1
+
+sobre 2
+
+que es el numerito que está ahí
+
+¿Ok?
+
+Que es la combinatoria de 2 en N.
+
+Ok.
+
+Estamos bien con eso, ¿no?
+
+Bien.
+
+Tegunta.
+
+¿Esta matriz es grande o no, en general?
+
+Sí.
+
+De hecho, esto en N tiene complejidad cuadrática, ¿no?
+
+O sea que si Vos...
+
+No es exacta, pero la complejidad es cuadrática.
+
+en el espacio, en el cómputo que requieren.
+
+Ok.
+
+Entonces, si vos tenés una matriz
+
+de 100 por 100,
+
+o un dataset de 100 observaciones,
+
+tenés que calcular 100
+
+por
+
+99 dividido 2.
+
+Ok. Y quizás
+
+sale.
+
+Hagamos los números, digamos.
+
+Vos tenés
+
+100 por 99
+
+Divido 2
+
+4.950
+
+No es un montón
+
+Pero si ahora paso de 100 a 1000
+
+Es
+
+Bueno, ya es medio millón
+
+Y si tengo una tasa de
+
+10.000 observaciones
+
+y ya estás hablando de 4 millones, ¿no?
+
+Y calcular 4 millones de distancias
+
+no es una pavada.
+
+Y uno tras el de 10.000 es chiquito todavía, ¿no?
+
+Si ustedes están hablando del TP,
+
+están en el orden del millón de observaciones
+
+y no sé qué número es,
+
+pero va a ser un número grande.
+
+Te voy a poner...
+
+Acá tengo 10.000,
+
+100.000,
+
+un millón.
+
+Va a ser esa cantidad,
+
+que es un montón, no sé.
+
+esto
+
+¿cuánto es en millones?
+
+1, 2, 3
+
+son 500.000 millones
+
+básicamente de números
+
+es un número demasiado grande
+
+si se ven los cálculos
+
+entonces
+
+algo que debieran ver
+
+que no invaría que sirva
+
+pero que este primer paso
+
+es muy costoso
+
+calcular la matriz de distancia
+
+es algo muy costoso
+
+lo que hace que un poquito
+
+esta estrategia no sea tan
+
+Big Data como K-medias, que era rapidísimo
+
+y andaba rápido dentro de todo, porque K-medias
+
+no tenés que calcular tanta distancia, tenés que calcular la distancia de los centroides
+
+con las observaciones, no de todas las observaciones contra todas las observaciones.
+
+Entonces tenés 10 centroides de 10 por N, digamos, pero no
+
+N por N. Entonces, esta parte
+
+tanto por lo que ocupa en memoria como
+
+lo que toman en calculación más bien tiempo, es costosa.
+
+Pero bueno, supongamos que lo podemos hacer, ¿no?
+
+Y tenemos la matriz de distancia.
+
+Entonces, si hacemos eso,
+
+lo que va a empezar a suceder para armar el dendrograma
+
+es un foro, en donde se itera sobre dos pasos.
+
+Ok, el primer paso es decir,
+
+che, busca todas las pares de distancia
+
+en el triángulo inferior,
+
+en el triángulo inferior alcanza, ¿no?
+
+Y dice, che, buscá la menos diferente, la más similar.
+
+Y venimos acá, por ejemplo, y vamos buscando, tac, tac, tac, tac.
+
+Y parece que BF, que es 0,20, es el valor más chiquito acá.
+
+¿Se ve?
+
+¿Y cuánto vale 0,20?
+
+Ok.
+
+Entonces lo que dice ese primer paso es que,
+
+cuando yo construyo el programa,
+
+b y f
+
+se unen
+
+voy a poner acá 1
+
+no tiene por qué ser 1 el máximo
+
+entonces eso hace que acá
+
+el máximo son 1
+
+en el orden de
+
+0,20
+
+entonces se empieza
+
+construyendo el enrograma y digo, che, la primera unión
+
+es de B con F
+
+altura 0,20. ¿Estamos bien?
+
+Sí.
+
+Sí, la tenés que tener.
+
+El paso 1 la tenés que tener, digamos.
+
+Por eso dije, che, suponiendo que la pudiste calcular,
+
+¿no? Ok.
+
+Empezás a hacer esto. Esto ya no es
+
+costoso. Y vamos a ver que todos los siguientes pasos
+
+no son costosos.
+
+¿Estamos bien?
+
+Lo molesto es el paso 1.
+
+En cómputo.
+
+Buscas el mínimo, unís los dos clústeres,
+
+y la distancia entre los dos clústeres indica la altura en la que se unen el endograma esos dos clústeres.
+
+En este caso, como empezamos con un clúster y una observación, se está uniendo dos observaciones.
+
+¿Estamos?
+
+Y acá viene el pasito más engorroso, que es, bueno,
+
+Ahora voy a hacer una matriz en donde ya no voy a hacer todas las observaciones,
+
+sino que BF la voy a tratar como ya una única observación o un único clúster.
+
+Entonces de alguna manera yo tengo que unir BF y decir cuál es la distancia, por ejemplo, de BF con A.
+
+Entonces sería algo como...
+
+En un segundo.
+
+Eso tiene el espacio de atributos.
+
+Esto no es el endrograma, es el espacio de atributos.
+
+Supongamos que tenemos dos variables, x1 y x2.
+
+B con F se unieron porque estaban cerca, una distancia de 0,2.
+
+Y A está en algún lugar.
+
+Vamos a decir acá.
+
+Y yo tengo esto y tengo esto como claspe diferentes.
+
+Y tengo que calcular la distancia de BF con A.
+
+¿Está?
+
+¿qué sería la instancia BF con A?
+
+Naturalmente ustedes pueden decir el centroide
+
+¿no?
+
+Bueno, calculo el centroide
+
+y calculo la instancia de A con su centroide
+
+no se va a usar esto
+
+¿no?
+
+Porque si uno hace eso
+
+en el libro está la palabra exacta
+
+déjenmelo buscar después en el libro, no me acuerdo ahora
+
+pero te quedan en el programa medio extraño
+
+donde esto por ejemplo
+
+no puede ser así con pinta de árbol tan clarita
+
+o te puede dar algo que suba así
+
+no queda bien matemáticamente lo central
+
+entonces se usa otra estrategia
+
+¿ok?
+
+y es decir, bueno, che
+
+para calcular las distancias
+
+entre clústeres
+
+cuando un clúster tiene más de una observación
+
+¿está?
+
+se usa lo que se llama alguna función
+
+de enlace
+
+¿está?
+
+y son muy simples
+
+las alternativas clásicas son
+
+estas tres
+
+La de complete, single y average
+
+¿Ok?
+
+Veamos esto
+
+Y voy a poner más el ejemplo de
+
+Last slide
+
+Tenemos
+
+Esta de acá
+
+Y esto de acá
+
+Dice, che, esto es un clúster
+
+Esto es otro clúster
+
+¿Está?
+
+Fíjense cuántas
+
+Distancias posibles hay
+
+¿No?
+
+Esta, este, puedo calcular la distancia
+
+de este con este,
+
+la distancia de este con este,
+
+para esto puedo calcular la distancia
+
+de este con este,
+
+de este con este,
+
+de este con este,
+
+y de este con este.
+
+¡Deguntas!
+
+En realidad yo hice calcular.
+
+Si yo tengo el paso 1 hecho,
+
+¿esas distancias están en algún lugar ya precalculadas?
+
+Sí, en la matriz de distancia, ya están, digamos.
+
+Así que no es que es muy costoso,
+
+no tengo ni siquiera que acceder de vuelta al dataset
+
+si tengo la matriz de distancia.
+
+De hecho, este algoritmo, si vos calculas matriz de distancia,
+
+se puede pasar directamente a matriz de distancia y te hacen el programa.
+
+No hace falta pasar todo el dataset.
+
+Bien.
+
+Si yo tengo un clúster de n observaciones y otro de n observaciones,
+
+los pares de distancia son n, la cantidad de pares de distancia es n por m.
+
+Ahí es de 2 por 3, me quedan los 6 numeritos.
+
+La pregunta que uno dice es, bueno,
+
+¿qué tomo como la distancia de esto con esto, de este grupo con este grupo?
+
+Y una opción es decir, bueno, esto será 0,2, esto será 0,3, esta será 0,4 y lo que fuera,
+
+puedo tomar el promedio de esos seis números.
+
+Y eso es lo que se conoce como average linkage.
+
+Entonces uno toma esos valores, los promedia y dice, bueno, la distancia entre estos dos clusters es el promedio de esos valores.
+
+¿Está?
+
+Entonces, si en algún momento
+
+Vos tenés que hacer
+
+Un clúster que está formado por tres observaciones
+
+Y otro por dos
+
+Y tenés una fila para el clúster de tres
+
+Y una columna para el clúster de dos
+
+El valor que te queda ahí como distancia
+
+Sería de promedio esos seis numeritos
+
+Te salen de la matriz original
+
+¿Estamos?
+
+Bien, pero no es la única alternativa
+
+La otra alternativa
+
+Sería
+
+Tomar
+
+como la distancia entre los clústeres
+
+al mínimo de esos seis números.
+
+Supongamos, por un segundo,
+
+yo hice medio parecido,
+
+pero creo que el mínimo es este de acá,
+
+en mi ejemplo, ¿no?
+
+Supongamos que el mínimo
+
+es esto.
+
+De hecho, para hacerlo un poquito más claro,
+
+voy a ponerlo ahí.
+
+Si yo digo, no voy a calcular la distancia entre clúster como el promedio de las seis distancias,
+
+sino como otra cosa, el mínimo, la distancia entre los clústeres sería de 0,2 en este caso.
+
+Y eso es lo que se conoce como single linkage.
+
+¿Ok?
+
+Y después, podría decir, che, ojo, hay otra alternativa que es tomar como la distancia,
+
+La máxima distancia entre dos puntos.
+
+Que acá sería hasta acá.
+
+Supongamos que acá es 0,7.
+
+¿Estamos?
+
+Perfecto.
+
+Obviamente, average linkage tiene que estar entre single y entre max.
+
+Porque es el promedio de cosas.
+
+Y mientras no sean los mismos valores,
+
+mientras no haya repetido en la matriz de distancia,
+
+tiene que ser algo en el medio.
+
+Single linkage es de los mínimos.
+
+Es el mínimo 0,2.
+
+Complaint Linkage es el máximo
+
+¿Estamos?
+
+¿Cuál les gusta más a ustedes?
+
+O ¿Cuál les gusta menos?
+
+A mí es el que más me gusta
+
+Pero yo también lo di así
+
+En la primera hora dije
+
+Che, esta es la que menos sentido tiene
+
+Pero en realidad es la que más sentido tiene
+
+Fijate qué pasa
+
+¿Qué pasa?
+
+Si esta observación
+
+Se me mueve en esta dirección
+
+¿El mínimo te cambia?
+
+No, ¿no?
+
+Ok
+
+Si esta observación se me mueve
+
+Mucho en esta dirección
+
+¿El mínimo no te cambia?
+
+¿El promedio?
+
+Sí, te cambia
+
+En algo, digamos, pero te cambia
+
+Pero eventualmente, ¿qué te cambia?
+
+El máximo, ¿no?
+
+Entonces, ¿qué te dice el complete linkage?
+
+El complete linkage lo que te dice es que todos los pares de distancia
+
+son más chicos que esto.
+
+Entonces te dice que si vos tenés un complete linkage de 0,7,
+
+ok, en el peor de los casos es 0,7.
+
+Mientras que el single te puede dar algo como,
+
+che, un puntito acá y otros que están re lejanos y no lo capta.
+
+Al enfocarse en lo más cerquita,
+
+es como que no está captando la información de todo.
+
+más cerquita. En cambio, el complete
+
+es como que te dice de alguna manera
+
+que todo el resto de los
+
+partes de distancia es más chico que esto.
+
+¿Estamos?
+
+El average obviamente también
+
+te dice eso, pero
+
+lo que te dice es, nada, el promedio
+
+digamos, de los valores está
+
+ahí, y si sube algo, bueno,
+
+se moverá, pero no tanto como el otro.
+
+¿Estamos bien?
+
+Entonces,
+
+ahí uno tiene que decir,
+
+che, bueno,
+
+elijo una función de enlace
+
+y voy a tener un entrograma dado para un dataset,
+
+una medida de distancia también,
+
+que usa distancia euclidia,
+
+y una función de enlace.
+
+¿Ok?
+
+Si yo cambio la función de enlace,
+
+obtengo un entrograma diferente.
+
+Y vamos a ver qué pinta tienen los entrogramas
+
+según la función de enlace.
+
+¿Consultas acá?
+
+¿Venimos bien?
+
+Entonces,
+
+veamos un poquito cómo se construyen.
+
+¿Ok?
+
+Paso 1
+
+es el que hicimos
+
+venimos acá
+
+tenemos la matriz de distancia
+
+en realidad paso 1
+
+el paso
+
+sería el paso de menos segundo
+
+2A para la primera iteración
+
+sería ok
+
+busco el mínimo
+
+es B con F
+
+1B con F
+
+a la altura de 0,2
+
+y el paso B
+
+disculpen
+
+es
+
+a esta matriz
+
+que era N por N
+
+reducirla a una matriz
+
+de N menos 1
+
+n-1. O sea,
+
+hacer que
+
+bf y bf pasen a ser una columna.
+
+¿Ok? Y acá lo que
+
+tenemos es que tenemos que calcular la distancia
+
+de bf con todos los demás
+
+clústeres, que en este caso son todas las demás observaciones.
+
+Y lo que va a hacer
+
+en el ejemplo es usar
+
+complete linkage.
+
+¿Va? Entonces fíjense.
+
+Yo estoy con esta
+
+matriz. Identifico el mínimo.
+
+¿Ok? Es bf.
+
+Voy a armar una noticia donde va a ser A, B, F unido, C, D, E, G.
+
+A, B, F unido, C, D, E, G.
+
+¿Ok?
+
+Y tengo que calcular la distancia de B, F.
+
+Contra A.
+
+Contra C.
+
+Contra D.
+
+Contra E.
+
+Y contra G.
+
+¿Estamos?
+
+Entonces digo, bueno, ¿cuál es la distancia de B, F contra A?
+
+Divido la distancia de B contra A es 0,5.
+
+Divido la distancia de B contra F es 0,2.
+
+¿Está?
+
+Y como estoy usando Max Complete Linkage,
+
+Es el máximo de esos valores.
+
+Entonces me queda 0,5.
+
+Eh, perdón.
+
+Hice algo mal.
+
+De B.
+
+B con A.
+
+Sí, disculpen.
+
+B con A.
+
+Ah.
+
+BF con A es 0,5.
+
+Y F con A es 0,05.
+
+Por esto me queda 0,05.
+
+¿Está?
+
+Bien.
+
+Ahora tengo que calcular distancias.
+
+BF con C.
+
+Entonces es más fácil decir aquí.
+
+C con D, 0,71.
+
+C con F, 0,66.
+
+Por eso me queda
+
+0,71.
+
+La distancia con D,
+
+voy a D y me fijo con D, 0,83.
+
+Con F,
+
+es de 0,80.
+
+Entonces me queda 0,83.
+
+Si yo con E,
+
+E con D,
+
+0,66.
+
+Con F, 0,77.
+
+0,77.
+
+y después
+
+BF con G
+
+me da 0.77
+
+0.75, 0.77
+
+completé esto
+
+que es lo mismo que esto
+
+son los números nuevos que tengo
+
+y todo lo demás son lo mismo de la matriz antes
+
+C con A no cambia
+
+entonces es volver a calcularlo
+
+¿estamos?
+
+bueno
+
+tengo esa matriz
+
+pero esto no es todo el endrograma
+
+¿qué tengo que hacer?
+
+seguir iterando en ese foro básicamente
+
+Va a ser básicamente n veces voy a hacer este calculito.
+
+Hasta que me quede una matriz de uno por uno.
+
+¿Ok?
+
+Que eso no va a tener sentido.
+
+No sé para temas.
+
+Y estoy acá.
+
+¿Y qué hice esto?
+
+Bueno, repito el paso uno.
+
+Busco el mínimo.
+
+Uno a los clústeres a esa altura.
+
+Y después achicó la matriz.
+
+¿Cuál es el mínimo acá?
+
+Vas buscando.
+
+Y te queda que el mínimo es este.
+
+El que une A con E.
+
+¿Y a qué altura está?
+
+A 0.25.
+
+¿Qué quiere decir eso?
+
+Que A con E se van a unir a qué altura?
+
+A 0.25.
+
+¿Está?
+
+Genial.
+
+Se ha construido otra parte del programa.
+
+¿Qué tengo que hacer ahora?
+
+Reducir la matriz.
+
+Bien.
+
+Voy a reducir la matriz.
+
+Entonces me voy a quedar una matriz de AE.
+
+El nuevo clúster.
+
+BFCDE.
+
+Y ahora lo que tengo que hacer es calcular la distancia de BF
+
+con AE. Entonces BF con A
+
+es 0.625. BF con E
+
+es 0.77778. Por eso me queda
+
+0.7778.
+
+Hay una pregunta. Si se conectaran, o sea, si pasara
+
+que se conectaran BF con AE
+
+es porque en el mínimo te queda una combinación de dos.
+
+No va a pasar, pero sí. En algún lugar, y yo me voy a tomar
+
+coraje y vamos a llegar hasta el final. Lo vamos a construir todo porque no está
+
+y vas a ver qué va a pasar eso.
+
+¿Ok?
+
+Vas a ver qué nos va a pasar.
+
+Por ejemplo, acá.
+
+A, E, C, G, en algún momento se nos va a conectar.
+
+¿Va?
+
+Bien.
+
+Yo sigo esto y llego acá.
+
+¿Estamos?
+
+Genial.
+
+Y acá le pido ayuda.
+
+Yo ya reconozco.
+
+Yo cuando era más joven no traía el machete de qué me tiene que dar.
+
+Pero ahora que estoy, dos cosas, un poco más viejo y mal dormido,
+
+porque tengo una bebé de seis meses,
+
+Por la duda me lo traigo, digamos.
+
+Pero quiero no usarlo.
+
+Y si le erro, quiero que me lo digan.
+
+Porque quiero que lo hagamos juntos este cálculo.
+
+¿Puede ser?
+
+Si no lo desculamos nosotros juntos, bueno, vendré acá y veremos que está fallando.
+
+¿Va?
+
+Entonces, ¿qué es lo que tenemos que hacer?
+
+Seguir esto hasta que termine.
+
+Y van a ver que no es complicado.
+
+Si yo lo puedo hacer más o menos en vivo y mal dormido, se puede hacer.
+
+¿Está?
+
+Genial.
+
+Yo tengo esta matriz, que es el neuronado construido hasta acá.
+
+¿Cuál es el siguiente paso?
+
+Buscar el mínimo y unirlo, ¿no?
+
+Y acá ya tenemos la pista, el mínimo es C con Q, ¿ok?
+
+Y se une a 0,33.
+
+Entonces, C con Q se une, suponemos que acá está 0,33.
+
+Acá, ¿estamos?
+
+¿Y qué es lo que tenemos que hacer?
+
+Bueno, achicar la matriz.
+
+¿Va?
+
+Entonces, la matriz esta va a ser A, E, B, F, C, con G y D.
+
+¿Estamos?
+
+Ya están en las mismas columnas.
+
+A con E, D con F, C con G y D.
+
+¿Va?
+
+Ya sé que en la diagonal principal hay ceros.
+
+¿No?
+
+Y los únicos que en realidad tengo que calcular son los que se unió, ¿no?
+
+Todos los demás ya están de antes.
+
+Tengo que calcular la distancia de C con G con AE.
+
+¿Estamos?
+
+La distancia de C con G con AE es,
+
+AE tiene una distancia de 0.4286 con C y 0.3750 con G.
+
+Como estamos tomando el máximo, la distancia de AE con CG es 0.428.
+
+Entonces acá es 0.4286.
+
+Y eso ya sé que acá es 0,4286.
+
+¿Estamos?
+
+Ahora, tengo que calcular la distancia de CG con BF.
+
+Entonces, vengo acá y digo, la distancia de BF con C es 0,7143.
+
+La distancia de BF con G es 0,77.
+
+Entonces, ese es el máximo.
+
+Es esto de acá.
+
+Entonces es 0,7778.
+
+0,7778.
+
+¿Estamos?
+
+Y me falta esta de acá.
+
+¿Ok?
+
+Que qué es?
+
+La distancia de CG con D.
+
+Entonces vengo a D y me fijo.
+
+La distancia con C es de 1.
+
+¿Y con qué?
+
+0,75.
+
+1.
+
+¿Va?
+
+1 y 1.
+
+¿Estamos bien con el cálculo que hice ahí?
+
+Ahora tengo que ser prolijito
+
+No mandarme ninguna macana
+
+Que es lo que típicamente pasa
+
+Que si, che, bueno
+
+Completo estos tres numeritos bien
+
+Total les pongo estos que están acá
+
+AEBF 0,777
+
+8
+
+8
+
+0,
+
+0,
+
+Ok
+
+D con AE
+
+1
+
+1,
+
+y después me queda
+
+D con BF,
+
+0,8333.
+
+0,8
+
+3, 3, 3,
+
+0,8
+
+3, 3, 3.
+
+Y listo.
+
+Terminé una iteración.
+
+Y siguiendo un poquito
+
+el dibujito del libro,
+
+es como que ahora en la siguiente
+
+Yo tengo que venir acá y encontrar el mínimo I.
+
+¿Estamos?
+
+¿Y el mínimo I qué es?
+
+CG con AE.
+
+¿Estamos?
+
+Entonces, CG con AE se une a 0.486,
+
+que es lo que vos preguntabas cuando se unen, ¿no?
+
+Y bueno, CG con AE se unen acá.
+
+suponiendo que son
+
+la altura de esa 0.486
+
+ustedes, cuando llegan a traer regla al examen
+
+puede ser que esté esto, digamos
+
+¿lo puedo repetir?
+
+sí
+
+el mínimo es esto
+
+¿no? que une
+
+AE con CG
+
+están acá
+
+y a qué altura lo unen
+
+a 0.4286, acá está 0.5
+
+supongamos
+
+que esta altura donde dice 0.4286
+
+y por eso está unido a esa altura.
+
+¿Va?
+
+Bien.
+
+Genial.
+
+Tenemos eso.
+
+Ahora, ¿qué tenemos que hacer?
+
+Volver a achicar la matriz.
+
+Bueno, es medio molesto,
+
+pero cada vez se achicando.
+
+Más rápido, básicamente, esa parte es buena.
+
+Entonces, tengo que unir AE con CT.
+
+Me va a quedar
+
+A, E, C, G, A, E, C, G, B, F, B, F y D.
+
+¿Estamos?
+
+Cero escena diagonal.
+
+Ok. Y ahora tengo que calcular las distancias de AE con B, ASG con BF y con D.
+
+Ok. ASG, ASG son estos dos. BF es 0,7778. 0,7778. Bueno, el máximo es lo mismo.
+
+Entonces me da 0,7778.
+
+0,7778.
+
+Y ahora tengo que calcular la distancia de A, E, C, G con D.
+
+D con AE es 1.
+
+D con CG también es 1.
+
+Entonces tengo esto y tengo esto.
+
+Perfecto.
+
+Y ahora tengo que completar estos dos numeritos.
+
+Que los tenía precalculados.
+
+T con BF 0,8.
+
+T3.
+
+T3.
+
+0,8.
+
+T3.
+
+Me están siguiendo, ¿no?
+
+No quiero estar acá en banda, digamos,
+
+y después en cinco minutos ver que estoy haciéndolo bien.
+
+No quiero tampoco ir al papel.
+
+Yo creo que podemos.
+
+Ok.
+
+Listo.
+
+Está el paso B de la iteración.
+
+Tenemos que venir.
+
+acá.
+
+Y bueno, ¿cuál es el siguiente?
+
+Buscamos el mínimo.
+
+El mínimo es
+
+A, E, C, B, F.
+
+Esto de acá.
+
+Entonces sabemos que
+
+A, E, C, B, F
+
+se unen a una altura de
+
+0,778.
+
+Supongamos que acá
+
+esta altura es
+
+0,7778.
+
+Esa es la idea.
+
+Por eso yo le digo
+
+el eje este tiene sentido.
+
+Bien.
+
+¿Y qué tengo que hacer?
+
+Uy, bueno, de vuelta, hacer lo mismo.
+
+Pero eso está acá, sí.
+
+No pasa nada.
+
+Tengo que unir
+
+A,
+
+E,
+
+C,
+
+G,
+
+B,
+
+y F.
+
+Y después me queda D solo.
+
+¿No?
+
+Y acá A,
+
+E,
+
+C,
+
+G,
+
+B,
+
+F y D solo.
+
+Sé que acá es un cero.
+
+Sé que acá es un cero.
+
+Y me queda calcular un solo número, la verdad, ¿no?
+
+O sea, yo quiero pensar bien.
+
+Básicamente estoy uniendo estos dos
+
+y tengo que calcular la instancia de D
+
+contra ASG
+
+y contra DF.
+
+Y el máximo es 1.
+
+Y acá es 1.
+
+Y se acabó.
+
+Y ahora, ¿qué?
+
+Lo último que te queda es que, bueno,
+
+el mínimo es eso, TUC.
+
+Y se unen A, E, C, G, B, F con D a la altura de 1.
+
+Entonces, esta parece D.
+
+Y se acaba.
+
+¿Ya está?
+
+¿Bien?
+
+Genial.
+
+No luce.
+
+Perfecto.
+
+B, F, A, S, G.
+
+Me quedo igual, ¿no?
+
+De casualidad me quedo igual.
+
+Es raro que me quede igual.
+
+A veces yo pongo
+
+todo esto de un lado,
+
+digamos,
+
+no necesariamente
+
+tiene que quedarte
+
+en el mismo orden, ¿se ve?
+
+Podría haber puesto la D,
+
+decir, che, ahí,
+
+me queda la D.
+
+Y por algún motivo
+
+si tenía espacio
+
+ponía la D acá
+
+y la línea me quedaba así, digamos.
+
+El otro,
+
+tiene que ser en ese sentido,
+
+que se vayan anidando bien,
+
+indudablemente,
+
+pero no es tan importante
+
+el orden en el eje de las X
+
+si es importante
+
+los valores que hay en Y.
+
+¿Estamos?
+
+bien
+
+consultas
+
+¿cómo hubiese sido
+
+si hubiese usado single linkage?
+
+si hubiese usado single linkage
+
+los mínimos son los mismos
+
+pero a modo de ejemplo
+
+cuando tengo que unir acá
+
+B con F
+
+uno B con F
+
+¿ok?
+
+tengo que calcular
+
+la distancia de A
+
+con B
+
+y con F
+
+y a vez de haber quedado
+
+con el máximo
+
+me quedaba
+
+con el mínimo, ¿no?
+
+¿Y cómo hubiese sido con average?
+
+¿No? Con average es mucho más
+
+molesto,
+
+pero adelanto, otro problema, sería algo que
+
+se tomaría en papel, indudablemente,
+
+pero es como que siempre tenés que ir volviendo
+
+a esta matriz, porque siempre tenés que
+
+calcular, yo qué sé, cuando unís algo de 2
+
+por 3, tenés que buscar esos 6
+
+numeritos acá y promediarlos,
+
+y eso te da lugar al numerito que vos armas acá.
+
+¿Va?
+
+Que para hacer un papel uno es molesto,
+
+para una computadora no es molesto.
+
+es nada más buscar seis numeritos y dividirlo por seis.
+
+Ok, sumarlo y dividirlo por seis.
+
+Genial.
+
+¿Qué impacto tiene?
+
+Te puedo hacer una pregunta, Rior.
+
+Siempre, cuando hago el promedio,
+
+¿siempre tengo que ir al base?
+
+¿O cuando ya tengo algún número,
+
+me queda el promedio con uno menos?
+
+Porque dijiste dividir entre...
+
+No, te conviene ir al base, digamos, siempre.
+
+Seguramente dará algún calculito de HE.
+
+si vos sabés que este promedio con 5
+
+si le sumas uno, multiplicas
+
+por 5 y después sumas eso
+
+y dividas por 6, seguramente vos podés
+
+reconstruir esta
+
+solo con información de esta
+
+¿no? pero seguramente es más fácil
+
+venir acá, digamos, porque en el fondo son 6
+
+números de acá
+
+¿ok? como está implementado en
+
+scikit-learn o lo que fuera, no te sé decir
+
+pero lo más normal para una persona sería
+
+volver a estar acá y promediar esos
+
+números, pero fijate que
+
+a modo de ejemplo
+
+este valor de acá, en vez de ser uno, que sería el promedio de todos estos valores.
+
+¿Sabes? Como, nada, molesto, no es algo así.
+
+¿Bien?
+
+Perdón, otra cosa.
+
+Ahí la matriz nos quedó reducida al máximo valor que teníamos en la original.
+
+Sí.
+
+¿Eso es una propiedad o fue...?
+
+Sí, eso va a pasar típicamente, sí, sí, sí.
+
+Va a terminar uniéndose en...
+
+A ver, no.
+
+Está bueno eso.
+
+eso va a pasar en
+
+Complete Linkage seguro
+
+fíjate que en Average no va a pasar
+
+porque ya es como dijimos
+
+va a ser promedio todas estas cosas
+
+y en Single debería pensar
+
+lo que te va a quedar
+
+pero tampoco te va a quedar el mínimo
+
+la matriz para nada
+
+va a quedar alguno de estos números
+
+pero no te sé si de antemano cuál va a ser
+
+¿está?
+
+bien
+
+por ahí lo podría pensar un poco
+
+¿otra consulta?
+
+Genial
+
+¿Cuál es el efecto
+
+De
+
+Diferentes funciones de enlaces
+
+Diferentes funciones de enlaces te dan diferentes
+
+Dendrogramas
+
+Y típicamente esto es del libro
+
+Básicamente
+
+¿Qué es
+
+Lo que te genera típicamente
+
+Diferentes funciones de enlaces?
+
+De hecho lo dice acá
+
+Habla como de balanceado
+
+Fíjense, acá está complete, average y single.
+
+Estos clústeres son como no muy lindos, es como que va uniendo de a uno, ¿se ve?
+
+Entonces, bueno, si vos acá decís, parto en dos clústeres, te queda un clúster de una observación y otro de todas las demás.
+
+Si parto en tres clústeres, te quedan dos clústeres de una observación y n-2 en el otro, ¿se ve?
+
+Es ese efecto que se van uniendo de a uno, que no es como muy bonito, digamos.
+
+si uno dice, bueno, voy a buscar tres clústeres,
+
+este solo, este solo, y todo lo demás en uno.
+
+¿Ok?
+
+Por el contrario, cuando vos sos complete,
+
+empíricamente se ve que
+
+este patrón, en donde,
+
+están más balanceados en el sentido como que
+
+si vos partís en dos o en tres,
+
+quedan como más
+
+parecidos las cantidades de observaciones,
+
+más balanceados es esa idea.
+
+Fíjense que acá en este dataset vos partís en dos,
+
+te queda todo esto en clúster, todo esto en otro.
+
+Si partís en tres, bueno, te queda un clústercito
+
+más chiquito, que sería este de acá,
+
+esto y esto, en cuatro, así, este se te parte bastante parejo, ¿estamos?
+
+Y average es algo en medio de los dos, básicamente, fíjense que average,
+
+vas a encontrar situaciones de como bastantes observaciones solitas,
+
+pero no tan dramático, no es como escalerita como te va pasando acá,
+
+sino que es entre conflicto y single, no más balanceadito.
+
+Ok.
+
+Esto es como más lindo, digamos, en la práctica, no digo que siempre sea mejor,
+
+pero esta idea de tener como clasper más balanceado
+
+es más bonito tener algo así.
+
+¿Consultas?
+
+Bien, veamos esta última slide
+
+y dejamos el código para cuando volvemos.
+
+Y queda el código y no queda mucho más.
+
+De hecho, van a ver que hay después tiempo para consultas.
+
+Este código a mí me interesa particularmente
+
+porque es como un caso más de negocios,
+
+de clasper, que por ahí es difícil encontrar utilidad de negocios.
+
+Terminamos con esto y descansamos.
+
+Hay muchas cosas a tener en cuenta en clustering, digamos.
+
+Primero, pequeñas decisiones, esto parece Spiderman, ¿no?
+
+Pequeñas decisiones pueden traer grandes consecuencias, ¿ok?
+
+¿Qué quiere decir eso?
+
+¿Qué?
+
+Yo estoy grabando mi hijo, pero mi hijo está obsesionado con Spiderman ahora,
+
+entonces me viene esa cosa a la mente.
+
+Vos por ahí cambias algo pequeño de data sets, amplias o cambias una función de enlace,
+
+digamos, y puede ser que los resultados del clustering sean totalmente diferentes.
+
+O puede ser que en K-medias también cambias el K,
+
+o estandarizas o no estandarizas,
+
+y cambia un montón la cosa, ¿no?
+
+Entonces, en la práctica se prueban muchas opciones,
+
+e idealmente lo que a uno le gustaría es que, che,
+
+que los clústeres sean genuinos,
+
+que no sea por azar esta combinación de decisiones, ¿no?
+
+Entonces uno puede hacer cálculos de robustez, ¿no?
+
+Es decir, che, yo cambio algún patrón,
+
+y los clústeres son robustos, no cambian mucho, ¿no?
+
+Y hay medidas para ver, che,
+
+dos esquemas de clustering, qué tan diferentes son
+
+entre sí. ¿Ok?
+
+Bien.
+
+No hay un consenso
+
+a cómo validar
+
+los clústeres que obtenés.
+
+En supervisado sí había.
+
+Y yo siempre le digo, che, ¿cómo he decidido eso?
+
+Bueno, en conjunto de validación.
+
+Y uno tiene un conjunto de validación y todo está como bien guiado.
+
+Acá, ¿qué es un buen
+
+clúster? No queda claro. De hecho,
+
+la idea misma de tener
+
+un conjunto de validación tiene poco sentido.
+
+acá. Porque respecto a qué validad,
+
+si no sabes lo que es que elina mente te tiene que dar.
+
+¿Estamos?
+
+Lo que sí se puede analizar por ahí es
+
+estabilidad. Si es algo como serie de tiempos,
+
+yo digo, che, si encuentro esos clusters,
+
+más o menos se mantienen.
+
+Pero es otra cosa. Estabilidad puede
+
+ser algo que interese, digamos, a través
+
+de tiempo. Pero no algo
+
+como, che,
+
+este conjunto de validación me está dando tanto
+
+porque no tiene sentido, porque no hay ninguna métrica
+
+que estamos optimizando.
+
+Bien.
+
+nosotros vimos esquemas de clustering
+
+en donde
+
+una observación necesariamente
+
+pertenece a un clúster
+
+y no a otro, ¿no?
+
+Pero la verdad es que podría uno decir, che, la verdad que
+
+algo así, como
+
+este 2, qué sé yo, está
+
+en medio de los dos, y por qué me tengo que jugar
+
+100% a uno, ¿no?
+
+Y por ahí le puedo poner cierto margen de incerteza
+
+a algunas observaciones, cosas por el estilo
+
+de decir, che, bueno, probabilísticamente
+
+un 30% de un cluster tanto y 70% del otro, lo que fuera,
+
+en casos de duda.
+
+Y hay esquemas que siguen esta estrategia.
+
+Los más populares son los que se llaman fácil, como difusos,
+
+pero también hay métodos más como inspirados en probabilísticos,
+
+como clusters in probabilísticos.
+
+Bueno, y nada, y esto, digamos,
+
+hay que tener cuidado, digamos,
+
+está conectado con el punto 1,
+
+que por ahí uno permuta un poquito de sample,
+
+saca una prueba, una muestra, algo por el estilo,
+
+y qué observación te queda con cuál te puede cambiar mucho.
+
+O sea, qué clústeres se obtienen te puede cambiar mucho.
+
+Entonces, no necesariamente son muy estables.
+
+Entonces, todas estas cosas son cosas a validar,
+
+y son estas cosas que a validar, a evaluar, a considerar,
+
+y son cosas que hacen mucho más desafiante el problema que supervisado.
+
+Entonces, Sony 30, en punto.
+
+Descansemos hasta el 45 y seguimos con código.
+
+Gracias. Sí, perfecto.
+
+Muy amables.
+
+Comentario, porque siempre hemos olvidado el nombre
+
+y la propiedad para que
+
+tiene que tener la distancia tiene que ser,
+
+o los nendrogramas tienen que ser monótonos.
+
+Un nendrograma no monótono
+
+es uno que tiene esta pinta, ¿ven?
+
+Que cuando se une este no se une arriba,
+
+sino se une por debajo, y la distancia
+
+entre centroides
+
+por algún motivo da lugar a eso,
+
+no sé el detalle, digamos, pero suceden esas cosas.
+
+Mientras que las que estamos usando
+
+serían los singles, los links single, complete o average, no suceden, ¿no?
+
+Hay otros también que no suceden, pero los más populares son estos.
+
+Perdón, me parece que ¿cuándo te aparece el TIC?
+
+Cuando usas, yo me pregunté, ¿cómo calculamos distancia entre estos dos clusters?
+
+Sabiendo que lo más normal es hacer lo que hace el CAMERA,
+
+es calcular distancia entre centroides.
+
+Bueno, si haces eso, te pueden dar lugar al programa de este estilo,
+
+por eso es que no se usa.
+
+Bien
+
+No queda mucho
+
+Básicamente veamos
+
+Un poquito de código
+
+Entonces
+
+Déjenmelo hacer andar
+
+No quiero hacer andar la parte de
+
+XGBoost que sobremane un montón
+
+Y vamos a usar el mismo
+
+Dataset que usamos en la clase pasada
+
+Que era este de Boston
+
+Genial
+
+Y fíjense
+
+Hacer clases en genécticos no tienen gran ciencia
+
+Es
+
+Usar esta función link
+
+Básicamente le decís que método es
+
+Y le pasás el dataset
+
+Que acá yo estoy estandarizando
+
+por eso estoy haciendo standard scaler
+
+y estoy estandarizando
+
+y si yo uso linkage con complete
+
+me va a hacer un
+
+diagrama básicamente con complete
+
+si hubiese puesto la opción average
+
+sería con average
+
+sino single
+
+y seguro hay otras opciones
+
+fíjense que
+
+nada
+
+no demora mucho
+
+porque recordamos
+
+el atacet de Boston
+
+en un atacet chiquito
+
+si era más prolijo
+
+y fuese lento
+
+esto no tendría que hacer tres veces
+
+sino que calcular una única vez
+
+porque eso es lo costoso
+
+básicamente
+
+perdón
+
+tendría que calcular
+
+la matriz de distancia, que se le puede pasar de alguna manera
+
+a esto, y después básicamente
+
+hacer sobre la matriz de distancia y no sobre
+
+el latacel como viene
+
+y acá lo que estoy haciendo es sobre el latacel
+
+de Boston, básicamente replicar
+
+lo que eran los dendrogramas
+
+y fíjense que tienen
+
+esta pinta
+
+de acá
+
+esto es complete, fíjense que si yo paro con 2 está como
+
+más balanceado, si hago average, algunos
+
+quedan como más solitos, y si hago single
+
+todavía pasa más eso,
+
+que es lo que dijimos, en una taza
+
+cualquiera tiene esa pinta, sobre todo que el complete
+
+es como más balanceadito.
+
+Y fíjense que he dado
+
+un denorgrama, por ejemplo,
+
+este, el denorgrama con complete,
+
+¿no? Yo puedo hacer
+
+esta funcionalita, cat3,
+
+cat3, y le paso el denorgrama, y le digo
+
+che, ¿en cuánto los quieres partir?
+
+En cuatro yo le puse acá,
+
+y esas serían las asignaciones,
+
+y me dice che, cada
+
+observación en el dataset, en qué clúster termina.
+
+¿Va?
+
+No tiene más ciencia que eso.
+
+Esto te dice, che, la primera observación en el clúster 0,
+
+la segunda en el clúster 0, así, después alguna en el 1,
+
+y de esta manera si yo corto en 4.
+
+Que sería acá,
+
+hacer un corte por ahí.
+
+¿Estamos?
+
+Bien.
+
+No es muy diferente, digamos, si como usamos distancia
+
+de Euclidia, todas las cosas
+
+de antes valen, que hay que analizar a veces
+
+o no, cosas por el estilo, porque eso depende
+
+de la distancia.
+
+¿Qué pasa ahí?
+
+Se escucha y se ve bien, ¿no?
+
+Hola, hola
+
+Sí, sí, se escucha
+
+Sí, se escucha bien
+
+Sí, se escucha y se ve
+
+Acá la pantalla se volvió mi pantalla
+
+Esa que les vi a ustedes dudando que pasaba
+
+Pero ustedes ven la pantalla bien y todo bien
+
+Ok
+
+Bien
+
+más, ¿no?
+
+Y es
+
+difícil
+
+encontrar como aplicaciones
+
+como de negocio, de clas,
+
+se usa, yo que sé, a veces en biología,
+
+se usa en neurociencia, se usa cosas por el estilo,
+
+pero en el contexto del MIM, digamos, a veces es más difícil.
+
+No les voy a mentir.
+
+Yo doy esta clase
+
+y no es raro que la clase que viene o la clase anterior
+
+venga uno de los alumnos
+
+y me diga, che, en mi trabajo,
+
+y si hemos salido de clas, que tenía este problema,
+
+o que me escriban después, pero es como
+
+atípico dentro de todo, digamos, no es lo más común.
+
+Y cuando uno habla con gente que labura
+
+en la industria de esto,
+
+también te dicen, no, yo una vez hice un análisis,
+
+pero no es lo que típicamente
+
+se hace, pero de vez en cuando hace falta.
+
+Es más difícil encontrar problemas
+
+en negocios, y yo
+
+me parece útil mostrarle
+
+uno en el que yo trabajé en su
+
+momento, que es una versión simplificada de lo que
+
+hicimos, y de hecho está derivando un proyecto de investigación,
+
+¿no? Entonces que para
+
+a mi modo de ver es divertido porque nada,
+
+combina cosas
+
+de un sector particular,
+
+de trabajo de datos también,
+
+que es interesante,
+
+de cómo representar series de tiempo
+
+y cosas por el estilo.
+
+Y van a ver que todo tiene un poquitito de sentido,
+
+pero vamos a ver un ejemplo de uso de clustering.
+
+Y puntualmente lo que vamos a ver es que
+
+hay un problema
+
+en el mundo de regulación tarifaria,
+
+que es que se tienen que poner las tarifas de tal manera que cubran el costo de todo el capital que es necesario
+
+para proveer ese servicio, lo que fuera.
+
+Totalmente la luz, digamos, la tarifa tiene que ser lo suficientemente alta
+
+para que cubra todo lo que es la transmisión, la generación y todas las cuestiones por el estilo.
+
+Y sobre todo tiene que estar instalada la capacidad del sistema
+
+no para el promedio, sino para el máximo.
+
+Es en el momento de mayor consumo,
+
+el sistema tiene que poder proveerse electricidad
+
+si no se corta, digamos.
+
+Entonces, es como que importan mucho los máximos
+
+y eso también determina la tarifa.
+
+Y ahí lo que pasa es que la empresa quiere cobrar lo más posible,
+
+el regulador quiere cobrar lo menos posible
+
+y hay como mucha pelea por dónde se fija la tarifa,
+
+en algo que cubra los costos,
+
+pero que no sea excesivo para la población, para los usuarios.
+
+Ok, en este caso puntualmente yo trabajé con una empresa.
+
+Perdón, ¿alguien pudo descargar eso del campus?
+
+Porque a mí me aparece directamente...
+
+No pasa nada, después vemos eso y está.
+
+Si quieren no hace falta, después lo vemos.
+
+Entonces, lo que vamos a ver básicamente nosotros es que,
+
+a diferencia de antes, donde cómo se sabía, cómo consumía una ciudad,
+
+lo que hacía era, o bueno, o cómo a ustedes, por ejemplo,
+
+acá en Buenos Aires, cómo es que se hace para saber cuánto consume
+
+mes a mes.
+
+Pasa una persona con una tablet o con lo que fuera,
+
+usted tiene un medidor que supongamos que decía 1780 el mes anterior
+
+y ahora dice, che, 1850, consumieron 70.
+
+Básicamente va midiendo la diferencia entre algo que va subiendo.
+
+¿Ok?
+
+A lo sumo de R7, te hará y está.
+
+Pero la idea es esa.
+
+Y hay una persona o hay una cuadrilla de personas
+
+que van dando vuelta y miden.
+
+Por eso a ustedes, mes a mes,
+
+les vea cuánto consumieron en kilowatts ese mes.
+
+Hoy en día,
+
+hay otras tecnologías
+
+que se llaman los medidores inteligentes,
+
+Smart Meters, que déjenme mostrarles
+
+qué pinta tiene un Smart Meter.
+
+Es un aparatito tipo
+
+estos de acá.
+
+Son muy chiquititos, ¿no?
+
+salen en el orden de 30, 40 dólares,
+
+al menos cuando yo trabajé en esto.
+
+Y lo que hacen básicamente es,
+
+si a vos te entra, que sea tu casa,
+
+se ponen el smart meter en el medio,
+
+siguen y esto va registrando en un intervalo dado de tiempo,
+
+por ejemplo, cada 15 o cada medio o cada 30 minutos,
+
+bueno, tu consumo.
+
+Y no solo hace eso, sino que lo transmiten
+
+por, típicamente, red de telefonía celular
+
+a una central.
+
+Y eso no lo tienen para tu casa,
+
+sino que lo tienen para
+
+posiblemente toda una población
+
+o todo lo que fuera.
+
+En el área donde yo trabajaba
+
+en el que era acá,
+
+en ese momento tenían 3 millones de smart meters.
+
+No era...
+
+Y eso, imagínense qué es.
+
+Es cada 15 minutos
+
+datos de consumo
+
+de 2 millones de personas.
+
+¿Está?
+
+Es un volumen...
+
+autonómico de datos.
+
+Años de eso, porque están instalados
+
+dos o tres años ya tenían en ese momento.
+
+Entonces, gran parte de las cosas que querían hacer
+
+era justificar a inversiones,
+
+¿qué podemos hacer con esto para que sirvan?
+
+Porque lo cierto es que para lo que más se usa
+
+en los países, digamos,
+
+no desarrollados, es para
+
+evitar que la gente haga esto.
+
+Que sea, che, corto este cable, corto este cable,
+
+lo suman y no me cobran nada.
+
+Porque si tenés eso,
+
+¿qué avisa? Deja de consumo,
+
+es como una alerta y van a ver que
+
+non-technical loss.
+
+Ok. Pero para darle un uso
+
+más útil, querían ver, che,
+
+qué se puede hacer con esto.
+
+Y una de las cosas
+
+que tiene esta tecnología es que uno
+
+puede empezar a decir, bueno,
+
+no le cobra la misma tarifa por kilowatt
+
+hora a todos. Incluso
+
+a lo largo del día puedo cobrar diferentes tarifas
+
+porque puedo saber cuánto
+
+consume cada persona en diferentes momentos
+
+del día. Y puedo decir,
+
+che, bueno, los kilowatts,
+
+los consumos que se hicieron a las 4 de la mañana
+
+que es cuando el sistema, por ejemplo, no tiene alto consumo,
+
+son más baratos que los de las 9 de la noche.
+
+Entonces, si yo te hago eso y vos tenés una ropa inteligente,
+
+podés mover tu consumo a las 4 de la mañana.
+
+O setear lo que fuese.
+
+Bien.
+
+Pero otra cosa que uno puede hacer es decir, bueno,
+
+tratemos de caracterizar cómo es el consumo típico diario de una población.
+
+Y antes se hacía con medidores mucho más caros y con un sampleo pequeño,
+
+tenía que ser como inteligente,
+
+no inteligente,
+
+sino inteligente de la gente que hacía el sampleo,
+
+decir, che, sampleo 30 casas de una ciudad
+
+de algo para que sea representativo de todo,
+
+ahora uno tiene estos datos,
+
+y bueno, es calcular una media, ¿está?
+
+Pero también si uno tiene datos de toda la población,
+
+uno puede decir, che, ¿será que todos consumen igual?
+
+¿O será que hay grupos que tienen patrones de consumo
+
+concentrados en la mañana y otros a la noche,
+
+o otros al mediodía,
+
+con picos en diferentes movimientos o lo que fuera, ¿no?
+
+Y a su vez, si vos encontrás un consumo, un consumidor que tiene su consumo alto
+
+en momentos que no es el pico del sistema, que es para lo que se hace en inmersión,
+
+quizás no lo tenés que cobrar tan caro como un tipo que es de los que está haciendo
+
+que vos tengas que pagar mucha plata para poner una capacidad instalada, ¿no?
+
+Entonces, ahí empiezan a jugar un montón de cosas y un problema que uno ve en la literatura
+
+y ve en la práctica es decir, che, bueno, caractericemos a los consumidores
+
+de este utility, de este proveedor.
+
+¿Está?
+
+Y bueno, ahí es como medio cantado
+
+que tiene un saborcito a clustering, ¿no?
+
+No sabés qué grupos va a haber,
+
+no sabés de antemano ni siquiera cuántos grupos va a haber,
+
+de hecho,
+
+pero sí sabés que te gustaría encontrar consumidores
+
+que tengan un patrón diario similar entre ellos,
+
+pero diferente entre consumidores.
+
+¿Estamos?
+
+Bueno, entonces la idea de esto es mostrar un poquito,
+
+no son los datos con los que yo traje puntualmente
+
+estos no se pueden compartir, ¿no?
+
+Pero sí hay dataset públicos
+
+de esto, entonces
+
+tomar
+
+un sample de estos dataset, porque también son
+
+bastante grandes, ¿ok?
+
+Y jugar un poquito, mostrarle cómo
+
+nada, procesando un poco series de tiempo
+
+uno puede hacer un análisis de este estilo.
+
+¿Estamos? Entonces veamos qué pinta
+
+tiene
+
+el dataset. Todo esto está en la notebook
+
+que se llama este,
+
+TDP, TSM, B-Class, T-T-A.
+
+Que me decís que no se puede bajar o alguien lo puede bajar.
+
+¿Sí?
+
+Perfecto.
+
+Entonces, lo primero que vamos a crear son los datos
+
+que están estos cipiados por acá,
+
+que lo tienen que bajar del campus.
+
+¿Puede ser que haya un link para que se baje Dropbox o algo por el estilo?
+
+¿Se puede bajar también eso?
+
+Sí.
+
+¿Sí? Perfecto.
+
+Y este dataset tiene esta pinta.
+
+Es un ID de medidor.
+
+Este es el GED, las primeras cinco observaciones.
+
+ID de medidor, un momento del tiempo.
+
+estos son un montón de variables derivadas
+
+no sé si un montón, un par de variables derivadas
+
+de la fecha, como
+
+le diría en el TP, por ejemplo, la fecha,
+
+el día de la semana, si es fin de semana, la hora
+
+del día, tal, y la que me interesa
+
+también este time of the day, fíjense
+
+que algo a las 0, 0
+
+es 0, algo a las
+
+2 y media es el minuto 30
+
+del día, algo a la 1 es el minuto 60
+
+del día, algo a la 1 y media es el minuto
+
+tal, así, ¿estamos?
+
+Y para cada uno de estos intervalos, que en este caso
+
+es de media hora, hay un consumo
+
+energía, o sea, lo que se manda
+
+en un kilowatt hora
+
+que más altos
+
+las consumo, básicamente.
+
+Como tienes que calcular
+
+distancias, no puedes tener variables
+
+categóricas, ¿no?
+
+Eso es un problema de distancia
+
+Euclidia en general, digamos. En este
+
+caso no voy a estar usando variables
+
+categóricas, vas a ver, pero si tuviese
+
+variables categóricas
+
+probablemente no sea distancia Euclidia
+
+lo que tengas que usar. No es este
+
+el problema.
+
+Después si querés hablamos si estás con algún problema tuyo en esa línea.
+
+Bien.
+
+Entonces, ¿qué pinta tiene este dataset?
+
+Este dataset es bien un panel en donde uno tiene
+
+medidor 1 y consumo a lo largo del tiempo.
+
+Cada vez consumo a lo largo de una determinada cantidad de meses.
+
+Medidor 2 y consumo a lo largo del tiempo.
+
+Medidor 3 y consumo a lo largo del tiempo.
+
+Son como un panel de...
+
+Perdón.
+
+Medidor, tiempo y sabemos nuestro consumo.
+
+Ok
+
+Sigamos
+
+Este es el final
+
+Fíjense que no es el mismo medidor
+
+Y acá estoy en
+
+Junio de 2013
+
+Y esto termina a finales de septiembre de 2013
+
+Junio
+
+Si son tres meses, ¿no?
+
+Cuatro meses
+
+Ok
+
+Bien
+
+Acá básicamente lo que voy a hacer es
+
+Para un determinado barmeter
+
+Smart Meter, disculpen.
+
+Ver cuánto se consumió en una fecha y día particular,
+
+digamos, no importa esto.
+
+Un segundito.
+
+Bien.
+
+Estos son los datos del dataset.
+
+Esto es un dataset que es de Londres,
+
+de un programa público, digamos,
+
+de Smart Meter.
+
+Yo lo samplié, me quedé con 1.500 medidores,
+
+o sea que hay 1.500 medidores y con cuatro meses.
+
+Ok.
+
+Eso te da en el orden de casi 9 millones de registros.
+
+Es bastante con un sample de cada media hora.
+
+Ahora veamos qué pinta tiene una serie de tiempo.
+
+En este caso de 25 medidores.
+
+¿Qué es esto?
+
+Este grafiquito.
+
+Este grafiquito, che, yo tengo los 4 meses.
+
+Y para un medidor tengo el consumo.
+
+El consumo de un día, el consumo de otro, y es una serie con mucho detalle y bastante larga.
+
+Y uno ve ahí y parece haber algún patrón, claro o no.
+
+Vemos que hay picos, por lo menos, ¿no?
+
+Como que hay un ruchito, pero no es que yo pueda decir,
+
+ah, mirá, de esas 25 hay dos series que son muy parecidas
+
+y otras que son muy diferentes.
+
+¿Estamos?
+
+No parece ser el caso.
+
+Pero la verdad es que tampoco lo que nos interesa es esto, ¿no?
+
+Primero lo que va a hacer en algún momento,
+
+el script va a ser, bueno, me van a interesar los días de semana,
+
+que típicamente son los que tienen consumo más concentrado
+
+en un momento del tiempo,
+
+entonces voy a dejar fuera los fines de semana, ¿no?
+
+que va a estar por acá,
+
+vense qué tal los fines de semana,
+
+y después dice, che, bueno, acá hay 25 medidores,
+
+lo que yo quiero de alguna manera es
+
+ver como un patrón típico de consumo
+
+de cada uno de los medidores.
+
+Y fíjense qué tiene uno acá.
+
+Supongamos que uno tiene
+
+80 días, en el orden de 80 días, ¿no?
+
+supongamos que está en el orden de 80 días.
+
+¿Ok?
+
+¿Va?
+
+Si yo tengo 80 días,
+
+para un medidor,
+
+¿cuántas observaciones para un medidor
+
+que lo mido en 80 días,
+
+¿cuántas observaciones tengo a las 9 de la mañana?
+
+80.
+
+¿No?
+
+Entonces yo puedo decir,
+
+che, tomo el medidor A,
+
+o el medidor 1,
+
+o el medidor A1,
+
+para decir algo,
+
+un ID de medidor.
+
+Y yo, che,
+
+para este medidor,
+
+a las 9 de la mañana,
+
+¿cuántas mediciones tengo?
+
+80
+
+a veces si esto es kilowatt hora
+
+a veces habrá citado acá
+
+otras veces acá, otra veces acá
+
+así lo que sea, pero voy a tener
+
+80 puntos, ¿estamos?
+
+a las 9 y media
+
+¿cuántas observaciones voy a tener?
+
+si no hay nada, extraño
+
+bueno
+
+80 también se ve
+
+de hecho para cada intervalo
+
+o para cada valor
+
+para cada una de esas media horas
+
+¿Cuántas observaciones tengo?
+
+80
+
+¿Está?
+
+Y yo sobre esto puedo calcular
+
+O sea, para cada uno de estos horarios
+
+Puedo calcular
+
+Distribuciones, que puedo calcular el máximo
+
+Puedo calcular el mínimo
+
+Puedo calcular el promedio, por decir algo
+
+Puedo calcular la mediana
+
+Puedo calcular el 75
+
+El 25
+
+Y bueno, puedo hacer un boxplot, ¿se ve?
+
+¿Está?
+
+Entonces, yo puedo hacer un boxplot para este
+
+podría ser un boxplot también para este
+
+y podría ser un boxplot
+
+para cada uno de 25
+
+para cada uno
+
+de esos 80 numeritos que están en
+
+el intervalo de 25, ¿estamos bien?
+
+De hecho, uno puede armar un gráfico
+
+que se llama rolling boxplot
+
+son como boxplot, digamos, que van
+
+a través del tiempo
+
+y eso sería para un sample
+
+seleccionar medidores
+
+lo que tenemos acá
+
+¿se ve?
+
+Y acá fíjense que ya aparece algún patrón
+
+No es que es súper claro
+
+Pero vemos que hay un medidor
+
+Que tiene consumos altos a las 9 de la mañana
+
+Perdón, a las 8 de la mañana
+
+Y en el orden a las 21
+
+Hay otro que tiene un consumo muy estable
+
+¿Está?
+
+Hay otro que tiene saltos a la mañana
+
+A las 21
+
+Esta es un poquito más grande a la noche que a la mañana
+
+¿Estamos bien?
+
+Genial
+
+Bien
+
+Déjenme hacer una cosita
+
+Denme un segundito
+
+Hay una cosa que hice ahí
+
+Disculpen si no estoy
+
+Siguiendo el orden exacto
+
+Y es algo que ya vimos
+
+La clase pasada
+
+Y es que
+
+Esto podría estar en kilowatt horas
+
+Está como el nivel en kilowatt horas
+
+pero qué pasaría
+
+¿te acuerdas la clase pasada cuando yo dije
+
+qué curvas son más similares entre sí?
+
+había dos que iban similares
+
+y una que no lo era pero que estaban solapadas
+
+¿no? y acá me voy a querer
+
+enfocar más en la forma
+
+en qué tan solapadas están
+
+entonces lo que voy a hacer en este data set
+
+donde yo tengo
+
+hay varias formas de hacer esta normalización
+
+las que estoy haciendo en el script
+
+yo tengo medidor 1, medidor 2
+
+momentos del tiempo
+
+y consumo, este ID
+
+medidor, tiempo
+
+y kilowatt hora
+
+para cada medidor
+
+yo calculo
+
+la media
+
+y la dividación estándar de esto
+
+¿está?
+
+y calculo
+
+este consumo
+
+en z-scores
+
+a cada uno de estos valores le divido por
+
+el resto de esta media, le divido esa dividación estándar
+
+y después para el siguiente medidor lo hago
+
+con su respectiva media y división estándar.
+
+Entonces me quedo así tan corto.
+
+Yo sé que esta serie está centrada en cero
+
+y tiene una división estándar de uno.
+
+En pandas es bastante simple.
+
+Si uno lo quiere hacer es con este comandito
+
+que está,
+
+en un segundito,
+
+un group by que estaba por acá.
+
+Group by por medidor voy a
+
+agrupar la energía transformando
+
+a x,
+
+le resto la media y divido la división estándar.
+
+¿Ok?
+
+Bien.
+
+Por eso fíjense que esto ya está medido en Zscores
+
+Y por eso que acá
+
+Hay algunos valores negativos
+
+Porque está centrado en cero
+
+Cada una de estas series
+
+Y después cuando hago los
+
+Rolling Box Plot me da eso
+
+¿Estamos bien?
+
+Genial
+
+Ahora lo que voy a hacer
+
+Va a ser esto
+
+yo voy a tener muchos medidores
+
+¿no?
+
+voy a tener este, voy a tener este, este
+
+muchos medidores, muchos
+
+de hecho voy a tener 1500
+
+uno por medidor, ¿estamos?
+
+y yo voy a hacer un camino fácil
+
+y vas a decir, che
+
+voy a tomar como comportamiento
+
+representativo del medidor
+
+esta es una decisión para hacerla fácil, podría hacer otra
+
+¿no? la línea
+
+que conecta las medianas
+
+de estos boxplots, ¿está?
+
+Entonces, si yo tuviese esto de acá, tendría que, tomo como comportamiento típico del medidor,
+
+lo que conecta esto con esto, esto con esto, y por ahí me da algo así.
+
+¿Estamos? ¿Va bien?
+
+Y yo tengo una línea, le voy a llamar como load profile a esto, ¿no?
+
+Para el medidor 1, para el medidor 2, para el medidor que sea.
+
+¿Está?
+
+Y ahora lo que hago en esta figura es graficar de manera solapada
+
+las mil quinetas curvas que tenemos ahí.
+
+¿Está?
+
+¿Y ustedes ven algún patrón ahí?
+
+Un poquito más se ve, digamos, ¿no?
+
+Como que, bueno, por acá, por la hoja, hay como un pico, algo sube,
+
+y por acá también.
+
+Pero lo que en realidad nosotros queremos ver es si es toda una maraña
+
+que va junto, o si esa cosa
+
+que hay ahí la podemos separar en grupos
+
+que sean más homogéneos, ¿no?
+
+Y justamente lo que vamos a hacer es decir,
+
+una vez que tenemos esto,
+
+sobre esto, vamos a hacer
+
+clustering, ¿se ve?
+
+Y esto en el fondo, ¿qué va a hacer?
+
+Todo lo que yo voy a
+
+transformar va a ser decir, che,
+
+esta matriz que tengo acá,
+
+básicamente calculada,
+
+donde ya tengo los octofiles, lo voy a hacer
+
+así. Una matriz
+
+donde cada fila sea un medidor,
+
+o sea que va a tener 1500,
+
+y donde,
+
+para, por ejemplo, el medidor A1,
+
+va a tener el valor de la mediana de consumo
+
+de 0, 0, a la 0, 30,
+
+a la 1,
+
+a la 1, 30,
+
+así hasta las 23, 30,
+
+¿se ve? Va a tener
+
+48 numeritos, ¿se ve?
+
+¿Estamos?
+
+Y esa matriz de 1500 por 48,
+
+listo, ya salgo sobre lo que puse acá,
+
+media, sobre lo que fuera, y no hay problema.
+
+¿estamos bien?
+
+Genial, entonces lo que sigue
+
+es transformar esa matriz que estaba como
+
+formada el panel, hacer
+
+los dos profiles y hacer eso, no me voy a
+
+meter en detalle, pero lo que me importa es que construya
+
+esa matriz, y ya sobre esa matriz
+
+que es esta
+
+Data for Cluster, que la estoy pivoteando
+
+nada, puedo hacer acá medidas sin problemas
+
+y es, esta matriz
+
+Data for Cluster, es esta acá, y acá lo que estoy
+
+haciendo es, bueno
+
+armar ese clúster
+
+hacer el fit
+
+después poner el ID de clúster en algún lugar
+
+y lo que vamos a hacer es graficarlo
+
+y acá graficarlo es una función fea
+
+pero tiene esta pinta
+
+¿se ve?
+
+entonces lo que ves acá es que
+
+Kmedia se encontró
+
+6 grupitos que tienen esta pinta
+
+una que es
+
+consuma más alta a la mañana y también a la noche
+
+algo como medio creciente
+
+algo consumo alta a la noche
+
+esto plano y acá hay algunos audazos un poquito extraños
+
+no sé muy bien qué pasó
+
+este que es también bastante típico
+
+la gente se levanta, consume, se va y vuelve
+
+y esto que tiene un pintado
+
+un poquito más como de residencial
+
+que es, bueno, tiene consumos más altos
+
+típicamente en horario laboral
+
+o lo que fuera
+
+y estos clusters, bueno, estaban escondidos
+
+detrás de estas marañas de curvas
+
+la pregunta de acá es
+
+¿cuántos clusters?
+
+6, 7, 8, les adelanto
+
+cuando yo mostré esto a la gente de Jamaica
+
+no era decisión mía, solo que decía
+
+si es 6 es esto, si es 7 es esto
+
+y es decisión de ustedes que hacer, ¿no?
+
+básicamente
+
+ok
+
+¿estamos bien?
+
+¿con qué se hizo?
+
+acá se usó K-medias, en esta partecita
+
+de acá
+
+por algún motivo
+
+cuando uno usa acá Clastic Jerárquico
+
+este es el metronograma que se obtiene
+
+y uno también podría hacer esa figurita
+
+y no queda tan lindo.
+
+Acá uno lo ve y se da cuenta,
+
+che, hay un clúster con muy pocas observaciones,
+
+otro con muy poco, otro con muy poco,
+
+y otra que se lleva todo, digamos.
+
+Es como que no sirvió tanto como K-media, claramente.
+
+Y eso que, nada, que usé Complete Linkage,
+
+que ven que está por acá.
+
+Entonces, esto sería un ejemplo de un clúster
+
+que a ojo uno dice, bueno, para este problema
+
+no me sirvo, montonazo.
+
+Bien.
+
+Y quiero mostrarles lo último.
+
+Y medio que estamos.
+
+Me quedo para consultas igualmente, ¿no?
+
+Y fíjense lo que yo hago acá.
+
+Ya no tiene que ver con datos de electricidad.
+
+¿No?
+
+Si no, digo, che, voy a armar una matriz que tiene este tamaño.
+
+Tiene un off-test, un off-test, un millón de observaciones.
+
+Básicamente por 20 columnas.
+
+Es un millón de observaciones y 20 columnas.
+
+Imagínense que tiene ese dato.
+
+en el orden del tp, del dato del tp, ¿no?
+
+¿Ok?
+
+Yo digo, che, hago K-medias
+
+y esto, créanme,
+
+lo implementaba acá, bueno, entonces
+
+que tenía que hacer andar al principio.
+
+¿Va a demorar? Pero termina.
+
+Y termina rapidísimo. No demora
+
+nada. Y esta compu, lo estoy haciendo en esta
+
+compu, se la banca sin grandes
+
+problemas. Pero fíjense por el
+
+contrario qué pasa si con el mismo...
+
+Ah, no, es que...
+
+está bien, esto funciona
+
+fíjense qué pasa cuando yo
+
+hice andar acá en el clúster
+
+en jerárquico, pinchó
+
+¿por qué? porque en algún lugar dice
+
+te quedaste sin memoria, algo así
+
+¿qué dijo? bueno, mirá
+
+si vos con este dataset querés armar la matriz
+
+de distancia al paso 1
+
+necesitas en el orden de 4
+
+terabytes de RAM
+
+no sería el caso
+
+entonces, ese sería el caso
+
+de, bueno, che
+
+no parece, o un caso clarito
+
+en donde, bueno, en el TPE no van a poder
+
+hacer clasificaciones jerárquicas, indudablemente, pero si
+
+quisieran acercar medias
+
+para algo, lo podrían usar.
+
+Así que bueno,
+
+con eso me digo,
+
+terminamos lo de hoy,
+
+no queda más por hoy. Yo me quedo tanto
+
+para la gente de Zoom, si quieren, o para
+
+los que están acá para consultas,
+
+pero está.
+
+¿Hay alguna regla de
+
+poner este tipo de problemas?
+
+Que yo conozca no, digamos.
+
+Es un poquito probar.
+
+Fíjate que acá probé los dos
+
+y a ojo mismo me doy cuenta
+
+que uno no está dando cosas buenas.
+
+Quizás hay que masajear un poquito más.
+
+Yo masajeé mucho, pero no puedo hacer nada.
+
+Para el jerárquico hay que hacer otra cosa.
+
+Pero con lo que voy a tratar ahora
+
+que todo tiene sentido,
+
+no anduvo muy en el jerárquico.
+
+como lo que hicimos
+
+el árbol
+
+¿el árbol era
+
+qué variables
+
+que separaban
+
+los plásticos
+
+bueno, sí
+
+todas esas cosas
+
+las podés hacer
+
+ver si capta
+
+una área
+
+por el estilo, probablemente sí.
+
+Sí, como comercial.
+
+Sí, muy probablemente esté
+
+concentrado en un área, seguramente.
+
+Uno tiene, estos datos también
+
+tenían una visión geográfica.
+
+Y son muy divertidos
+
+los datos de visualizar.
+
+Acá no hablé mucho de ejemplos,
+
+pero a veces nos pasa que
+
+veíamos las formas típicas de las curvas
+
+y era como medio sorprendente.
+
+Había una que era muy sorprendente, que era...
+
+La curva típica tenía esta pinta.
+
+De noche a alto, 15 de la mañana, bajaba, bajaba, bajaba.
+
+Y todos los días, a las 7, poniendo a las 8, subía.
+
+¿Y qué es eso, para vos?
+
+Yo no sabía, ¿eh?
+
+¿Qué es eso?
+
+Exactamente, exactamente.
+
+Cuando nosotros teníamos datos de...
+
+datos de facturación
+
+sí, tenía facturación
+
+sí, sí, sí
+
+y dijimos, ¿qué es esto?
+
+y íbamos gran carport
+
+que tienen timers
+
+y está un poquito la idea
+
+de hacer algo que le hacía
+
+o por lo menos vender
+
+esto era una consultora
+
+lo que quería hacer
+
+es mirar el tipo de análisis que podemos hacer
+
+yo no sé, pero fue como
+
+¿con qué?
+
+mirá, no está instalado
+
+ah, en Colombia viene
+
+¿sabes más consultora que se dedica a esto?
+
+¿sabes?
+
+¿en dónde trabajás vos?
+
+ok, ahí está
+
+una economía
+
+¿sabes?
+
+¿quién es?
+
+pero sos el cólogo
+
+claro
+
+de Santi no, ¿no?
+
+Sí, a mí es súper interesante, digamos, estos temas.
+
+He estado trabajando con el tema.
+
+Sí, es para que se puedan...
+
+Ahora, antes se llamaba
+
+Macro Consulting
+
+Ahora la gente con el capo
+
+de ahí, que estaba ahí
+
+¿Quién es?
+
+Sí, lo conozco
+
+Sí, sí, lo conozco
+
+Ha hablado con el abuelo
+
+y
+
+otro ch
+
+A grandes ragos
+
+meter así toda una bolsa
+
+todo lo que el Icer
+
+está buscando
+
+el Icer
+
+que está formado
+
+el Icer
+
+no
+
+entonces hacer como
+
+un microbalance
+
+ahí
+
+ok
+
+tal, tal, tal
+
+separar a grandes ragos
+
+porque decían
+
+que están medio gordos
+
+eso se da un diagrama
+
+bueno, no, no
+
+no, no
+
+por eso no sé si es
+
+como
+
+si, no, un K-media
+
+pero no un K-media
+
+pero tiene más
+
+si, si, si
+
+en realidad
+
+que está haciendo
+
+vecinos más cercanos
+
+en donde el valor
+
+a predecir
+
+es la ubicación de un transformador.
+
+Sí, ahí sí, sí, sí.
+
+Sí, sí, sí.
+
+Bueno.
+
+Y ahí vamos a ver
+
+cómo son,
+
+porque si la vez
+
+se va a fumar,
+
+hay que llevar.
+
+Claro.
+
+Con las cosas que tienen
+
+de su programa.
+
+Claro.
+
+Claro.
+
+Es súper interesante.
+
+Es súper interesante.
+
+Súper interesante.
+
+A mí me parece muy interesante.
+
+Porque de golpe
+
+se volvió
+
+como algo muy
+
+data intención.
+
+O sea,
+
+seguramente lo era antes,
+
+pero no sé si a este volumen
+
+de datos.
+
+Ahora que de golpe
+
+con los bar mitos
+
+es una cosa
+
+y estos balances son mediores
+
+por el barrio
+
+ah perfecto
+
+y que es un grupo
+
+se define en medio por negocio
+
+no por datos
+
+super bueno
+
+Vamos a hacer chau.
+
+Chao, chao.
+
+Chao, chao.
+

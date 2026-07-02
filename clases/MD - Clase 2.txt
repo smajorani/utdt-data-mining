@@ -1,0 +1,8152 @@
+¿Cómo están? Espero que bien.
+
+Vamos con la clase de hoy, que es otra de las que son un poquito intensas,
+
+pero la idea de vuelta es que avancen sobre el TP,
+
+digamos que tengamos lo suficiente para que puedan avanzar sobre el TP,
+
+y después se calma la materia.
+
+¿Dónde estamos parados?
+
+Principalmente hablamos un poco que la minería de datos,
+
+pero nos estamos enfocando en aprendizaje supervisado.
+
+Y la clase pasada vimos un modelo de vecinos más cercanos,
+
+la gente de eso me escucha bien,
+
+que principalmente,
+
+quizás no es un modelo que se usa mucho,
+
+pero sí como que ya permite ganar algunas intuiciones
+
+de qué flexibilidad es un modelo,
+
+que hay hiperparámetros,
+
+que se arman frontera de decisión,
+
+que separan el espacio de atributos,
+
+son todas cosas que son conceptos importantes
+
+y que los podemos aprender con un modelito simple.
+
+A su vez, vimos la noción de que los modelos pueden andar mal al momento de predecir por dos motivos diferentes, overfitting y underfitting.
+
+Underfitting es un modelo que no capta los patrones del ni siquiera el dataset de entrenamiento, entonces no generaliza bien.
+
+y otro es que captan exceso,
+
+se ajusta el ruido del dataset de entrenamiento,
+
+lo que hace que cuando vengan datos de testé
+
+o en producción o donde fuera,
+
+no generalice bien,
+
+porque bueno, ese ruido,
+
+el ruido no es algo que va a estar después más adelante.
+
+Entonces, hay que empezar a ajustar las cosas
+
+para que funcionen bien.
+
+Ok, también hablamos, y lo repito hoy,
+
+que cuando uno arma un modelo,
+
+son un montón de decisiones.
+
+van a ver que en el TPU ustedes van a cargar los datos,
+
+quizás sampleen, quizás no,
+
+quizás digan, che, armo estas variables,
+
+eventualmente dirán, bueno, uso este algoritmo de aprendizaje,
+
+le pongo fit con tales características,
+
+con instancias con tales hiperparámetros,
+
+son toda una serie de cosas.
+
+Si creanme que cambian alguna de esas líneas
+
+y cambian las predicciones, o sea, cambia el modelo,
+
+entonces son muchas cosas que uno tiene que decidir
+
+al momento de armar un modelo que tenga buena capacidad predictiva.
+
+¿Ok?
+
+Y para el cual no hay una receta mágica
+
+Que sirva para todos los problemas
+
+Cada problema implica diferentes estrategias
+
+¿Ok?
+
+Entonces, encontrar un buen modelo
+
+Ni siquiera es mejor, pero uno que sea muy digno
+
+No es simple, hay que tomar muchas decisiones
+
+¿Ok?
+
+¿Dónde vamos a querer nosotros que prediga bien el modelo?
+
+Pero repito, bueno, no es en los datos de entrenamiento
+
+Si no lo que queremos, eventualmente
+
+Nosotros estamos armando un modelo
+
+Para que eventualmente predían datos
+
+Que no conocemos, que acá les llama de test
+
+Nosotros queremos que ese modelo
+
+Predía bien en esos datos
+
+Para los cuales
+
+No conocemos las Y
+
+La variable predecir, si conocemos las X
+
+Ok
+
+Y hace algo un poquito raro
+
+Que yo estoy modelando
+
+O tomando decisiones para que ande bien
+
+En un lugar que todavía no conozco
+
+Entonces parece como que bueno, ¿cómo hago esas decisiones?
+
+y no sé si cambiando esto ahí, que todavía no conozco, le va a ir mejor.
+
+Bien, entonces veamos cómo vamos a encargar este problema
+
+y cómo se hace en la práctica, digamos,
+
+y créanme que se hace así en los modelos más sofisticados,
+
+hasta entre un LLM o lo que fuera, digamos, se usa este estilo de estrategia,
+
+que parece pava, pero es muy potente.
+
+Nosotros lo que vamos a hacer ahora es simular una división
+
+entre datos conocidos y desconocidos.
+
+Y acá simular es como un poco polisémica,
+
+tiene como varios significados, ¿no?
+
+No es simular tipo tiro una moneda y simulo
+
+que tiro monedas muchas veces.
+
+No es más la excepción de simulo, me hago el tonto,
+
+¿no?
+
+Y me hago el que no conozco algo, ¿está?
+
+Entonces nosotros vamos a simular
+
+o nos vamos a hacer los tontos y decir,
+
+che, a esta parte hagamos como que no la conozco, ¿está?
+
+Entonces, nosotros vamos a decir,
+
+O sea, hay una parte de mis datos que yo la conozco
+
+y otras que me hago que no la conozco.
+
+Uso esos, entre comillas, datos conocidos
+
+para ver, entrenar un modelo sobre esos datos, básicamente.
+
+Y veo cómo les van esos datos que desconozco
+
+o que me hago y que no conozco.
+
+Los uso para ver cómo le va a ese modelo ahí.
+
+Es como que estamos replicando esta idea
+
+de que voy a entrenar un modelo en datos que conozco
+
+y lo aplico en datos que todavía no conozco.
+
+¿Estamos?
+
+Bien.
+
+A este conjunto de datos desconocidos
+
+tiene varios nombres en el libro de Jan Holt-Lawcett
+
+o lo más común es el Validation Set.
+
+Un conjunto de datos que sirve para justamente validar
+
+mis decisiones.
+
+Entonces yo hago algo,
+
+si me va mejor en el Validation Set,
+
+fue una buena decisión.
+
+Entonces recordemos,
+
+Yo tengo, escalo mi modelo, voy a mi conjunto de validación,
+
+me da 70, donde 100 es lo mejor.
+
+No escalo mi modelo y me da 77.
+
+Bueno, es buena idea no escalar.
+
+Es para eso, es para tener un numerito que me permite validar
+
+alguna decisión de modelado que tome.
+
+¿Estamos?
+
+Ok.
+
+Ok.
+
+Ahora lo que vamos a hacer es, vamos a ver,
+
+tres, cuatro, llamemos, estrategias para generar o para simular datos que no conozco, ¿no?
+
+En donde algunas sirven para algunos contextos muy específicos,
+
+y en donde al final a su vez voy a hablar un poquito sobre, nada,
+
+tener en cuenta algunas consideraciones particulares.
+
+Vamos a empezar con la más simple, que de hecho es lo que yo usé en el código pasado,
+
+de la clase pasada, que yo le llamo Left Out.
+
+Es, ok, armando un call out o validation set.
+
+Entonces, ¿cuál es la idea de esta estrategia?
+
+La idea es básicamente, yo tengo mi dataset,
+
+para los cuales
+
+conozco las X y las Y,
+
+son mis datos que yo conozco todos,
+
+los datos que yo le di de la competencia que le llamo de training,
+
+básicamente serían, ¿no?
+
+Y lo que yo podría hacer es mezclarlos, ¿no?
+
+Con la idea de sacar una muestra representativa, ¿no?
+
+Entonces, los mezclo, ¿ok?
+
+Y reservo una partecita de ese dataset como dataset de validación.
+
+Supongamos que tengo mil datos y que yo digo,
+
+che, voy a hacer un validation set de 100.
+
+Ok, los mezclo.
+
+Me quedo con 900 como de entrenamiento,
+
+llamémosle,
+
+y 100 de validación.
+
+¿Está?
+
+¿Y qué voy a hacer?
+
+Voy a trabajar
+
+para estos
+
+sobre esto para armar el modelo,
+
+sobre estos 900,
+
+voy a proponer un modelo,
+
+yo que sé, F1 o lo que fuera,
+
+que será estandarizado,
+
+no estandarizado,
+
+una logística de decisión,
+
+lo que tengan ganas,
+
+y lo voy a aplicar.
+
+Les voy a pasar estas X de validación,
+
+voy a tener unas predicciones
+
+de ese modelo en validación,
+
+y los voy a comparar con las Y
+
+que efectivamente conozco.
+
+¿No?
+
+¿Está?
+
+Y veré qué tan bien predice
+
+métrica, por ejemplo,
+
+tasa de acierto, como lo que estamos haciendo aquí.
+
+Entonces,
+
+la figura esta que es del libro
+
+es, bueno,
+
+tengo una tasa de 1 a n,
+
+lo mezclo, por eso
+
+acá dice 7, 22, 13,
+
+reservo una parte
+
+como training set,
+
+shown in blue,
+
+y otra parte
+
+como validation set. ¿Estamos?
+
+Acá en el libro
+
+visualmente parece que
+
+y tuviese que ser la mitad de los datos
+
+y no tiene por qué ser así.
+
+Ahí hay una decisión de qué tamaño
+
+de validation se te usar o cosas por el estilo.
+
+Lo que uno principalmente
+
+quiere es que esto
+
+sea representativo de los datos
+
+en donde voy a eventualmente
+
+usar mi modelo. Eso es lo ideal.
+
+¿Estamos bien?
+
+Y algunas cositas más.
+
+Ahora fíjense.
+
+Y les pido que recuerden
+
+por un momento la definición
+
+de machine learning, que era algo como así
+
+dice, che, voy a usar
+
+un modelo estadístico
+
+se dice que aprende
+
+de la experiencia de los datos
+
+en una tarea T
+
+medido con una métrica
+
+de performance P, si a medida
+
+que aumenta la cantidad de datos
+
+la performance P sobre la tarea T mejora
+
+la idea era algo así como que
+
+mientras más datos tiene
+
+el modelo principio debe andar
+
+mejor, digamos, y hay como
+
+algunos análisis para hacer así
+
+y está bien.
+
+Fíjense,
+
+yo lo que estoy haciendo acá es
+
+tengo 900 datos,
+
+tengo 100 que dejo de validación.
+
+¿Está?
+
+Genial.
+
+Entré en un modelo F1
+
+o F, le vamos a
+
+a Talk, lo hago
+
+andar acá, hago que anda acá,
+
+veo las predicciones y comparo y dice
+
+che, tiene una performance del 70%.
+
+Esa es mi estimación de performance.
+
+Es lo que, si yo armé un buen validation set,
+
+es lo que yo esperaría que se dé
+
+cuando yo llevo mi modelo de producción.
+
+Es como una estimación de eso.
+
+Bien.
+
+Pero yo estoy entrenando un modelo
+
+con cuántas observaciones hay.
+
+Pregunta.
+
+Con 900.
+
+¿Está?
+
+Y mi definición de Machine Learning
+
+decía algo así como que
+
+mientras más datos,
+
+estos modelos tienden a dar mejor, ¿no?
+
+Entonces, yo podría decir,
+
+che, ya tengo este modelo,
+
+el que entrené con SubSample,
+
+que les llamo entrenamiento acá,
+
+y que lo uso después con Validation,
+
+que fue entrenado con 900.
+
+Pero yo esperaría que
+
+uno entrenado con las 1000
+
+sea más potente, ¿estamos?
+
+Ok.
+
+Entonces ahí hay como un temita,
+
+¿ves, che?
+
+¿Por qué voy a poner a andar en producción un modelo de 900 si le puedo sumar 100 más?
+
+¿Estamos o no con esa idea?
+
+Bueno, y lo cierto es que lo que uno puede hacer es esto, y se hace mucho en la práctica,
+
+no necesariamente, pero se hace mucho en la práctica, decir,
+
+che, fíjense qué es un modelo.
+
+Cargo los datos, en este caso es algo o no, dependen, después vemos el orden,
+
+alguna ingeniería de atributo, algunas variables, lo que sea, o no.
+
+después vemos el orden en que lo hacemos,
+
+separo validation y training,
+
+topo en un árbol de decisión,
+
+lo que fuera, feedback y esta,
+
+y veo cómo le va en validation.
+
+Yo podría hacer de vuelta,
+
+una vez que yo dije,
+
+ah, mira, hago este código,
+
+que es cargo datos,
+
+estas nuevas variables,
+
+esta arbolización con estos parámetros,
+
+esto, lo que sea,
+
+y me va a 70, ¿no?
+
+Yo ese código lo puedo modificar
+
+muy poquito y decir,
+
+che, hace lo mismo, pero sacá la parte de validación y entrená exactamente lo mismo con los 1000, ¿se ve?
+
+Es como quitarle un pasito en ese pipeline, ¿no? Y decir, che, entrená con todos los datos.
+
+Entonces, algo que se hace en la práctica, no siempre, pero podría ser, digamos, decir,
+
+che, bueno, yo entreno con esto y evalúo con esto, pero una vez que ya tomé todas estas decisiones,
+
+Lo que yo aprendo es que estas recetas tienen esta performance.
+
+Aplico esa receta con el 100% de los datos, ¿se ve?
+
+Y tendría un modelo que es similar a este,
+
+pero como que hizo un poquito más de escarcizio, ¿se entiende?
+
+Con el que tuvo un poquito más de datos.
+
+Entonces, algo que a veces se hace es decir,
+
+bueno, che, esto es un ejercicio para ver si esta toma de decisiones son buenas o no.
+
+Pero quizás el modelo que lleva esa producción sea
+
+seguir el mismo clip, las mismas decisiones, todo lo que sea,
+
+pero usando el 100% de los datos.
+
+¿Estamos?
+
+Sí.
+
+¿No puede pasar que en medio que estás
+
+encargado a los modelos que vos
+
+solicitís dependiendo del conjunto
+
+de validación?
+
+Seguro, dame un segundito y hablo en la slide que viene
+
+de eso. Digamos, esto no es la panacía
+
+puede traer algunos problemas, pero sí.
+
+Está bien.
+
+A ver.
+
+Eso parece buena práctica.
+
+Y está bien, parece buena práctica, ¿no?
+
+Es como está.
+
+Pero también es cierto que hay dos cosas que hay que tener en cuenta,
+
+que es que la performance en validation, por ejemplo,
+
+bueno, en validation, la performance en validation,
+
+y el tamaño de muestra con el que se entrega el modelo,
+
+y si esto es lo máximo, típicamente tiene una pinta así,
+
+que en algún momento converge, ¿está?
+
+Entonces, si vos, tu dataset entero te permitía tener una performance así,
+
+y vos sacaste un 10% y estabas así,
+
+ese ejercicio no te mejora tanto,
+
+digamos, el volver a reentrenar todo
+
+no te mejora tanto y quizás este era bueno, ¿no?
+
+Y para colmo, si un modelo
+
+te demora, como podría ser
+
+cinco días en entrenar
+
+o lo que fuera, o como le demora a la gente
+
+de OpenA, así que demora meses,
+
+vos no lo vas a hacer de vuelta por,
+
+y le salen miles de millones, no lo vas a hacer de vuelta
+
+por un epsilon mejor, ¿no?
+
+Si estás con pocos datos, quizás tenga sentido,
+
+si estás con muchos datos, si ya como el modelo
+
+casi en su capacidad máxima, como le das más datos
+
+tampoco puede mejorar tanto más
+
+bueno, quizás haber sacado ese pedacito
+
+para el elation set
+
+no afectaba tanto su performance
+
+y no vale la pena hacer este ejercicio
+
+de decir, reentreno todo
+
+con el 100% de los datos para tener el modelo
+
+más potente posible
+
+¿Sí?
+
+En una línea temporal no lo podrías hacer
+
+Yo todavía no hablé de eso, digamos
+
+si voy a hablar de un supuesto importante detrás de este, del que sigue, del que sigue,
+
+que estamos con un dataset como de observaciones independientes e idénticamente distribuidas.
+
+Cuando eso se rompe, como sería algo en caso de temporalidad y dependencia temporal
+
+entre las variables, las observaciones, hay un problemita, indudablemente, y no serviría a esto.
+
+En los casos en que no tenés el tema temporal, vos podrías armar muchísimo el modelo
+
+y decirle, bueno, ahora en vez de tomar esto como
+
+training, y como entrar
+
+y barajar de nuevo y volver a vivir los
+
+universos, y ver si sigue dando
+
+igual. Bueno, sí, y va
+
+en línea con el comentario que hizo ahí tu compañero,
+
+digamos, porque puede ser,
+
+no sé si yo la llamaría
+
+sesgado, digamos, pero puede ser que haya
+
+una variabilidad en la
+
+calidad de tu predicción en datos futuros, porque
+
+justo tuviste un
+
+sample muy favorable, o un sample
+
+muy negativo, o un sample con alguna
+
+característica, que el validation set fue justo
+
+tuviste mala suerte y fue un medio
+
+particular, ¿no? Entonces
+
+indudablemente este ejercicio
+
+es un toque sin ruidoso
+
+porque si yo lo hago
+
+con un algoritmo determinístico incluso
+
+como decía más cercano
+
+que no tiene mucha variabilidad, si yo
+
+lo hago con un determinado
+
+validation set, me da un valor y si yo
+
+mezclo de vuelta me va a dar otro
+
+si mezclo de vuelta me va a dar otro, de hecho
+
+yo tengo seis millas en mi código y cada vez
+
+me da algo diferente, ¿no?
+
+Entonces, indudablemente hay algo que es un poquito problemático.
+
+Cuando muestras son gigantes, quizás no es tanto problema.
+
+Si las muestras no son muy grandes, quizás es un poquito más problemático.
+
+¿Te hago una pregunta?
+
+Sí.
+
+¿Se puede saber cuál es la función de la precisión?
+
+Esa que yo hice función del sample.
+
+Sí, se saben curvas de aprendizaje.
+
+Son las TOI que tienen analogía con educación, digamos,
+
+con tiempo de estudio y cosas por el estilo.
+
+Ahí viene la idea.
+
+Y la podés hacer sin problema, ¿no?
+
+Y la podés hacer, che, saco...
+
+Dejo un validation set y entreno con 10% de datos,
+
+con 20, con 30, con 40 tags,
+
+y voy viendo como sur.
+
+Ah, pero es empírica, digamos.
+
+Sí, es empírica, sí, sí, sí.
+
+La podés estimar de esa manera, ¿no?
+
+Teórica, sí.
+
+Bien.
+
+Potenciales problemas, ¿no?
+
+Un potencial problema
+
+es ese que ustedes ya dijeron, ¿no?
+
+Y es que, che, esto es un poquitito ruidoso, ¿no?
+
+Porque justo sacó una partición al azar,
+
+que por ahí fue muy favorable o muy negativa,
+
+pero a mí no me importa que sea muy favorable o muy negativa.
+
+Me gusta que quiero que sea certera de cómo va a andar ese modelo.
+
+Es un objetivo que mi estimación sea de buena calidad.
+
+Que me dé alta porque me dio casualidad.
+
+No me sirve algo que me dice, che, te va a ir bien, te va a ir bien,
+
+te va a ir bien, te va a ir bien y va en la práctica y te va mal, digamos.
+
+Queremos algo que sea objetivo, que nos diga,
+
+si vas a usar este modelo, te va con esta performance.
+
+¿Está?
+
+Entonces, como tiene ese componente, muchas veces lo que se hace, y es como buena práctica,
+
+es, bueno, che, repito este ejercicio varias veces, ¿no?
+
+Separo un conjunto al azar y para mi modelo veo cómo me va, 70.
+
+Separo otro conjunto al azar y veo cómo me va, 67, por decir algo.
+
+Segunda vez. Separo otro más y me va, yo qué sé, 72, por decir algo, ¿se ve?
+
+Cada vez va a haber una variabilidad
+
+o va a haber un numerito diferente.
+
+Entonces, ¿qué tomo como mi predicción final?
+
+Bueno, el promedio de esos números.
+
+¿Se ve?
+
+Y eso es, como un estimado de performance,
+
+menos ruidoso.
+
+¿Estamos?
+
+Como que se adapta a...
+
+Como que se está cubriendo mejor
+
+de que este split pueda no ser muy favorable
+
+en el sentido de que no sea muy representativo
+
+de los datos que van a venir más adelante.
+
+Bien.
+
+Y lo segundo es que está todo muy bien si yo estoy con muchos datos,
+
+yo sé para un 10%, ¿no?
+
+Y mi estimación de performance quizás sea más o menos la que tendría el modelo completo,
+
+si usa todos los datos.
+
+Pero si yo no estoy con muchos datos y estoy como en esta parte, ¿no?
+
+Donde el algoritmo todavía aprovecha mucho tener más datos, ¿ok?
+
+Y yo estoy acá y quito la misma cantidad de datos,
+
+Mi estimación es muy negativa.
+
+¿Se ve?
+
+Y por ahí eso no es lo que queremos, por ahí nos molesta,
+
+hay argumentos para decir eso, no nos gusta.
+
+Queremos algo un poquito más certero de cómo le va a ir al modelo.
+
+Entonces, por ahí queremos algo, principalmente en el escenario
+
+donde no tenemos una cantidad abismal de datos,
+
+que nos permita tener una estimación de performance de un modelo dado.
+
+pero no resigne de tantas observaciones para validation,
+
+con su rol de validation, no para obtener esa estimación.
+
+Y la segunda estrategia que propone el libro va en esa línea.
+
+Déjenme pasar un segundo de esto y ya lo vemos.
+
+Es la de leave one out cross validation.
+
+Leave one out cross validation es una alternativa al validation set.
+
+Y lo que hace es algo diferente, es...
+
+Si yo tengo en observaciones, no las mezclo, no hago nada extraño, sino que digo, che, voy a entrenar un primer, o voy a hacer una primera pruebita,
+
+en donde entreno el modelo con todas las observaciones,
+
+salvo la primera, ¿está?
+
+O sea, entreno con n menos 1 observaciones,
+
+tengo n observaciones.
+
+Y veo a ese modelo, entrenado con todos menos la primera,
+
+cómo le va en la primera, ¿está?
+
+Y supongamos que tengo una medida
+
+de error que me dice, o de performance,
+
+que me dice que no sea exactamente adecuado ese porcentaje,
+
+porque para una situación es algo que va entre 0 y 1 de calidad de prueba.
+
+Que donde cerca de 0 es bueno, cerca de 1 es bueno,
+
+y cerca de 0 es malo.
+
+Supongamos que me da 0, 78.
+
+¿Está?
+
+Para la 1.
+
+Después digo, che, ok, pero esta es una observación
+
+y quizás no es representativa de todos los datos que van a venir.
+
+Bueno, hago una segunda pruebita
+
+y entré en un modelo con todas las observaciones,
+
+salvo la segunda,
+
+y veo cómo le va en la segunda.
+
+¿Está?
+
+Y veo cómo le va en la segunda,
+
+y para esta observación,
+
+por ahí era un poquito más difícil,
+
+qué sé yo, me da 0.67,
+
+porque fuera, ¿no?
+
+Y después digo, bueno, tengo dos, digamos,
+
+al lado con la tercera, ¿tac?
+
+Y sigo así, en donde,
+
+en cada uno de estos pasos,
+
+lo que estoy haciendo es dejando
+
+una observación en rol de validación,
+
+y todas las demás para entrenamiento.
+
+Pregunta, ¿cuántos modelos entreno?
+
+N.
+
+Perfecto.
+
+Entonces yo voy a estar entrenando N modelos.
+
+En cada una de esas pruebitas,
+
+cada uno de esos pasos,
+
+supongo que va a ser uno de los días.
+
+En cada uno de esos pasos yo tengo una estimación de performance.
+
+¿Cuál es mi estimación de performance final?
+
+Ahora tengo N.
+
+y eso quizá tener un número.
+
+Bueno, lo que propone el libro, digamos,
+
+y es muy razonable, es decir,
+
+si tengo numeritos, los promedio.
+
+Entonces la performance en la observación I,
+
+la sumo y la divido por N, que es el promedio,
+
+y esa sería una estimación de performance
+
+usando la estrategia de leave one out,
+
+o sea, dejando uno afuera, cross-validation.
+
+¿Estamos?
+
+Pero este modelo sería mucho más...
+
+No es un modelo, es una estrategia de validación.
+
+Pero acá tendrías que distanciar eso,
+
+que no sé si está 5 días, está variando.
+
+Así es, sí, sí, sí.
+
+Por eso tiene desventajas, digamos.
+
+Ok.
+
+¿Estás sobreestimando ahí la performance?
+
+¿Por?
+
+Estás validando, o sea, tenés más datos,
+
+solo estás validando el número.
+
+Ahí lo que estás haciendo, que parece bueno,
+
+es decir, che, casi que cada uno de estos modelos,
+
+es casi como lo más fuerte que puede ser.
+
+Es casi el tamaño del que tendría tu modelo final,
+
+que usa la en observaciones.
+
+¿Lo ves?
+
+Sí, sí.
+
+Que parece bueno.
+
+Sí.
+
+Pero también tiene algunos problemas.
+
+Y no es tanto sobreestimando tu performance,
+
+sino que,
+
+y es como un poquito más fino el argumento
+
+y está ahí en esa sección,
+
+que yo le digo 514,
+
+que es como que,
+
+en realidad,
+
+vos tenés un dataset particular, ¿no?
+
+Y te está diciendo qué tan bueno es esto en tu dataset,
+
+pero por ahí también tu dataset era un poco sesgado.
+
+Entonces, si vos hubieses tenido un dataset
+
+que venía del mismo proceso que generaba los datos,
+
+pero con algo diferente, quizás este modelo,
+
+esta estrategia no era tan buena.
+
+Entonces, este estimador tiene una cosa,
+
+pero no me quiero meter en eso,
+
+que es ya alta varianza, como un estimador de alta varianza,
+
+que hace que tampoco sea muy bueno en términos estadísticos.
+
+No solamente es malo en términos de cómputo,
+
+porque entre n modelos,
+
+sino que como que no te estás cubriendo
+
+de otras situaciones
+
+digamos del dataset con rollo diferente
+
+con cosas puntuales
+
+no es tanto que es sobre optimista
+
+sino como que
+
+puede ser que
+
+nada, justo este dataset
+
+que tenés entrenamiento muy particular
+
+y si hubieses tenido un dataset un poco
+
+diferente no fuese tan bueno el modelo
+
+básicamente, este dataset un poco diferente
+
+puede ser el que te venga futuro
+
+entonces
+
+estadísticos, y este
+
+te diría que medio
+
+yo lo presento
+
+un poco por completitud
+
+y por seguir el libro, por ser un poquito
+
+más prolijo en eso, yo lo he
+
+usado en la práctica
+
+pero es una cosa un poquito rara
+
+digamos, es che, demora un montón
+
+no es tan lindo
+
+sobre todo demora un montón, no es tan lindo
+
+propiedades estadísticas, y medio que
+
+la calidad
+
+que tenemos para estimar
+
+que está bueno el modelo, con nosotros lo captamos
+
+es mucho menos cómputo. Entonces este quizás no sea
+
+mi predilecto, ¿no? En mi caso particular.
+
+Pero sí quiero...
+
+Perdón que no te contesto con detalle, digamos,
+
+pero tampoco me quiero meter mucho en eso.
+
+Si querés, después hablamos. Pero tampoco quiero
+
+dejar de mencionar algunas virtudes que tiene este modelo.
+
+Que nos van a interesar... Modelo no, perdón,
+
+esta estrategia, ¿no? Que nos van a interesar
+
+para el siguiente.
+
+Fíjense
+
+En rol de validación
+
+¿Está?
+
+¿Hay alguna observación que en algún momento
+
+No haya sido usada para validar?
+
+No, no
+
+Todas fueron usadas para validar
+
+¿Y cuántas veces?
+
+Una vez
+
+Cada observación fue utilizada
+
+Una única vez para validar, ¿se ve?
+
+No es lo que sucede acá
+
+En donde
+
+algunas nunca son usadas para validarse.
+
+Acá es como que hace una pasada
+
+y dice, che, bueno, valide casi,
+
+usé en el rol de validación a todas las observaciones
+
+una y solo una vez.
+
+Ok.
+
+Si yo ejecuto dos veces este código
+
+con un algoritmo medio determinístico,
+
+¿hay motivo por el cual me debiera dar
+
+diferente esto de acá?
+
+No hay nada aleatorio, digamos.
+
+Es como, yo corro,
+
+demora lo que demora, y me da 0.97,
+
+lo vuelvo a ejecutar,
+
+demora lo mismo seguramente, de vuelta a 0.97.
+
+¿Está?
+
+Entonces algunas cosas tienen, ¿no?
+
+Es mucho menos azaroso, digamos,
+
+en términos de antes,
+
+de lo que vimos antes comparado con Jolovset.
+
+Y tiene esto, che.
+
+Una observación es utilizada
+
+para validar siempre y solo una única vez.
+
+¿Está?
+
+Bien.
+
+Veamos dos bloquecitos de código
+
+del que está subido en clases.
+
+Lo que yo voy a hacer acá
+
+es
+
+Cargar un altaset que se llama
+
+está subido al campus y se llama
+
+Bankruptcy Data
+
+Está reducido
+
+Yo la chequeé y lo hice más chiquito para que demore menos tiempo
+
+para que tenga unas características un poquito más fáciles de predecir
+
+Después vamos a usar el completo
+
+Cooper. Pero este dataset
+
+básicamente lo que
+
+tiene es
+
+son datos de empresas
+
+de Portugal,
+
+tiene
+
+1432
+
+observaciones, 65
+
+filas, de los cuales una es el
+
+target, o sea, tienen 64
+
+predictores.
+
+Y básicamente es algo que para
+
+diferentes empresas miden si
+
+entró en vacarrota o no el año
+
+que sigue, por ejemplo. Dado
+
+características, que esos atributos son
+
+ratio de deudas, sea cosa de las
+
+empresas, cantidad de empleados o lo que fuera,
+
+¿no? Y miren, che, esta
+
+empresa entró o no en macarrota
+
+al siguiente año o al siguiente X tiempo.
+
+Entonces lo que queremos armar es un modelo
+
+que prediga si, dados
+
+estos atributos, una empresa va o no
+
+entrar en macarrota. Ese es el objetivo.
+
+Fíjense
+
+cómo se hace
+
+un holdout set.
+
+Usamos 30 split, que es un
+
+modulito que viene en Scikit-Learn,
+
+¿no?
+
+uno le pasa
+
+un dataset
+
+hay diferentes formas
+
+de pasáselo
+
+le estoy diciendo
+
+che
+
+armá un conjunto
+
+de testeos
+
+se llama el parámetro
+
+test size
+
+de 0.20
+
+o sea reservar
+
+el 20% de observaciones
+
+como validación
+
+si uno pone un entero
+
+es tantas observaciones
+
+si uno pone 0.20
+
+es 0.2
+
+es 20%
+
+de validación
+
+estratifica
+
+las clases
+
+que quiere decir
+
+che
+
+que si en tu dataset
+
+hay a modo de ejemplo
+
+20% de bancarrotas
+
+y 80% de no
+
+cuando vos des que
+
+training y testing, también se van a
+
+mantener esas proporciones en los dos conjuntos.
+
+Muestrando al azar, uno esperaría
+
+ya que pase eso, uno espera
+
+que pase eso, pero esto lo garantiza.
+
+Lo esfuerzo.
+
+Y acá sí estoy usando una semillita
+
+que es bueno, que cada vez que lo ejecuto
+
+hace las mismas precisiones.
+
+Lo uso nada más para que
+
+no se ríe en clase.
+
+Acá, separaré los dos datos,
+
+los dos datasets, tengo uno de training
+
+y uno de validation. Y acá hablo
+
+mismo de la clase pasada, que es
+
+un pipeline
+
+en donde primero estandarizo
+
+y después entre un modelo de vecinos más cercanos
+
+con cinco vecinos,
+
+y acá estoy usando
+
+empezando por la distancia,
+
+ponderando la distancia, básicamente.
+
+La observación más cercana ponderan más
+
+en el crónico.
+
+Sí.
+
+La función
+
+30 es que
+
+ya trae eso de la
+
+de que la muestra
+
+que se pare en test y train
+
+eso está acá porque yo le puse
+
+stratify, ese tipo de mostreos
+
+se llaman mostreos stratificados
+
+y estoy dando una variable
+
+en función de la cual stratificar
+
+es lo que estoy pasando acá, si yo no pongo nada
+
+no lo hace
+
+si, yo acá no estoy haciendo nada
+
+código muy propio, digamos, estoy usando
+
+nada muy
+
+ok
+
+instancé el modelo
+
+algo que prediga
+
+pero algo que se entrene
+
+y algo que prediga en validación
+
+¿qué hice?
+
+entrené en entrenamiento
+
+y obtuve las predicciones
+
+en el cold offset
+
+¿no?
+
+en lo que dejé afuera
+
+y ahora veo
+
+cuál es la cura
+
+y cuál es la tasa de acierto
+
+en los datos que dejé afuera
+
+y me dice 79,8%
+
+¿está?
+
+entonces ¿qué es ese número?
+
+ese número lo que me dice
+
+este modelo yo estimo que va a tener esta performance
+
+si los datos que me vienen,
+
+o mejor dicho, si yo arme un holdout set
+
+que sea representativo de los datos que me vienen.
+
+¿Y para qué me sirve?
+
+Me sirve para algo como esto, para decir,
+
+si yo no hubiese estandarizado,
+
+ahí lo único que comenté es ese paso,
+
+¿cómo me hubiese ido?
+
+72.
+
+Entonces, ¿qué saco yo de este ejercicio?
+
+que estandarizar, que escalar
+
+es buena decisión, ¿está?
+
+Estoy validando la decisión, estoy diciendo
+
+che, sirve escalar
+
+¿Estamos?
+
+Lo voy a ejecutar de vuelta
+
+nada más para attack, tener esto
+
+Bien, acá
+
+hay algo
+
+pareciera un toque sin aleatorio
+
+quizás vecinos más cercanos tengan algo
+
+de aleatorio al momento
+
+de
+
+porque yo hubiese esperado que como está implementado
+
+me diera de vuelta 0.79, como me había dado antes.
+
+Y no.
+
+A ver, denme un segundo.
+
+Bueno, no sé por qué la primera vez me dio algo.
+
+Ahora estoy repitiendo todo y me da siempre 0.884, digamos.
+
+Algo difícil.
+
+Bien.
+
+Y el bloque 2 lo que hace es implementar
+
+el leave one out cross-validation.
+
+Y leave one out cross-validation
+
+también es un modulito de model selection
+
+para estimar estas performances
+
+con estas estrategias.
+
+Y lo que hace es, uno lo tiene que instanciar
+
+y voy a usar leave one out.
+
+No tiene muchos parámetros.
+
+Lo que dice es voy a hacer este ejercicio
+
+de dejar uno afuera, después otro, después otro.
+
+Y lo instancio.
+
+Está perfecto.
+
+Y lo que hace, al menos como se hace el Sack and Learn,
+
+que tienes que hacer, esto se llama un iterador.
+
+Es algo que te va a ir partiendo el dataset
+
+de determinada manera.
+
+Te va a partir justamente
+
+con
+
+esta estrategia de acá.
+
+Entonces lo que hace es, yo voy a ir
+
+guardando esos numeritos de performance en una lista
+
+y acá lo que estoy haciendo es
+
+uso el leave one out
+
+que está ahí para en un for
+
+decir for y va a ser
+
+n particiones de esa manera.
+
+Va a iterar n veces ese for.
+
+Y en cada iteración, ¿qué hago?
+
+me da el índice de los datos de entrenamiento,
+
+del dato de validación,
+
+básicamente porque va a ser uno solo,
+
+y digo, en esta vueltita,
+
+esto de entrenamiento, esto de validación.
+
+Veo cómo le va en lo que dejé afuera,
+
+lo pongo en la lista, básicamente,
+
+y paso con la siguiente, y paso con la siguiente.
+
+Por eso es que este foro van a ver,
+
+esto que se llama TQDM,
+
+que cuando soy un poco ansioso me dice
+
+el grado de avance que tiene,
+
+y me dice, bueno, van a ser 1432,
+
+iteraciones. Fíjense que está
+
+demorando un poquito.
+
+Y es una fase chiquita
+
+con pocas observaciones.
+
+Vamos a esperar los
+
+6 segundos que faltan.
+
+Y yo acá lo que tengo es
+
+1432
+
+predicciones.
+
+¿Se ve?
+
+Y lo que hago es
+
+ver cómo me fue.
+
+Ahí. Y me da 0.787.
+
+Esto no quiere decir que Colosset sea mejor que Liban Outdoor Validation.
+
+Es otra forma de estimar la predicción,
+
+cómo funciona este modelo en datos desconocidos.
+
+Este 78,7 que me haya dado más chico que antes,
+
+no es que sea peor nada.
+
+Es como, che, bueno, yo traté de estimar cómo le va a este modelo
+
+en datos que todavía no conozco.
+
+Uso esta estrategia, me dijo que es 0,80.
+
+Uso esta estrategia, me dio 0,787.
+
+No me dieron cosas disparatadamente diferentes.
+
+Eso está bueno, digamos.
+
+Me dijeron, bueno, estás en el orden de 0.79, 0.80, por ahí, ¿no?
+
+Y parece razonable.
+
+Seguramente, si yo no lo voy a hacer para no perder tiempo,
+
+pero quito esta parte de estandarizar,
+
+como me pasó antes, este número también baje, digamos.
+
+Y lo que me importa es la decisión a la que llegaría sería la misma.
+
+¿Está?
+
+Llegaría la misma decisión que escalar, estandarizar, es bueno.
+
+¿Va?
+
+bien
+
+veamos una última
+
+estrategia
+
+después voy a hablar un poquito más de variantes
+
+pero esta es como bien diferente
+
+una última estrategia para estimar performance
+
+en datos que todavía
+
+no conozco
+
+y es como algo intermedio
+
+teníamos validation set
+
+como una única vez lo hacíamos,
+
+dejamos la ley de eso hasta afuera,
+
+live on a cross-validation,
+
+n veces lo hacíamos,
+
+esto es como algo intermedio
+
+que tiene un poquito virtudes de las dos.
+
+Fíjense,
+
+la estrategia es esta,
+
+tengo mi data set original
+
+y lo mezclo.
+
+Genial.
+
+Una vez que lo mezclo,
+
+van a ver muchas veces la letra K,
+
+Y no es que yo soy poco creativo, digamos, y uso siempre la K,
+
+sino que la literatura machine learning por algún motivo usa mucho la K.
+
+Y vamos a definir un valor de K, que no es el de vecinos,
+
+es el número de carpetas o de faults, se llama.
+
+Que supongamos, como en el ejemplo de la figura, es de 5.
+
+Podría haber sido de 10, de 15, lo que fuera.
+
+Es de 5, ¿qué quiere decir?
+
+Que voy a partir a mi dataset en 5 carpetas o 5 pequeños dataset
+
+de igual tamaño.
+
+Ok, n no es múltiplo de 5,
+
+no pasa nada, digamos.
+
+Alguno tendrá una observación menos.
+
+O 2, o 3, o 4, una observación menos.
+
+¿Está?
+
+Pero van a ser todos básicamente parecidos.
+
+Acá lo que yo hago es mezclo
+
+y defino los false.
+
+Y lo que voy a hacer va a ser esto.
+
+Voy a hacer
+
+k veces,
+
+en este caso 5,
+
+esto de acá.
+
+Dejo el fold 1 afuera
+
+Que tiene un 20% de observaciones
+
+Y entreno con el otro 80%
+
+Cuando entreno esto
+
+Me sale un modelo y veo como uno de acá
+
+Y tengo una estimación de performance
+
+0.80
+
+Después dejo el fold 2 afuera
+
+Y entreno con el resto del 80% de observaciones
+
+A 1, 3, 4, 5
+
+Me da un modelo
+
+Lo aplico acá
+
+Y veo como va
+
+Dejo el 3 afuera
+
+Entreno todo menos el 3
+
+Tengo un modelo, veo como le da
+
+5 y tengo 5 estimaciones
+
+de performance.
+
+Ok, yo quiero un número.
+
+¿Qué hago? Bueno, algo como hacía
+
+en Libanus Provalidation. Promedio, por ejemplo.
+
+Entonces,
+
+si yo tuve acá 0.80,
+
+0.82, 0.78,
+
+0.81,
+
+0.79, me da 0.80.
+
+¿Estamos? El promedio.
+
+Ok.
+
+Esto tiene
+
+algunas cosas buenas, ¿no?
+
+y una de ellas es que, bueno, che,
+
+¿cuántas veces se está usando una observación en rol de validación?
+
+Pregunta.
+
+Una, ¿y más de una?
+
+Está.
+
+Y todas las observaciones se están usando al menos una vez como validation, ¿se ve?
+
+Entonces comparte algo un poquito con esto.
+
+Lo que también comparte un poco con esto, ¿no?
+
+es que si yo implemento esto totalmente de cero de nuevo,
+
+sin semillas, sin nada,
+
+¿voy a llegar a los mismos valores?
+
+No, ¿no?
+
+Porque hay un componente de que acá yo mezclé
+
+y por ahí el fold de este
+
+no tiene el mismo conjunto de observaciones que tenía antes.
+
+Entonces, es de esperar que si yo esto repito una segunda vez,
+
+bueno, la performance a la que llego,
+
+la estimación de performance, no sea la misma.
+
+Tampoco creo que sea dramáticamente diferente.
+
+¿Estamos?
+
+y ahora una pregunta
+
+acá quizás se ve más claro todavía
+
+fíjense que yo en este ejercicio
+
+¿cuántos modelos entrené?
+
+este, este, este, este y este
+
+¿cuál uso como final?
+
+y acá no me queda claro
+
+tengo cinco digamos
+
+acá es como mucho más evidente
+
+que lo que yo debería hacer
+
+es una vez que decidí
+
+bueno che, escalo, no escalo los datos
+
+uso estas variables
+
+lo que sea que decidí
+
+este algoritmo, árbol de decisión
+
+cortar profundidad
+
+y me da esta performance,
+
+bueno, uso esa receta
+
+con el dataset entero,
+
+y tengo
+
+mi modelo final que es el que usaría en producción.
+
+Evidentemente,
+
+esto no es tan intensivo en cómputo como esto,
+
+pero es
+
+más intensivo que esto,
+
+porque esto lo hice una única vez,
+
+y esto lo estoy haciendo cinco veces.
+
+Entonces, también es cierto que, y se lo digo para el TP,
+
+que los modelos le van a demorar tiempo,
+
+bueno, esto sirve para dataset,
+
+sabemos, como medianito,
+
+yo diría, che, 30.000, 40.000 observaciones,
+
+un número razonable de columna,
+
+un par de miles, por decir algo,
+
+en el dataset me demore,
+
+o el modelo me demore 5, 2, 3 minutos o menos,
+
+pero si vos me estás diciendo,
+
+cada uno de estos modelos demora 3 horas de entrenar
+
+y hago un K-Folver Todavolidation con 10 faults,
+
+estoy hablando que cada prueba me demora más de un día,
+
+digamos. Entonces, no está del todo
+
+bueno. Sí.
+
+Una pregunta que me quedó
+
+vuelto ahí. Sí.
+
+En el segundo modelo. Sí, estrategia.
+
+Si yo digo modelo, disculpad, en la segunda estrategia
+
+de...
+
+Cuando haces el TPO,
+
+¿cómo lo haces sobre la variable que
+
+dejas afuera? Yo dejo
+
+una observación afuera
+
+por cada una de estas, ¿se ve?
+
+Y lo que yo hago es,
+
+para esta observación,
+
+yo dejé afuera, yo qué sé,
+
+Supongo que el outcome que quería medir era 0.98,
+
+y estime 0.97, bueno, el error es de 0.12, ¿está? 0.02.
+
+Pero tengo uno para esta observación,
+
+uno para este, uno para este, y otro para el otro.
+
+Lo que hago es promedio esas performas a través de las observaciones.
+
+Por ejemplo, para bajarlo porque sigo sin entenderlo bien,
+
+si quiero estimar temperatura, por ejemplo, en función de un conjunto de variables,
+
+¿Estimo con todas las variables menos una?
+
+Variables no, observaciones.
+
+Variables son
+
+columnas. Son cosas
+
+que medís para cada observación. Acá lo que estoy
+
+dejando afuera es la observación.
+
+Entonces yo tengo un dataset,
+
+filas, observaciones,
+
+columnas, variables, y voy dejando
+
+una observación afuera y predigo con todas las demás.
+
+Una observación afuera y predigo con todas las demás.
+
+¿Está?
+
+Bien.
+
+Me perdí en cuál era
+
+que teníamos cinco modelos
+
+con diferencia de performance
+
+en el...
+
+¿Cómo hacíamos entonces
+
+para saber cuál elegir?
+
+Ninguno de estos.
+
+Tenés que...
+
+Vos lo que aprendés de esto
+
+es que si yo sigo esta receta,
+
+escalo, no escalo,
+
+uso este algoritmo de aprendizaje,
+
+mi performance va a estar
+
+en el orden de 0.80.
+
+Decidí esa receta.
+
+Después,
+
+Ok, ¿qué modelo uso? Nada.
+
+El que sigue esa receta, pero con todos los datos,
+
+que no está visualizado acá.
+
+¿Está?
+
+Y justamente este sí es un escenario razonable
+
+para hacer ese ejercicio.
+
+Porque si vos hiciste esto,
+
+es porque no te demora tanto entrenar el modelo.
+
+Porque si tú demoraste meses entrenar el modelo,
+
+esto no lo harías.
+
+Justamente, estás haciendo esto porque tu modelo demora poco
+
+en entrenar, entonces decís,
+
+bueno, si me va a demorar poco en entrenar,
+
+bueno, sigo estas recetas,
+
+pero con todo el dataset, que tendría que andar mejor.
+
+¿Está? Sí.
+
+Perdón, ¿no me termina de quedar claro que es escalar los datos?
+
+Lo vimos en la clase pasada.
+
+Cuando vimos en distancia de Euclidia,
+
+que las variables con alta varianza ponderaban más en la distancia de Euclidia,
+
+y cuando restaba la media y vivíamos la vivienda estándar,
+
+eso se escaló.
+
+Sí.
+
+Bien, veamos código.
+
+Y fíjense, acá en Scikit-Learn, para que lo tengan,
+
+si ustedes quieren usar K4 Cross-Validation,
+
+es muy parecido a Live 1-Out Cross-Validation.
+
+Hacen un iterador,
+
+que ahora lo que va a hacer es iterar yo acá 10 veces,
+
+el dataset lo voy a partir en 10, básicamente.
+
+Le digo que lo mezcle,
+
+y le pongo una semilla,
+
+para que si lo ejecuto de vuelta, dé lo mismo.
+
+Y fíjense, yo acá lo que voy a hacer es una listita,
+
+donde voy a estar guardando 10 números de performance,
+
+básicamente,
+
+y acá voy iterando, ¿cuántas veces voy a iterar acá?
+
+No las 1400 como antes, sino 5.
+
+Perdón, 10.
+
+Un 10% de validación,
+
+entrego con 90. Otro 10%,
+
+entrego con otro 90. Otro 10%, entrego con
+
+otro 90. Fíjense que
+
+hacemos eso.
+
+Y...
+
+Un segundo.
+
+Listo, ni se lo vio
+
+Está comparado con el otro
+
+Y acá que tengo al final
+
+Tengo una lista
+
+Con los 10 valores de performance
+
+¿Se ve?
+
+Que en esta figurita sería como
+
+Este T1, T2, T3, T4
+
+Hasta T10
+
+¿Se ve?
+
+¿Y qué hago como performance final?
+
+El promedio
+
+De esos 10 valores
+
+Y me da
+
+0.79.5
+
+¿Está?
+
+Las tres estrategias
+
+como sería de esperar
+
+me dijeron algo similar ¿no?
+
+Cuando yo reservé un 20%
+
+me dijeron 0.80
+
+fue un poco más optimista
+
+cuando yo hice el igual
+
+a dos validez
+
+0.787
+
+si no me equivoco
+
+y ahora me está diciendo
+
+0.79
+
+casi lo mismo ¿no?
+
+Y en las tres
+
+estoy seguro
+
+que si yo hago lo mismo
+
+y no escalo
+
+la conclusión
+
+es que llevo
+
+es la misma
+
+fíjense
+
+es che
+
+Ah, ya sé creo, porque
+
+71, 36
+
+Escalar es buena decisión
+
+¿Está?
+
+Ese es el outcome más importante que yo tengo
+
+Estoy teniendo un numerito
+
+Que si yo le confío
+
+Me permite tomar
+
+Decisiones
+
+Fundamentadas, validadas
+
+¿No? Por eso el nombre de esto
+
+¿Estamos bien en el rol que cumple esto?
+
+Sí
+
+¿No alcanzas?
+
+¿Todas las variables?
+
+En este caso, sí
+
+No sé si siempre es buena idea
+
+Acá lo que estoy haciendo con este código
+
+Es escalar todas las variables
+
+Sí
+
+Así que Chiquitín
+
+Que para, por ejemplo, tener
+
+Teniendo 30.000 observaciones
+
+Capaz no está mal usar el
+
+K-Pol Cross Validation, pero si tuvieras
+
+Poner 10.000
+
+También nos conviene
+
+10.000
+
+Lo particionaría
+
+En este caso, 9.000 y 1.000
+
+Sí
+
+Pero, por ejemplo, el leave one out,
+
+o sea, es mucho laburo.
+
+Sí.
+
+O sea, computacional,
+
+me conviene capaz de poner un Facebook cross.
+
+Sí.
+
+Y en vez de partirlo en cinco,
+
+o lo podría partir en diez.
+
+O sea, como,
+
+me cuesta entender cómo depende
+
+la cantidad de observaciones.
+
+O sea, sé que es difícil entenderlo.
+
+Pero la cantidad de observaciones,
+
+si son más de treinta,
+
+bueno, ok, más o menos entiendo
+
+que puedo tomar.
+
+Tengo 10.
+
+¿10 observaciones?
+
+10.000.
+
+10.000 observaciones.
+
+Ok.
+
+Lo va a ver en el libro directamente.
+
+Es como que el número de K,
+
+pero no te digo, no te estoy mandando a leer el libro,
+
+sino te estoy diciendo que normalmente lo van a ver en el libro,
+
+incluso en el avanzado.
+
+Dices, che, no hay como un buen argumento para decir un número el mejor de K.
+
+Y te dicen, en la práctica se suelen probar estos números.
+
+5, 10, 15, digamos.
+
+Y lo que sí podés ver,
+
+y que me estaba olvidando y te agradezco la pregunta,
+
+es che,
+
+si K es igual a N, ¿en qué caso estás?
+
+Pregunta.
+
+¿En serio?
+
+En L1-Au-Cross-Validation, ¿no?
+
+Y si K es igual a 2,
+
+no estás exactamente en el caso
+
+de call-off set con mitad,
+
+porque estás haciendo,
+
+tengo el parato en la mitad, con esto entreno y veo cómo va acá,
+
+y después entreno con esto y veo cómo me va acá.
+
+Pero estás mucho más cerca de eso, digamos, ¿no?
+
+Entonces ese K es como que te...
+
+acerca a uno u otros temas.
+
+Y en la práctica,
+
+el mismo libro sugiere, digamos,
+
+que 3, 5, 10 son valores razonables,
+
+y que tampoco te recomiendan
+
+ir a valores muy altos por el cómputo,
+
+y también por esto que yo no me quise ahondar mucho,
+
+que estadísticamente el LIWN-Octos Validation
+
+tiene algunos problemitas.
+
+No es el más querido.
+
+Acá nos anduvo bien,
+
+pero por ahí no puede ser que no.
+
+No sé si anduvo bien, no anduvo,
+
+igual que las otras técnicas,
+
+pero podría ser que no sea el mejor estimador.
+
+Entonces no siempre nos van a dar parecidos con tres.
+
+O sea, no siempre nos tienen que dar parecidos.
+
+No, no siempre.
+
+No, no siempre, no siempre.
+
+Bien.
+
+En el TP ustedes van a tener varios cientos de miles,
+
+si no es un par de millones,
+
+no me acuerdo bien el tamaño del dataset de observaciones.
+
+Esto parece un poco un exceso, ¿no?
+
+Es como, yo digamos, como comentario mío,
+
+cuando estoy con una taser grande,
+
+suelo usar Colosset y se acabó.
+
+Pero cuando uno está con una taser, nada,
+
+más moderados, un par de mil observaciones,
+
+diez mil, treinta mil, esto es como que aplica.
+
+Y cuando uno está con una taser genuinamente muy chicos,
+
+como cincuenta, cien, doscientos,
+
+bueno, quizás no te queda otra que hacer
+
+el D1 Autos Validation, ¿no?
+
+Pero no es lo más típico, sobre todo,
+
+Creo que
+
+No es lo más común a lo que se enfrentarían ustedes
+
+Bien
+
+Ahora fíjense
+
+Hay
+
+Algo raro igual en todo esto
+
+¿No?
+
+Porque imaginen
+
+¿Para qué yo estoy usando esto?
+
+Lo estoy usando
+
+Para lo que se llama Model Selection
+
+El capítulo de hecho se llama Model Selection,
+
+y el módulo de Salkildana es que
+
+de donde sale esto es Model Selection.
+
+¿Qué quiere decir?
+
+Che, propongo diferentes modelos y elijo el que mejor le va.
+
+Ese es el ejercicio que estamos haciendo.
+
+Y para eso estamos estimando,
+
+como le dirían datos que no conozco,
+
+con la idea esa de tener una brújula que me dice
+
+si tomo esa dirección me acerco al norte.
+
+Bien.
+
+Pero imagínense esto.
+
+Que yo estoy con el caso
+
+de
+
+staining
+
+y validation.
+
+¿No?
+
+Imagínense que yo
+
+hago una primera prueba.
+
+¿Está?
+
+Y me da una performance de 0.90.
+
+Y esta primera prueba es
+
+vecino más cercano sin escalar,
+
+por decir algo, ¿no?
+
+Y digo, bueno, che, pero por ahí me convenía escalar.
+
+¿No?
+
+Y me da 0.92.
+
+Ok.
+
+Parece buena idea escalar.
+
+Ah, pero quizás podría haber tomado el logaritmo y no escalar.
+
+Y me da 0,91.
+
+¿Ok? Perfecto.
+
+Ah, no, pero pará, por ahí lo que podría haber hecho es
+
+tomar logaritmos y escalar.
+
+¿No?
+
+Y me da, tac, 0,80, no fue buena idea.
+
+Y pruebo otra cosa, y pruebo otra cosa, y pruebo otra cosa,
+
+y pruebo otra cosa, y hago un foro en donde a su vez esta cosa
+
+voy probando cada uno con 50 combinaciones de hiperparámetros.
+
+Entonces que ya es ese número 4 por 50.
+
+Y voy probando más cosas.
+
+Y termino probando 20.000 modelos.
+
+Supongamos que está un problema donde lo podemos hacer.
+
+Un par de miles no es tan dramático.
+
+Y termino con 20.000 modelos.
+
+Supongamos que este no era tan bueno.
+
+Me dio 0.77.
+
+y encuentro que el modelo justo 13.215,
+
+donde justo elegí una particularidad muy particular,
+
+escalo con esta característica,
+
+pero solo esta variable y con este valor de acá y hago tal cosa,
+
+es el que mejor le va.
+
+¿Qué es un saborcito a qué esto?
+
+Tiene un sabor overfitting,
+
+pero no es overfitting en el sentido tradicional,
+
+en el sentido de que un modelo que capta los detalles del dataset de entrenamiento.
+
+Pero le salió esa palabra, ¿no?
+
+Tiene un espíritu, ¿no?
+
+Y hay un paper de Andrew Ng, que es muy conocido en el área este,
+
+que tiene Overfitting the Validation Set.
+
+Y en realidad hay algo de eso.
+
+Es, che, si yo pruebo muchas cosas, ¿no?
+
+Y no dan lo mismo, eventualmente voy a hacer una prueba,
+
+otra prueba, otra prueba, hago 20.000 pruebas,
+
+y uno me dio el más alto.
+
+¿Está? Me dio
+
+0,
+
+95,
+
+95,
+
+3, por decir algo, ¿no?
+
+Pero puede ser
+
+que al haber probado tantas
+
+cosas, tantas cosas,
+
+¿no? Lo que
+
+esté sucediendo es que justo un
+
+modelo que tiene una particularidad,
+
+por eso, se adapta
+
+muy bien al ruido que tiene mi atas de entrenamiento.
+
+Es menos probable, si yo pruebo uno o dos,
+
+pero si yo pruebo dos millones de modelos,
+
+es más probable que si pruebo muchas cosas,
+
+eventualmente uno le pega a mi ruido la tasa de validación,
+
+disculpen, de casualidad.
+
+¿Está?
+
+Entonces, si ese fuera el caso,
+
+¿le creemos a este número o no?
+
+¿Y qué esperarían? ¿Que ese número sea más grande, más bajo o qué?
+
+Que esté inflada la performance.
+
+Ahí sí que hay una especie como de sesgo, ¿no?
+
+Hay como un sesgo positivo.
+
+Con el validation set,
+
+cuando uno lo usa para un modo de selección
+
+y prueba muchas cosas,
+
+y aplica a K4 Cross Validation también esto, ¿no?
+
+Cuando uno hace eso y prueba muchos modelos,
+
+hay una tendencia a que tu performance,
+
+nada, estén un poquito cejadas para arriba, ¿no?
+
+Y eso no es bueno.
+
+¿Por qué no es bueno?
+
+Porque es la peor de las sorpresas.
+
+Che, yo creo que me va a ir muy bien,
+
+o creo que me va a ir bien,
+
+y voy a la práctica, y no me va tan bien, ¿no?
+
+Mejor le sorpresa en otra dirección,
+
+ah, no quería ser tan bueno, y le fue mejor, ¿no?
+
+Pero eso es como siempre las cosas que suceden
+
+son las peores en este mundo.
+
+Entonces, ok, lo otro no sucede.
+
+Entonces, bueno, ¿qué querés evitar?
+
+Eso, decir, sí, yo creo que me va a ir bien,
+
+y me terminó siendo mal, ¿está?
+
+Eso es como malo.
+
+Entonces, la estrategia que se sigue
+
+es la de decir, bueno, no partamos en dos datasets, ¿no?
+
+apartamos en tres
+
+apartamos
+
+bueno, voy a hacer esto
+
+así no parece que tiene
+
+no, apartamos en
+
+por ejemplo
+
+uno que es
+
+validation y otro que es
+
+propiamente el de test
+
+¿se ve?
+
+en donde los dos cumplen roles bien diferentes
+
+mientras yo estoy
+
+probando cosas
+
+¿no?
+
+yo veo cómo me van
+
+en el de validation. Entreno con training
+
+y veo cómo me van
+
+en validation. Y uso validation
+
+para tomar o para decir
+
+cuál es el mejor modelo de sentido,
+
+cuál es la mejor combinación de decisiones
+
+para este problema.
+
+¿Está? Yo hago eso.
+
+Perfecto.
+
+Pero si yo pruebo muchas cosas, yo sé que esa
+
+performance va a estar
+
+nada, infladita.
+
+Un poco, mucho, pero
+
+todo no sé de antemano cuánto, de hecho.
+
+Entonces lo que termino haciendo es decirte, bueno, no tomes como estimación de performance
+
+final la de validación, sino que la estimación de performance final la hagas sobre este último
+
+conjunto de datos que no toqué nunca hasta ahora, ¿se ve?
+
+Y ese último conjunto de datos, que es el test set, es el mejor estimador que tendría
+
+esta estrategia
+
+de lo que estamos haciendo
+
+de todos estos conjuntos
+
+de cómo te valen
+
+datos nuevos
+
+¿por qué?
+
+bueno
+
+acá no me sirve
+
+porque son los datos
+
+de entrenamiento
+
+y yo superpositivo
+
+acá no me sirve
+
+porque está un poquito
+
+asesgado para arriba
+
+porque
+
+tuve tantas combinaciones
+
+seguramente
+
+que es optimista
+
+pero este hasta ahora
+
+no lo usé
+
+entonces
+
+la performance acá
+
+es la que yo
+
+debiera tomar
+
+como mi estimación
+
+de performance final
+
+¿está?
+
+¿sí o no?
+
+me queda la duda
+
+de
+
+o sea
+
+en este caso que decías,
+
+que elegiste el que te dio mejor,
+
+si vos después agarrás y cambiás el
+
+validation set con
+
+alguna de las estrategias que vimos,
+
+¿no te agarrás este problema?
+
+¿Cómo? ¿Qué estrategia?
+
+Vos cambiás, decís, bueno, ahora
+
+elijo otro
+
+fold y hago
+
+este mismo modelo, la misma receta
+
+que ya habías elegido, digamos,
+
+con este otro fold.
+
+¿No te ahorras este problema?
+
+Sí, lo omitías, pero no lo ahorras del todo, digamos.
+
+Es cierto que si vos, yo qué sé,
+
+en vez de hacer un validation set,
+
+haces un repeated cross-validation set,
+
+en donde vos armás un validation set,
+
+es como le vas a armar otro validation set,
+
+ves como le vas a armar otro validation set,
+
+ves como le promedias entre los diferentes validations,
+
+¿no?
+
+Es menos riesgoso que suceda esto.
+
+Pero en principio terminas,
+
+es como que se filtran estas cosas,
+
+filtran una tendencia a sobreestimar.
+
+Incluso con K-Fort Transvalidation es conocido
+
+como un estimador optimista de performance.
+
+Entonces, lo que se recomienda y se usa un montón de prácticas
+
+es tener un test set final, digamos,
+
+que no use como impoluto total, ¿no?
+
+Esto es, de vuelta, hay como recetas.
+
+Hay gente que va a decir, che,
+
+números comúnmente utilizados,
+
+training 60, 20, 20, 80, 10, 10,
+
+Pero aún así, esto no digo yo, esto desde Andreen también es,
+
+cuando te da un montón de datos, por ahí trata de ser más pequeños
+
+de entrenamiento, perdón, de validación y testeo,
+
+tipo el 2,5% de datos, un 1%, lo que fuera,
+
+puede ser ya representativo de lo que te vas a presentar.
+
+Entonces, de vuelta, ni el K tiene un valor típico para usar,
+
+ni estos tamaños es algo que uno solo le puede decir de antemanoche
+
+esto parece razonable.
+
+De hecho, en el TPE,
+
+una de las partes que le pedimos en el informe es
+
+bueno, justifiquen un poquito
+
+cómo armaron el validation set.
+
+Bien.
+
+Veamos código TITON
+
+para hacer esto.
+
+Y fíjense,
+
+acá lo que yo estoy haciendo es el tamaño
+
+de validation y el tamaño de test.
+
+A los dos puse 20% del dataset, ¿se ve?
+
+Y lo que hice básicamente es,
+
+una vez que ya tengo los tamaños,
+
+hago una primera partición entre entrenamiento y testeo,
+
+en donde saco el tamaño de testeo afuera,
+
+el 20% de los datos, lo que sea eso, ¿no?
+
+Y después tengo esta parte, ¿no?
+
+Saqué, por ejemplo, 200 observaciones,
+
+y me quedan esto de acá.
+
+Y en esta segunda parte, sobre lo que me quedó,
+
+saco otros 200, ¿no?
+
+Quizá tengo los tres grupitos.
+
+Por eso acá lo que tuve que hacer es llamar
+
+dos veces a este modulito que es
+
+hacer 30 split.
+
+Una vez para reservar validación,
+
+otra vez para reservar el detesteo.
+
+¿Está?
+
+Bien.
+
+Y acá voy a hacer un experimento.
+
+Fíjense.
+
+Voy a decir, che,
+
+entrenecemos un modelo
+
+de vecinos más cercanos,
+
+escalando con K
+
+que va de 1 a 150.
+
+¿Está?
+
+y lo voy a hacer
+
+entrenar con el cliente
+
+lo que dejé como entrenamiento
+
+y ver cómo le da en validación
+
+que es un 20% de los datos
+
+originales. Hago eso
+
+y van a hacer 150
+
+iteraciones
+
+150 iteraciones
+
+y termino.
+
+Acá lo que estoy haciendo es
+
+no estoy cambiando
+
+validation. Entonces en este ejercicio vamos a probar
+
+diferentes modelos sobre el mismo validation.
+
+¿Estamos?
+
+Y los resultados que tuve están guardados en este dataset.
+
+Bueno, en esta lista de diccionarios.
+
+Si cae es igual a 127, la accuracy es de tanto.
+
+Si cae es de 128, la accuracy es de tanto.
+
+Ahora sí lo paso en data frame y lo visualizo.
+
+Esto de acá.
+
+Ven un segundito.
+
+la pinta que tiene es esto, ¿no?
+
+K, a medida que lo voy subiendo,
+
+va haciendo underfitting, ¿no?
+
+Pero fíjense que muy bajito tampoco es bueno.
+
+No tengo ni idea por qué parte apareció.
+
+Todo esto.
+
+Ah, porque apreté F10.
+
+Dame un segundo.
+
+Fíjense, acá básicamente lo que pasa es que,
+
+bueno, hay un K que va a ser del orden de 5 o 6,
+
+que parece ser el mejor de este problema.
+
+Cada cantidad de vecinos, ¿no?
+
+Entonces venimos acá
+
+Y ahora lo que digo
+
+Che, ¿cuál es el mejor valor de K?
+
+Es
+
+En este problema
+
+Performance, el mejor modelo
+
+Es este de acá
+
+Y bestK del menú segundito es
+
+7
+
+¿No?
+
+Ok
+
+Y acá lo que yo voy a hacer
+
+Fíjense es
+
+Vuelvo a instanciar
+
+El modelo
+
+Pero ahora que
+
+Con un K de 7
+
+Con el mejor que encontré
+
+¿Se ve?
+
+Y acá esto es lo que yo decía
+
+Che, 7 es el mejor valor que yo consigo
+
+¿No?
+
+Y ahora lo que estoy haciendo es un poquito lo que sugiero en
+
+En esta slide
+
+Que no siempre hay que hacerlo
+
+¿No?
+
+Lo que estoy haciendo acá es decir
+
+Che, cuando vaya a testeo
+
+No voy a entrenar ese modelo con K igual de 7
+
+Solamente en training
+
+Sino que le voy a juntar también el validation
+
+Que va a ser un poquito más representativo de lo que tengo
+
+Agranda un poquito el dataset
+
+En total ya no uso más habilidad.
+
+Lo puedo mandar a training sin problema.
+
+Hago eso.
+
+En esta parte voy a hacer el feed con training y validation concatenados.
+
+Y ahora veo cómo le va en testing.
+
+Y en testing me da 7840.
+
+Quedan un poco los números que tienen.
+
+Está bien.
+
+Esto es como la mejor estimación que yo tengo.
+
+Y fíjense, sucede un poquito lo que dice el libro.
+
+Yo hubiese esperado una performance según validación en el orden 0.80
+
+y acá cuando fui a testeo bajó un poquito, 78.40.
+
+Y habría que creerle en principio más a esto que al de validación.
+
+Es eso.
+
+Bien.
+
+Un segundito y vamos a descansar.
+
+Acá alguien ya lo adelantó.
+
+¿Qué pasa si los datos son una serie de tiempos, por ejemplo?
+
+O cosas por el estilo.
+
+Y va a salir otro gráfico, me parece.
+
+Así que no me voy a alejar.
+
+Y veámoslo con un caso como más simple.
+
+Si yo tengo...
+
+Si yo tengo datos de 1980
+
+De turn de un banco
+
+¿Me sirven
+
+Para predecir datos de hoy?
+
+¿Sí o no?
+
+¿Por qué?
+
+Bueno
+
+Porque los patrones que tienen
+
+No representan lo que pasa hoy
+
+Básicamente, ¿no?
+
+Ok, perfecto
+
+Está bien, está bien.
+
+Entonces,
+
+uno quiere en el fondo que los datos con los que entren,
+
+incluso con los que validan,
+
+sean como similares a donde voy a usar los datos.
+
+Eso es algo que seguramente uno quiere.
+
+Pero incluso en esos casos,
+
+hay algunas situaciones un poquitín extrañas.
+
+Y es que
+
+Callout Set,
+
+Live One of Cross Valiations y Cave for Cross Valiations
+
+funcionan y son buenos,
+
+y son muy buenos,
+
+cuando las observaciones son independientes e idénticamente distribuidas.
+
+¿Qué quiere decir independientes?
+
+Es que el valor que tiene una observación, una fila,
+
+no influye en el valor o no se puede deducir, digamos,
+
+del valor del anterior o lo que fuera.
+
+Eso en muchos casos no pasa en ese sentido.
+
+Una serie de tiempos no es algo que sube o baja,
+
+sino que típicamente se ve algo suave.
+
+Y si vos sabes el día de cuánto cotizó Galicia ayer,
+
+y vas a saber en el orden de cuánto cotiza Galicia hoy.
+
+Para arriba, para abajo, habrá una crisis,
+
+bajará mucho, habrá una gran sorpresa, subirá un 10%,
+
+pero no va a pasar a valer cero
+
+o lo que valía hace 50 años, o lo que fuera.
+
+Entonces, eso serían observaciones
+
+que tienen dependencias entre sí.
+
+No sé de tiempo, un caso clásico.
+
+idénticamente distribuida es esto
+
+digamos que
+
+lo que vos tenés básicamente
+
+todo tu asset tiene una distribución similar
+
+como que viene del mismo proceso que genera los datos
+
+que también es como
+
+algo que suponen estos
+
+estos modelos
+
+y cuando se cumple eso de IED
+
+independiente, idénticamente distribuida
+
+hay una analogía que a mí me gusta
+
+que lo usan los libros de muestras
+
+es que, che, si vos básicamente tenés una sopa,
+
+para saber el sabor que tiene la sopa,
+
+no necesitas comer toda la sopa,
+
+si la mezclas bien, con una cucharada te alcanza.
+
+Y es lo que un poquito estamos haciendo
+
+con K-Fortless Validation y Validation C.
+
+Estamos antes mezclando,
+
+y estamos diciendo, che, con un pedacito
+
+más o menos tenemos una buena estimación
+
+de la performance.
+
+Pero cuando no son IID,
+
+eso ya no sirve tanto.
+
+Y hay que ser un poquito más ingenioso en cómo armar un validation set.
+
+Y ahí es como que no hay una receta muy mágica.
+
+Y genuinamente creo que es un trabajo importante, como un buen data scientist,
+
+o alguien que se debe entender el negocio y decir, bueno, ¿cómo armar un buen validation set?
+
+Cuando son series de tiempos, algo que uno puede hacer es decir, bueno, respetemos la temporalidad.
+
+y esto sería una especie de
+
+lead one out of validation
+
+pero respetando temporalidad
+
+supongamos que yo tengo observaciones
+
+que están en el tiempo
+
+y quiero hacer un ejercicio de
+
+ver cómo me van
+
+en los datos de mañana
+
+yo lo que podría hacer es decir
+
+en este caso, entreno con los primeros 6
+
+veo cómo me dan el séptimo
+
+y tengo una performance
+
+entreno con los primeros 7 y veo cómo me dan el octavo
+
+entreno con los primeros 8 y veo cómo me dan el noveno
+
+¿Está? Y lo que yo voy a hacer
+
+es para esto una performance, para este otro,
+
+para este otro, y por ahí lo que puedo hacer es
+
+nada, tengo una estimación de la performance
+
+mediando esos
+
+numeritos, ¿Está?
+
+Podría ser no de a uno,
+
+podría ser de a ventanas, o podría
+
+simplemente, che, tengo todo el dataset
+
+y reservo los últimos 20,
+
+el último 20% como un conjunto
+
+de validación, se puede pensar,
+
+se puede adaptar, digamos, ¿No?
+
+Pero lo que sí tienes que hacer es, che,
+
+Bueno, si estás en una situación así, respetar la temporalidad de los datos.
+
+No podés estar entrenando con un dato del 2015
+
+y validando con uno del 2007, digamos.
+
+No tiene mucho sentido.
+
+¿Va?
+
+Genial.
+
+Otro ejemplo, no está ahí en la slide, pero aprovechando que tengo tres minutitos.
+
+Supónganse que ustedes dicen, che, tengo...
+
+mi empresa se va a poner
+
+en una nueva provincia.
+
+Supongo que
+
+no son tan diferentes, un nuevo estado
+
+de Estados Unidos, que no son tan diferentes
+
+como acá las provincias.
+
+Entonces, ok.
+
+Y supongamos que
+
+en el estado
+
+Oklahoma, lo que fuera,
+
+Oklahoma no es una ciudad de Estados Unidos,
+
+no está mi empresa.
+
+Y yo digo, quiero ver cómo le va a ir
+
+mi empresa cuando me ponga en un nuevo estado,
+
+en una nueva provincia, lo que fuera.
+
+Fíjense que si yo tengo los restantes datos
+
+de diferentes provincias y los mezclo hacia el azar,
+
+no replica muy bien esa situación.
+
+Porque yo voy a estar entrenando con datos
+
+y evaluando con n provincias y validando con n provincias.
+
+Es como que estoy entrenando un modelo,
+
+no para ver cómo me va en una provincia nueva,
+
+sino para ver básicamente cómo me va
+
+en un subsample de las provincias que ya tengo.
+
+Y lo que replicaría un poquito mejor el esquema
+
+sería, che, no hagamos esto, desampliar,
+
+sino lo que hagamos es como dejar un grupo afuera.
+
+Es decir, si tenía 15 provincias,
+
+bueno, puedo dejar una afuera, ¿no?
+
+Y entrar con 14 provincias y ver cómo le va en la quinceava.
+
+Que eso replica, che, cómo le va a un modelo
+
+en una provincia que todavía no tengo, ¿se ve?
+
+O podrían hacer variantes, podrían hacer
+
+un leave one group, todos liaisons,
+
+ver cómo me va si dejo esta,
+
+después dejo hasta afuera y entre en el video tag,
+
+o lo que fuera.
+
+En vez de dejar una, dejar cinco provincias afuera.
+
+¿Se ve?
+
+Pero lo que sí tienen que respetar un poquito es que,
+
+si yo voy a usar los datos para algo como una nueva provincia,
+
+bueno, traten de replicar que su conjunto de validación
+
+sea algo como el equivalente a una nueva provincia.
+
+¿Se entiende?
+
+Bien.
+
+Si les parece, Sony 26.
+
+Nada, tomémonos 15 minutos.
+
+estaríamos en el 40 volviendo, 40 y 41.
+
+¿Basta?
+
+Gente de Zoom, nos vemos en 15 minutos.
+
+Tiene sentido pensar que son las que mejor
+
+Reflejan
+
+La performance que vas a tener
+
+En el futuro cercano
+
+Pero también tiene sentido pensar
+
+Que son las más importantes de tener entrenamiento
+
+Porque son las que tienen los patrones
+
+Entonces
+
+Ahí hay que pensar un poquito qué hacer
+
+Y a mi modo de ver
+
+En el TP
+
+Tiene que haber algún componente sospecho
+
+En ese sentido
+
+Uno se enganza con algunos artistas
+
+Tratando el tiempo
+
+y quizás pensar que
+
+creo que en octubre era el corte
+
+quizás los datos de septiembre y agosto tengan
+
+más
+
+importancia que los otros
+
+entonces, pero bueno
+
+ahí hay que pensarlo
+
+el TPE a mi modo de ver tiene un componente temporal
+
+porque los gustos tienen eso
+
+hay bandas que siempre me gustaron pero hay otras que escucho
+
+este mes y después se van
+
+y bueno, yo soy uno de los que están los datos
+
+así que eso es como
+
+no poco
+
+Bien
+
+Sigamos
+
+Vamos a ver algo
+
+Nada, cambiamos de tema
+
+Esta parte es así
+
+Vamos a ver un modelo nuevo
+
+Para predecir
+
+Hasta ahora vimos vecinos más cercanos
+
+Y yo calculo que dicen
+
+Bueno, está bueno, pero no era lo que yo esperaba
+
+Entonces ahora vamos a ver
+
+Algo un poquito más
+
+avanzado, llamémosle.
+
+Tampoco es de los noventa y tanto,
+
+pero es bueno este modelo que vamos a ver
+
+porque eventualmente lo vamos a usar bastante
+
+de otra manera, pero lo vamos a usar bastante.
+
+Entonces, voy a presentar el modelo
+
+de árboles de decisiones, decision trees.
+
+Es un modelo de aprendizaje supervisado.
+
+Sirve para predecir, sirve para atacar tantos problemas
+
+de clasificación como de regresión.
+
+cambiándole una cosita, ya lo vamos a ver.
+
+Para seguir al libro,
+
+y porque me parece que es una buena decisión el libro,
+
+que lo hace más pedagógico,
+
+yo lo voy a presentar primero para regresión,
+
+o sea, para predecir una variable continua.
+
+Después vamos a ver cómo prácticamente lo mismo
+
+le cambias un componente y sirve para clasificación.
+
+¿Está?
+
+Entonces, empecemos viendo árboles de decisión para regresión.
+
+Y antes de empezar a ver el algoritmo, pensemos,
+
+¿cómo se mide la performance de un algoritmo de aprendizaje supervisado en regresión?
+
+Yo quiero predecir algo vale 120, por ejemplo, y yo predigo 105.
+
+¿Es bueno? ¿Es malo? ¿Qué tan malo es? ¿Qué tan bueno es?
+
+o ver una métrica que nos diga, che, qué tan bien está prediciendo para una observación dada.
+
+Y para eso hay muchas métricas de error.
+
+Y la que vamos a ver ahora es una que se conoce como la suma de los errores al cuadrado.
+
+Que es muy simple.
+
+Che, si yo tengo una observación de testeo, me enfoco por el momento en una,
+
+y valía 120, y predije 116.
+
+Es 120 menos 116 me da 4 al cuadrado 16.
+
+El error en esa observación es 16.
+
+Si en otra observación, la segunda, por ejemplo,
+
+valía Y, valía 80, y yo predije 83,
+
+va a ser 80 menos 83 menos 3 al cuadrado 9.
+
+Se pierde el signo negativo.
+
+Y para esa observación el error es de 9.
+
+¿Estamos?
+
+Bien.
+
+Para un conjunto de datos, ¿qué hago?
+
+Tengo un error para cada una de las predicciones.
+
+Lo voy a sumar.
+
+Lo podría promediar, pero lo voy a sumar por una cuestión de que es más fácil después para presentar árboles.
+
+Y esa suma se llama la suma de los errores al cuadrado.
+
+¿Estamos?
+
+Que es muy declarativa el nombre.
+
+La suma de los errores al cuadrado.
+
+¿Está?
+
+Bien.
+
+Para una observación dada, ¿qué pinta tiene esa función?
+
+Yo me pongo una observación y digo, che, si me paso en 1, el error es en 1.
+
+Si me paso en 2, el error es de 4.
+
+Si me quedo corto en 1, perdón, en realidad esto, si me quedo,
+
+si me paso en 1, si me paso en 2, acá, no, perdón.
+
+Si me paso en 1 es esto, porque es 881.
+
+Si me paso en 1, error es 1.
+
+Si me paso en 2, error es 4.
+
+Si me quedo corto en 1, error es 1.
+
+Si me quedo corto en 2, error es 4.
+
+Se ven como, nada
+
+Perfecto.
+
+Queremos que eso sea, al menos en testeo, lo más bajo posible.
+
+Porque si es de 0, ¿qué significa?
+
+Que a todo le acerté, perfecto.
+
+Que a todo le acerté totalmente.
+
+Y si es de 10, significará algo, pero seguro puede decir,
+
+si este es de 10 y este es de 50,
+
+bueno, este pareciera como que predice mejor que el de 50.
+
+Queremos que sea lo más bajo posible.
+
+¿Es la única medida de error?
+
+No.
+
+Hay otras reelecciones
+
+las que vamos a usar ahora.
+
+¿Consulta sobre esto?
+
+Sí.
+
+Esto depende de la unidad de medida,
+
+igual, ¿no?
+
+Sí, totalmente.
+
+Sí, sí, sí.
+
+Pero esto es la variable a predecir.
+
+No pasa nada, digamos, ¿no?
+
+De hecho...
+
+Sí, depende de la unidad de medida.
+
+Si unidad de medida,
+
+¿cuál va a ser el mínimo?
+
+Totalmente no cambie el orden
+
+de cuál es mejor o peor, digamos.
+
+pero seguramente depende de algunas cositas así.
+
+No veo motivo por el cual cambiar la unidad de medida
+
+de la variable predictora, digamos.
+
+No solo quizás tenerlo en cuenta,
+
+si justo ajusté,
+
+o sea, estoy comparando
+
+para ver cuál tiene menos error,
+
+y justo ajusté uno.
+
+Está, pero vos tendrías que usar la misma y en principio, ¿no?
+
+No habría motivos.
+
+Vos cuando cambiás, escalar lo que sea sobre la X, sobre la Y, es lo que es.
+
+Podrías hacer, en algunos contextos, tiene sentido hacer una transformación
+
+de tipo tomar un logaritmo de la Y, cosas por el estilo,
+
+que se hacen relaciones muchas veces.
+
+Y acá también tiene sentido.
+
+No voy a hablar de eso ahora, pero a veces tiene sentido.
+
+Pero, en principio...
+
+Bien.
+
+Fíjense la estrategia que vamos a seguir.
+
+Yo lo que voy a querer es minimizar la suma de error al cuadrado
+
+en los datos que no conozco.
+
+O en validación, si veo un buen estimador o lo que fuera.
+
+Pero lo que voy a hacer va a ser algo medio particular.
+
+Es que decir, che, mi modelo va a aprender de los datos de entrenamiento
+
+minimizando el error
+
+en entrenamiento.
+
+Y después veo ese modelo
+
+cómo le va en validación, en testeo,
+
+lo que fuera.
+
+Y esto no es nuevo para ustedes, no debía ser nuevo.
+
+Cuando ustedes entrenan en una relación lineal,
+
+como vieron con May o lo que fueran,
+
+como presentó May, quizás dijo
+
+el estimador es X, estás puesta por X
+
+o lo que fuera,
+
+también se puede ver
+
+la función lineal que minimiza el error al cuadrado.
+
+Hacen eso básicamente, es decir,
+
+con los datos de entrenamiento,
+
+esto va a ser el error lo más chico
+
+en entrenamiento con este modelo
+
+y con eso aprendo el valor
+
+de los parámetros, los beta
+
+y después eso veo cómo le va en validación
+
+pero para aprender los beta
+
+usé los datos de entrenamiento
+
+y de hecho minimicé el error en entrenamiento
+
+obviamente si yo hago eso en exceso
+
+y propongo un modelo
+
+que deja mi error de entrenamiento en cero
+
+que voy a tener
+
+overfitting
+
+entonces
+
+parece una estrategia razonable
+
+pero también sabemos que es un poquito peligrosa.
+
+Pero es lo que va, digamos.
+
+Lo que vamos a tratar de hacer es seguir esta estrategia
+
+pero tratar de que no abuse
+
+en aprender demasiadas particularidades de entrenamiento.
+
+Genial.
+
+Esta técnica de decir, che, los parámetros,
+
+el valor de los parámetros, lo aprendo,
+
+iniciando el error de entrenamiento,
+
+es los estándares más inaliencias.
+
+Va a función de costo.
+
+De hecho, vecinos más cercanos no es lo normal.
+
+Esta estrategia es lo más normal.
+
+y se usa en la relación lineal, en Reach, en Lazo,
+
+que la van a ver en Machine Learning,
+
+en la relación logística también se usa,
+
+en la red neuronal más sofisticada que ustedes se imaginan,
+
+también se minimiza una función de costos o por vector machine,
+
+XGBoost, Gradient Boosting.
+
+Todos esos algoritmos que son los más competitivos
+
+tienen esta estrategia.
+
+Aprendo la función que me separa del espacio de atributo
+
+o lo que fuera, o la función de predicción,
+
+minimizando el error en entrenamiento.
+
+¿Estamos?
+
+Genial.
+
+Ahora veamos un poquito qué es un árbol.
+
+Y yo voy a dividir en tres etapas esto.
+
+Pues ahora le voy a decir qué hace un árbol con el espacio de atributos,
+
+que va a ser lo parte.
+
+Después voy a decir, dado un árbol,
+
+¿qué valor se predice?
+
+que va a ser una cosa.
+
+Pero no le estoy diciendo cómo encontramos ese árbol.
+
+Yo le estoy diciendo, si ya tengo el árbol,
+
+este árbol hace esto.
+
+Una vez que entendamos qué hace un árbol,
+
+vamos a buscar cuál es el árbol que mejor ajustaría los datos.
+
+Entonces, ¿qué hace el árbol?
+
+Bueno, el árbol es como una forma
+
+de partir del espacio de atributos.
+
+Y fíjense, este es un árbol de decisión,
+
+que se lee de arriba para abajo,
+
+porque para la gente de computación
+
+los árboles decen para abajo.
+
+Entonces, uno tiene la raíz que está arriba
+
+y las hojas que están abajo.
+
+Y uno empieza a leer de arriba
+
+y el árbol dice,
+
+si años es menor a 4,5,
+
+una hoja.
+
+¿Está?
+
+Por el contrario,
+
+si árboles, si años no es menor a 4,5,
+
+viene acá,
+
+Y hay otra como decisión, esa es la decisión, ¿no?
+
+Que dice, si hits es menos a 117, algo, ¿no?
+
+Years y hits son variables predictoras, ¿no?
+
+Lo que está diciendo esto, che, si yo tengo un dataset que tiene años y hits
+
+y observación distribuida de esta manera, te dice, che,
+
+si es menos a 4,5, es esta región, ¿está?
+
+Si no lo es, bueno, depende de otra partición que depende de hits, ¿está?
+
+¿No?
+
+Y hits, acá dice, che, si es menor o no, así te hiciste con más 5,
+
+estás, si es menor, región 2 y región 3.
+
+Entonces, ¿qué es lo que hace un árbol?
+
+Particiona el espacio de atributos.
+
+¿Cómo? En cajitas esta pinta, ¿no?
+
+Es como, che, yo tengo el espacio de atributos, le pon un corte,
+
+y después dentro de cada cajita otro corte, que puede ser este o el que fuera, ¿no?
+
+Yo podría decir, che, acá, por ejemplo, va a ser una partición por years,
+
+que sería región 2 y sería una partición acá dentro de esta manera.
+
+¿Se ve?
+
+¿Estamos bien?
+
+Entonces, ese árbol me parte del espacio de atributos en cuantas regiones, en tres.
+
+Bien.
+
+Raíz es este.
+
+Cada uno de estos son los que se llaman nodos de decisión.
+
+Las puntas se llaman hojas, ¿no?
+
+que son las que asignan una observación a una región.
+
+De hecho, yo puedo decir,
+
+che, si me viene una observación con years 7 y hits 120,
+
+bueno, yo sé que termina acá, ¿se ve?
+
+Ok.
+
+Genial.
+
+Claro, ¿qué es lo que hace un árbol con el espacio de atributos?
+
+Bien.
+
+Veamos.
+
+Ahora veamos cómo, dada una protección, obtenemos los valores predichos.
+
+Cada hoja va a tener un valor que predice.
+
+Acuérdense, en este caso, este dataset es predictores, es año.
+
+Hits es un dataset de béisbol.
+
+Y HIT, no sé si habéis jugado al béisbol, yo jugué de chico, bien noventero.
+
+Y me acuerdo que HIT era algo muy bueno, digamos.
+
+HIT era como que le pegabas y pasabas como el infil, algo por el estilo.
+
+Pero era como un buen bateo. Es algo bueno.
+
+Entonces
+
+Lo que tenemos son
+
+Características de cómo juega y de la edad de la gente
+
+Cómo batea
+
+Y para cada uno de esos puntitos
+
+Que es un jugador
+
+Tenemos asociado también un salario
+
+Que es lo que nos gustaría predecir
+
+Cuánto se paga en función de esos dos atributos
+
+Cosa que si nos viene una persona
+
+Acá
+
+Yo creo que me pagan 8 mil
+
+Y es que los de ahí le están pagando 20 mil
+
+Bueno, vengan conmigo
+
+pero se está pidiendo mucho, no, algo por el estilo
+
+así, como para tasar ese estilo
+
+de cosas
+
+bien
+
+¿Cómo decimos che?
+
+¿Qué se predice para una situación que cae acá?
+
+¿O para una que cae acá? ¿O para una que cae ahí?
+
+Eso es lo que vamos a ver ahora
+
+dado este árbol
+
+y la estrategia en relación
+
+con el costo
+
+medido como lo venimos midiendo
+
+es muy simple, ¿no?
+
+Dice, che, prazo 1, lo que hace un árbol es divide el espacio de atributos,
+
+si tiene cota hojas en cota de regiones,
+
+y después dice, para cada observación que cae en una región dada,
+
+la región 1, la 2 o la 3,
+
+se predice el valor promedio de las observaciones de entrenamiento
+
+que están en esa región.
+
+Entonces, lo que está diciendo es que,
+
+si a mí me cae una observación acá,
+
+yo promedio las y de todas las observaciones que están en esta región
+
+y le predigo ese valor.
+
+¿Estamos?
+
+Si me cae acá,
+
+predigo las y de las observaciones que están en esta región
+
+y le predigo ese valor.
+
+Y si me cae acá, lo mismo, pero con esta región.
+
+Y si me cae acá o me cae acá,
+
+se predice el mismo valor,
+
+porque pertenece a la misma región.
+
+¿Estamos?
+
+¿Queda claro?
+
+¿Es un poco de vuelta si cae justo en la línea decida?
+
+No, en la línea no.
+
+Perdón.
+
+Eso será si es un mayor o un mayor igual, digamos,
+
+y es justamente un caso muy puntual.
+
+Es si cae acá adentro, que está cerca de otras regiones,
+
+o cae acá, un árbol predice lo mismo.
+
+¿Está?
+
+Y si cae en la línea depende si vos tenés mayor o mayor igual, digamos.
+
+Pero es un caso muy, muy borde, digamos.
+
+Bien.
+
+¿Queremos un árbol con muchas ramas y hojas para ser más preciso?
+
+¿A riesgo de qué?
+
+No tan grave eso
+
+Entonces tampoco queremos eso
+
+Pero parece razonable
+
+De hecho, acá se ve un poquito más claro
+
+Bueno, hacemos el árbol más profundo y es el mejor
+
+No, cuidado porque
+
+Nada, por eso es el orofitting
+
+Ok
+
+¿La primera edición es al azar?
+
+Yo no dije cómo se arma el árbol todavía
+
+Yo dije, dado un árbol, divide el espacio de atributos así.
+
+Y después, dado esa división del espacio de atributos y este árbol,
+
+¿cómo se predice?
+
+No te dije cómo se arma el árbol todavía.
+
+Claro, digo, la división del espacio de atributos.
+
+Cuando se tratan las primeras líneas y se dirige el promedio...
+
+No te dije cómo hacerlo.
+
+Sí, sí, sí.
+
+Está bien, digamos, pero es justamente eso.
+
+Yo primero te quiero explicar qué es lo que hace un árbol dado.
+
+Ahora veamos cómo encontramos un buen árbol
+
+de cuántos árboles posibles,
+
+de los infinitos árboles posibles que vos podés armar
+
+con un dataset, cómo te quedás
+
+con uno bueno, ¿no?
+
+Porque yo podría haber dicho, che, primero parto por
+
+hit 140 y después devuelvo
+
+con otro valor y después tratará. Hay muchos árboles
+
+posibles, hay infinitos árboles que puedo armar
+
+con variables continuas, digamos, ¿no?
+
+Entonces, ok, ¿cómo
+
+encuentro el que es mejor?
+
+Entonces, ahora justamente
+
+lo que vamos a tratar de hacer es eso, es cómo
+
+hacer que, dado un dataset,
+
+el árbol se ajuste para lograr que tenga un bajo error en entrenamiento.
+
+¿Estamos?
+
+¿Vamos bien?
+
+Genial.
+
+Veamos esto.
+
+En relación, los árboles hacen algo por un estilo.
+
+Si yo tuviese una variable predictora 1, una variable predictora 2 y una variable a predecir,
+
+Un árbol, fíjense, la primera partición viene por x1 menor o igual a t1.
+
+x1 es esta, ¿no?
+
+Y hay una partición que usa todo x1 y otra acá, digamos.
+
+O puede ser o esta o esta, ¿estamos?
+
+Fíjense que después si yo me viniese acá, a menor a t1, hay una partición por x2.
+
+Entonces, fíjense que si yo estoy acá, la partición de acá es por t1.
+
+entonces esa no puede ser, tiene que ser esta,
+
+que después cuando me voy para este lado parece por T2.
+
+Entonces, esta de acá es esta primera partición de acá.
+
+Y esta de acá, X2 menor o igual a T2, es esto de acá,
+
+donde si es menor a T2 se predice ese valor,
+
+si es mayor se predice este valor, ¿está?
+
+Después, la partición que sigue es por X1, T3,
+
+por acá está T3, dice, che, si están estos dos valores se predice ese valor,
+
+y si no, depende de X2 de esta manera.
+
+Pero fíjense que lo que está haciendo es partiendo el espacio de atributos,
+
+y para cada región poner un valor predicho,
+
+que sea como una altura de la función en Y.
+
+¿Estamos?
+
+Y que tienen esta pinta escalonada.
+
+No es como una regresión, que es un plano que cruza,
+
+o como decinos más cercanos, que tenía formas a veces así.
+
+Esto es bien escalonadito.
+
+Bien.
+
+Veamos esto.
+
+En principio, no deja de ser un árbol algo que tenga diagonales o cosas por el estilo.
+
+Como que caería, digamos.
+
+Lo que pasa es que la decisión sería como si x más bi menor a tanto, digamos.
+
+¿Ven cómo no funciona?
+
+No vamos a hacer eso, sino que vamos a decir que tenemos árboles
+
+que van a dividir el espacio de atributos en rectangulitos de esta manera.
+
+¿Qué quiere decir?
+
+Bueno, que los cortes van a ser si tal variable es mayor o no a tanto.
+
+¿no?
+
+tal variable predictora
+
+es o no mayor a tanto
+
+eso me va a hacer
+
+rectángulos de este estilo
+
+¿no?
+
+y lo que a mí me interesa en este caso
+
+es que
+
+que dado un árbol
+
+yo puedo calcular
+
+en entrenamiento la suma de errores al cuadrado
+
+nada, es muy fácil
+
+digamos, no hay nada nuevo
+
+simplemente
+
+Esto, para cada una de las observaciones de entrenamiento,
+
+veo cuánto se valía y cuánto se predecía,
+
+que sería promedio de esa región, y voy sumando.
+
+Pero esta forma de expresar el error está bien y sirve,
+
+pero es un poquito más conveniente pensarlo de esta manera,
+
+que es lo mismo.
+
+Es una duda de sumatoria.
+
+Si yo sumo 2, 2, 4, 4 y 8, 8, me queda 2, 8, 16,
+
+y después sumo las tres sumas,
+
+me da la misma cosa,
+
+que si yo sumo 2,
+
+más 2, 4,
+
+más 4, 8,
+
+más 12,
+
+llego al mismo valor,
+
+digamos,
+
+la suma es permutativa,
+
+no hay ningún tipo de problema.
+
+Y acá lo único que hace es eso,
+
+dice,
+
+che,
+
+en vez de sumar una observación
+
+a una observación,
+
+digo, bueno,
+
+primero sumo para todos estos
+
+y me quedo con el valor de esta suma,
+
+¿está?
+
+Después sumo para todos estos,
+
+me quedo con el valor de esta suma,
+
+después para todos estos
+
+me quedo con el valor de esta suma
+
+y después sumo las tres sumas,
+
+¿estamos?
+
+Que sería esta,
+
+esta doble sumatoria.
+
+Con una particularidad,
+
+que para cada observación que pertenece a una región J,
+
+por ejemplo a R1,
+
+el valor predicho, ¿qué tiene?
+
+¿Es siempre qué?
+
+Es una constante, ¿no?
+
+Promedio de la observación de entrenamiento
+
+que cae en la región J.
+
+¿Va bien?
+
+¿Alguna duda acá?
+
+¿Estamos bien?
+
+Bien.
+
+Entonces, ¿qué es lo que vamos a querer?
+
+Encontrar un poco las regiones
+
+que cumplan estas características,
+
+que son rectángulos,
+
+que me hagan esto lo más chico posible.
+
+Sí.
+
+Entonces, el objetivo de este algoritmo
+
+es hacer muchos árboles
+
+y de ahí encontrar
+
+el árbol que...
+
+Yo todavía no te dije ningún algoritmo.
+
+Dije, che,
+
+esta es una representación
+
+una forma de partir
+
+de espacio de atributos
+
+que después
+
+predice de esta manera
+
+y dado eso
+
+dado un árbol dado
+
+ese es el costo
+
+que vos tenés.
+
+Todavía no te dije
+
+cómo encontrar un árbol.
+
+¿Está?
+
+Voy a llegar a un algoritmo
+
+en una slide
+
+creo en dos slides.
+
+¿No?
+
+Pero todavía no dije
+
+cómo lo buscamos.
+
+¿Está?
+
+Una estrategia
+
+podría ser esa.
+
+Una estrategia
+
+che, tiro al azar
+
+dos millones de árboles
+
+y me quedo con el mejor.
+
+Es válida. También valdría para la realización lineal, ¿no?
+
+Para la realización lineal es decir, si tengo 20 predictores, tiro al azar 20 números y me quedo con el mejor.
+
+No parece la estrategia más inteligente. Por algo no se la sigue.
+
+Se sigue algo que sea tratar de minimizar la función de costo en el entrenamiento.
+
+Y acá va a ser lo mismo, ¿no? No vas a tirar árboles a lo loco y decir cuál es el mejor,
+
+sino ir construyéndolos de una manera inteligente.
+
+¿Va? Y disciplinada.
+
+Bien.
+
+En diferentes implementaciones,
+
+por ejemplo, los árboles iniciales
+
+se llaman cart,
+
+classification,
+
+relation,
+
+trees,
+
+pero la librería social
+
+era rpart,
+
+que era recursive,
+
+partition,
+
+trees,
+
+si no me equivoco,
+
+algo así,
+
+¿no?
+
+Aparece esta palabra,
+
+recursivo,
+
+que ustedes hicieron fundamentos,
+
+¿vieron?
+
+Hay recursión,
+
+digamos,
+
+como implementar una función
+
+muchas veces,
+
+una función que se llama
+
+se llama a sí misma. Bueno, esto tiene un saborcito a esto, de hecho no es que tiene un saborcito, es eso.
+
+Y en el sentido de que nosotros lo que vamos a hacer es encontrar una partición,
+
+la primera partición del espacio de atributos, ¿no? La mejor posible que podamos hacer para tener un atributo de esta manera, ¿no?
+
+Y la estrategia que vamos a decir es, bueno, una vez que encontré esto, hago exactamente lo mismo,
+
+pero con un subconjunto del dataset.
+
+Hago lo mismo.
+
+Entonces yo voy a tener una cosa
+
+que lo voy a hacer para todos los datos,
+
+y después voy a hacer lo mismo de manera recursiva,
+
+solamente para este pedacito,
+
+después solo para este pedacito,
+
+y así voy a ir particionando el espacio de atributo.
+
+Va a quedar claro en un segundo.
+
+Pero la idea es que nos vamos a enfocar
+
+por el momento en la primera partición.
+
+Esta es algo como esto.
+
+Yo voy a tener un dataset,
+
+suponiendo que con dos predictores,
+
+x1 y x2
+
+y supongamos que estos son los puntos
+
+de mi atas de entrenamiento
+
+que cada uno tiene valores de y
+
+que no estoy visualizando acá
+
+y yo quiero encontrar la primera partición
+
+si es acá, va a ser x1 menor a tanto
+
+si es acá va a ser x1 menor a tanto
+
+va a necesitar todo un poquito más grande
+
+si es esta, la partición es x2 menor a tanto
+
+Si es esta, va a ser el Q2 menor a tanto
+
+Donde ese tanto es un poquito más grande que el otro que probé
+
+Lo que quiero encontrar es
+
+Esta primera partición
+
+Después la siguiente ya vamos a ver cómo aparece
+
+Pero si tenemos la primera bien, la siguiente sale fácil
+
+¿Va?
+
+Genial
+
+La estrategia que hace
+
+Y yo voy a leer la slide
+
+Quizás se, probablemente no lo entiendan
+
+Entonces vamos a ver, pero no lo entienden porque no es trivial
+
+porque uno lee las live y dice que me está hablando
+
+pero cuando uno lo ve
+
+con un ejemplo queda más clarito
+
+lo que voy a decir es
+
+che
+
+va a ser
+
+no fuerza bruta pero
+
+un poquito cerca de hecho
+
+voy a probar diferentes combinaciones
+
+de dos cosas y me voy a quedar con lo mejor
+
+de
+
+j y s
+
+donde j es
+
+el índice de variable
+
+La variable 1, la variable 2, la variable 3, la variable 4.
+
+Si tenés mil variables, J va de 1 a mil.
+
+¿Estamos?
+
+Entonces voy a probar mil valores de J.
+
+Y a su vez voy a probar para cada una de las variables
+
+diferentes puntos de corte, que les llama S.
+
+Split.
+
+S, S, S por split, digamos.
+
+Si es C, altura lo parto en 20 centímetros,
+
+después en 25, después en 30, después en 35.
+
+En principio es continuo, por ejemplo.
+
+pero vamos a armar como una grillita, ¿está?
+
+Que es lo que hacen los algoritmos, una grilla como muy detallada.
+
+O otra estrategia a veces también, pero siempre es una idea.
+
+No prueban un continuo, sino que prueban muchos valores.
+
+Entonces, para una variable dada, voy a decir qué pasa si pongo el corte en 5,
+
+en 16, en 17, en 18, en 19, etc.
+
+Después paso a la siguiente variable, la 2,
+
+y pruebo qué pasa si pongo el corte en este valor, en este que es un poquito más,
+
+en este que es un poquito más, etc.
+
+Y voy a hacer todas esas combinaciones.
+
+Entonces, si tengo mil variables y por cada variable pruebo 50 cortes,
+
+estoy probando 50.000 cortes.
+
+Y no pasa nada.
+
+No es tan lento eso.
+
+No pasa nada.
+
+De hecho, si ordenan bien los datos, cómo hacen estas librerías, todas estas cosas,
+
+vuela.
+
+Eso no es problema.
+
+Este problema no es tanto de cómputo, digamos.
+
+Eso va.
+
+Y va con datos masivos, datos grandes.
+
+Entonces, lo que dice acá es, che, voy a probar cortes en diferentes variables.
+
+y para cada variable en diferentes valores.
+
+¿Está?
+
+Y fíjense que cuando yo hago un corte,
+
+por ejemplo, variable 5 en 10,
+
+va a haber una región que cae de un lado
+
+y otra que cae del otro.
+
+¿Está?
+
+Lo que hacemos.
+
+Entonces, cuando yo pruebo una combinación de JS,
+
+estoy generando dos regiones.
+
+¿Está?
+
+Estoy pareciendo a una región que tenía antes en dos.
+
+¿Estamos?
+
+¿Está bien?
+
+Genial.
+
+Entonces lo que dice acá es, che, para cada variable j.s se definen las siguientes regiones de acuerdo a si la variable xj es menor a s o si es mayor o igual a s.
+
+¿Estamos?
+
+Y eso se parte en dos.
+
+Ok.
+
+Pero fíjense qué pasa con el costo, ¿no?
+
+El costo de esa región, por ejemplo, de todos los que están en una región dado, que podría ser entero, ahora se parte de esta manera, ¿no?
+
+Hay unos que se quedan de un lado de la región, del split, y otros del otro.
+
+Entonces, supongamos que estos son los que quedan a la izquierda.
+
+Bueno, todas las variables que van a la izquierda tienen un valor, básicamente, dado de las y,
+
+y un valor predicho, que es el nuevo promedio que tenés.
+
+Se ve que es el promedio de las y que caen en esa región.
+
+Y todos los que van a la derecha, supongamos, tienen su valor de y,
+
+menos el promedio de las y que caen a la derecha.
+
+La observación que cae a la derecha, ¿está?
+
+Entonces, estos dos valores,
+
+que antes eran uno solo,
+
+el promedio de toda región,
+
+ahora se parten en dos.
+
+¿Está?
+
+Y es como un poquito como si en esto
+
+el promedio entero vaya al medio,
+
+lo parto en dos,
+
+y ahora uno se va para abajo y el otro para arriba.
+
+¿Estamos?
+
+¿Va bien?
+
+Genial.
+
+Veamos un ejemplo,
+
+Solamente para tratar de afianzar un poquito esto.
+
+Supongamos que tenemos este dataset.
+
+Y que el costo total, el costo, la suma de errores cuadrados en todo el dataset,
+
+ahora es de, voy a hacer un número que me quede cómodo para pensar,
+
+8000.
+
+¿Está?
+
+Entonces la suma original es de 8000.
+
+¿Estamos bien?
+
+Más bajo eso, mejor.
+
+Y yo vengo y digo, che, primero voy a probar los cortes en X1.
+
+Y voy a probar cortes, voy a decir en 3, 6 y 9.
+
+¿Está?
+
+Y yo, che, bueno, la primera combinación que pruebo es X1, o sea, J1, S igual a 3.
+
+¿Está?
+
+Y lo pruebo.
+
+Es acá.
+
+Y me quedan
+
+la observación en este lado
+
+y el resto de acá.
+
+¿Está?
+
+Y yo lo que puedo decir es,
+
+che, bueno, ¿cuál es el error de este lado?
+
+Y supongamos que el error es de
+
+300.
+
+¿Está?
+
+El error que me queda acá, lo voy a poner ahí un poquito más.
+
+300.
+
+Y el error que me queda de este lado
+
+Supongamos que es de
+
+7300
+
+¿Qué estoy haciendo acá?
+
+A este le resto promedio 23
+
+Y lo leo al cuadrado
+
+Más este mismo promedio 23
+
+Más este mismo promedio 23
+
+Y digo me da 300
+
+Después hago lo mismo para acá
+
+Y me da 7300
+
+¿Está?
+
+El error total
+
+Cuando usó partilidad trasera
+
+Ahora de esta manera
+
+¿De cuánto es?
+
+¿Cuánto?
+
+7600
+
+Porque es la suma de errores para cada una de las observaciones
+
+Y si yo había dicho antes
+
+Que lo podría hacer región a región
+
+Y te estoy diciendo acá
+
+Estos 300
+
+Y estos 7300
+
+Entonces el error total
+
+El SSE
+
+Es de
+
+7300
+
+¿No?
+
+Si yo no tenía una partición
+
+¿De cuánto era el error?
+
+¿En cuánto le hice bajar?
+
+700
+
+eso
+
+que es
+
+en cuanto
+
+hago bajar
+
+el error
+
+dado una partición
+
+se llama gain
+
+ganancia
+
+el gain es de 700
+
+y nos gusta
+
+¿no?
+
+7600
+
+perdón
+
+pero me dijiste 7300
+
+¿no?
+
+o escuché mal
+
+disculpen
+
+gracias
+
+O no
+
+Yo borro por las dudas
+
+El gain es 400
+
+Disculpen
+
+Era 300 más
+
+300
+
+Ok, perfecto
+
+¿Nos quedamos con ese corte?
+
+¿Y cerramos?
+
+¿Qué hacemos?
+
+¿Cómo?
+
+Un nuevo corte
+
+¿Cuál?
+
+Bueno, probemos con la misma I
+
+Con la misma J, pero otro valor de S
+
+Supongamos que es
+
+Este
+
+En 6
+
+¿No?
+
+Y acá nos da
+
+1000
+
+Voy a hacer más fácil la prueba de equivocarme
+
+Y 6000
+
+¿No?
+
+Ok
+
+¿Cuánto es el error total cuando yo pruebo
+
+X1
+
+Es en 6
+
+¿Cuánto es el error?
+
+7000
+
+¿Cuánto es la ganancia?
+
+Mil
+
+Si mi objetivo es disminuir el error de entrenamiento
+
+¿Cuál es un mejor corte?
+
+¿El primero que probé o el segundo?
+
+Bueno, de hecho hasta ahora
+
+El mejor que probé es este de acá
+
+¿Está?
+
+Y supongamos que ahora yo vengo acá
+
+Y
+
+Me queda
+
+400
+
+Y 7400.
+
+El error total es de 7800, ¿no?
+
+¿Y la ganancia cuánto es?
+
+200.
+
+Si yo tenía 8000 y hago este corte, es de 200.
+
+¿Es mejor que el anterior?
+
+No.
+
+Ok, perfecto.
+
+¿Terminamos acá?
+
+Nos falta otra variable.
+
+Perfecto.
+
+Entonces saco esto
+
+y digo...
+
+Bueno, ahí saqué algunas observaciones
+
+que creo que estaban acá, ¿no?
+
+Pero...
+
+Bueno, pero supongamos 2, 4, 6,
+
+que es esa la grisa que estoy usando, ¿no?
+
+Y digo, che, pruebo esto acá
+
+y que me da
+
+400 y
+
+7500.
+
+Bueno, la segunda variable en 2 me da 7900.
+
+El gain es de 100 y no es un mejor corte que el que tenía antes.
+
+Pero ahora vengo y pruebo este de acá, supongamos,
+
+pack, y me da, supongamos, 6.600.
+
+Ok, en este caso, que sería variable 2 en 4, me queda 6.600, y el gain es de 1.400.
+
+Estamos bien, ¿no?
+
+¿Qué pasó acá?
+
+¿Cómo?
+
+Está
+
+Entonces hasta ahora la mejor partición es
+
+Está acá
+
+Bueno, sí
+
+Bien, está acá
+
+Y ahora supongamos que
+
+Termino
+
+Lo pruebo acá
+
+Y que me da nada
+
+Que me da 600
+
+Y
+
+7100
+
+Sería variable 2 en 6
+
+7700
+
+300, una ganancia de 300.
+
+No mejora lo de antes, ¿está?
+
+Y listo, no tengo más variables predictoras
+
+y agoté los valores de S para cada variable.
+
+¿Qué hice?
+
+Probé todas las combinaciones J y S,
+
+que había básicamente,
+
+al final es una grilla,
+
+y elegí la mejor.
+
+¿Que la mejor cuál es?
+
+J cuánto y S cuánto.
+
+2, 4, ¿no?
+
+Entonces, a lo que yo llevo acá,
+
+es que, che,
+
+yo tenía
+
+todos los datos,
+
+y ahora digo, che,
+
+si x2
+
+es menor a 4,
+
+entonces
+
+una región 1
+
+y una región 2.
+
+En donde en cada uno se va a predecir
+
+el promedio de las y que quedan en la región 1
+
+y en la región 2, ¿está?
+
+Y listo, ya hicimos el primer corte.
+
+Que supongamos que es
+
+No supongamos nada
+
+Es
+
+Este de acá
+
+¿No?
+
+Pero eso es un árbol de
+
+Profundidad ¿Cuánto? Uno, una única
+
+Presición y ya está uno, un único split
+
+En este caso, ¿Ok?
+
+Pero tenemos que hacerlo crecer más ese árbol
+
+¿No? ¿Qué podemos hacer?
+
+supongamos que ahora digo
+
+yo quiero partir la región 1
+
+¿qué puedo hacer?
+
+que la región 1, acordémonos
+
+va a ser esta de acá
+
+si te digamos región 2
+
+¿qué puedo hacer esta región ahora para partirla?
+
+lo mismo
+
+me enfoco en esa región
+
+pruebo las diferentes J
+
+y los diferentes S
+
+para cada una de las J
+
+y encuentro el mejor. ¿Qué quiere decir?
+
+Para esta región,
+
+que ahora, si no me equivoco, tenía un error
+
+de 1000, si no me equivoco,
+
+o no me acuerdo, que si alguien me recuerda
+
+qué número puse, se me escribió, pero si no...
+
+1400. Ok, para esto que tenía
+
+un error de 1400,
+
+lo que voy a hacer es
+
+probar el corte acá,
+
+el corte acá, el corte acá, y después
+
+el corte ahí, y me voy a quedar con el mejor.
+
+Y cuando encuentre el mejor, supongamos
+
+que es X1
+
+menor a 9,
+
+que es este de acá.
+
+¿Se ve?
+
+Y ahora región 1 se parte de región 1
+
+y aparece una región 3.
+
+¿Estamos?
+
+Bueno.
+
+Tengo
+
+región 1
+
+y región 3.
+
+¿Estás?
+
+3.
+
+¿Bien?
+
+Ahora puedo partir esta.
+
+Y lo hago ahí.
+
+tendré región 2 y 4.
+
+¿Estamos?
+
+¿Eso no te afecta el índice primero?
+
+No, no, es como independiente eso, digamos.
+
+Una vez que se está enfocando en la región,
+
+lo que pasa en la demás no te afecta.
+
+¿Y cómo sabemos cuando hay overfitting?
+
+¿La trama de verdad?
+
+¿Cómo sabemos cuando hay overfitting?
+
+¿A alguien se le ocurre?
+
+Bueno, cuando quedan todos en un cuadrante distinto.
+
+Eso podría ser overfitting,
+
+pero tampoco me da juego que overfitting.
+
+¿Cómo sabemos si hay orofitting?
+
+Con un conjunto de validación, perfecto.
+
+Necesita un conjunto de validación
+
+para todo eso. La profundidad
+
+de tu árbol es una variable que vos
+
+tenés que decidir eventualmente y la vas a decidir
+
+no porque alguien te dice
+
+que tiene que ser tanto, sino en función de un conjunto de validación.
+
+Y casi que siempre me
+
+preguntan en esta materia,
+
+¿cómo decidimos esto?
+
+Y yo les voy a preguntar, ¿cómo deciden?
+
+Y alguien me dice, conjunto de validación.
+
+Porque es así, digamos, es como que
+
+depende, todas las decisiones
+
+depende del conjunto de validación
+
+y por eso está el comienzo de la materia
+
+es como tenés que tener un conjunto de validación
+
+para tomar buenas decisiones
+
+y todas las decisiones modeladas
+
+dependen del conjunto de validación
+
+es como
+
+es súper importante
+
+bien
+
+pregunta
+
+si yo dejo esto andando
+
+¿cuándo termina?
+
+¿cuándo qué?
+
+que se daría típicamente, ¿en qué caso?
+
+Sí, pero ¿en qué árbol?
+
+Claro, que tiene tantas regiones como observaciones,
+
+o que sería una forma de decir, bueno, che,
+
+que cada hoja del árbol tiene una única observación, ¿no?
+
+¿Estamos bien?
+
+¿Se ha duplicado en la fila?
+
+Puede ser que no, pero supongamos que no ha duplicado, está.
+
+Pasa eso.
+
+Muy probablemente ese árbol queda overfitting, casi seguro, digamos.
+
+Es muy raro que no lo haga, pero muy probablemente haga overfitting ese árbol.
+
+Entonces, sabemos cómo construir un árbol, está,
+
+pero lo que vemos es que si dejamos este árbol crecer a infinito hacia abajo,
+
+con esta estrategia de minimizar el error de entrenamiento,
+
+bueno, muy probable, hasta lo más que se pueda,
+
+hacia abajo, bueno, lo más probable es que hagamos overfitting.
+
+¿Estamos bien?
+
+Eso no nos gusta.
+
+Pero bueno, vamos a ver cómo lo podemos tratar de evitar
+
+Sí, perfecto
+
+Voy a hacer una pregunta
+
+Si yo no hago ninguna partición
+
+¿Qué valor prehíbo para cualquier Y?
+
+El mismo, ¿cuál?
+
+¿el promedio de qué?
+
+en entrenamiento
+
+entonces si yo no tengo ningún corte
+
+hago under fitting y este modelo predice
+
+el promedio de las y en entrenamiento
+
+¿se acuerdan que en la clase pasada
+
+cuando nos dice que si el vecino más cercano
+
+usa la versión más rígida de vecino
+
+que es K
+
+vecino igual a cantidad de observación que se predecía
+
+lo mismo ¿no?
+
+el promedio de las y en entrenamiento
+
+en el caso más extremo
+
+de vecino más cercano cuando K es igual a N
+
+que se predecía para cada observación exactamente lo que era.
+
+Que es lo mismo que se predece en un árbol que crece lo máximo posible.
+
+Se predece para cada observación el valor de sus ideas.
+
+Entonces es como que, me sigo más cercano a conocer flexibilidad,
+
+lo mismo que árboles sin flexibilidad, con flexibilidad extrema es lo mismo.
+
+Los caminos en el medio son diferentes, básicamente.
+
+Tienen diferentes hipótesis de cómo armar la función de predicción.
+
+Bien.
+
+Veamos.
+
+Esto es para
+
+regresión, lo que nosotros vimos.
+
+¿Y para clasificación cambia mucho?
+
+La verdad es que no.
+
+Veámoslo acá.
+
+La idea se puede adaptar fácilmente para clasificación.
+
+Y para clasificación nosotros lo que vamos a querer
+
+siempre que se pueda,
+
+lo que vamos a querer predecir es
+
+la probabilidad
+
+de que
+
+una observación J
+
+de que XJ
+
+de que la observación
+
+XI, disculpen, de que XI
+
+de que la observación Y
+
+pertenezca a la clase K, ¿está?
+
+es la probabilidad de que el circulito sea rojo
+
+la probabilidad de que dado donde cae
+
+esto sea triangulito
+
+o lo que fuera, ¿está?
+
+la probabilidad de que
+
+pase la canción en el TP o no.
+
+Siempre queremos predecir una probabilidad
+
+que va entre 0 y 1.
+
+Genial.
+
+Árboles.
+
+La estructura va a dividir el espacio de atributos
+
+de la misma manera, digamos.
+
+¿Cómo divide el árbol?
+
+Fíjense que yo incluso le presenté
+
+todo esto de cómo partía el espacio de atributos
+
+sin decir ni siquiera que predecíamos el salario.
+
+¿Se ve?
+
+¿Cómo se parte del espacio de atributos?
+
+No depende del Y.
+
+O sea que no depende de si hay un problema de clasificación,
+
+de relación.
+
+El árbol parte del espacio de atributos.
+
+Punto.
+
+Después, si hay clasificación o de relación,
+
+el paso de qué se usa para predecir en esa región cambiará.
+
+Pero cómo parte del espacio de atributos,
+
+no se modifica.
+
+¿Estamos?
+
+Entonces, supongamos este ejemplo.
+
+Este ejemplo es de un libro también,
+
+y de Tang, si no me equivoco.
+
+Y dice, che, mirá, tenemos dos atributos.
+
+Este que es, acá tendría que decir tamaño, y acá humedad.
+
+Y lo que estoy tratando de predecirse es si diferentes hongos son venenosos o no.
+
+Ok, perfecto.
+
+Y dice, che, si es azul, son venenosos, clase venenoso.
+
+Pero acuérdense que cuando hay la predicción, digamos, cuando hay clasificación,
+
+lo pintamos en función de la clase.
+
+Y si no es venenoso, es esto barrecito, ¿no?
+
+Ok, supongamos que tenemos este árbol, ¿no?
+
+Que parte el espacio de atributo en dos regiones,
+
+en función del tamaño, ahí debe ir a ese tamaño.
+
+Si el tamaño es mayor a la T1,
+
+y si el tamaño no es menor a la T1, ¿no?
+
+Si viene un hongo y cae en esta región,
+
+¿ustedes qué dicen? ¿Es venenoso o no es venenoso?
+
+Y si tuviesen que poner una probabilidad,
+
+viendo esta región, ¿qué dirían?
+
+¿Con qué probabilidad es venenoso?
+
+¿Cuánto?
+
+100%.
+
+100%, ¿no?
+
+Probabilidad de uno.
+
+Por el contrario,
+
+si cae en esta región,
+
+¿ustedes qué tienen a decir?
+
+¿Es venenoso o no es venenoso?
+
+Está en mezcla,
+
+y estoy un poco más en duda.
+
+Pero si yo te preguntase,
+
+¿qué probabilidad dirías vos
+
+de que es venenoso?
+
+¿Cuántos?
+
+Tres octavos.
+
+Hay ocho observaciones
+
+que caen en esta región,
+
+tres son venenosos.
+
+Ok.
+
+Lo que va a ser un árbol,
+
+o el árbol como estamos viendo acá,
+
+es eso básicamente.
+
+Es decir,
+
+predice como probabilidad condicional
+
+la proporción de observaciones
+
+de cada una de las clases
+
+que hay en esas regiones.
+
+Entonces, en esta región,
+
+probabilidad de 1 venenoso
+
+y 0 no venenoso.
+
+En esta región,
+
+3 octavos venenosos,
+
+5 octavos de no venenosos.
+
+Si yo hiciera una partición acá,
+
+ahora me quedaría esta
+
+con probabilidad 1 venenoso
+
+y 0 no venenoso.
+
+Si me quedaría acá,
+
+tres quintos venenosos
+
+y dos quintos no venenosos.
+
+Genial.
+
+Pero recordemos que lo que nosotros hicimos acá
+
+fue tratar de construir el árbol
+
+minimizando una función de costo, ¿no?
+
+¿Qué era la suma de los errores al cuadrado?
+
+Pero tiene como poco sentido decir,
+
+che, minimizar la suma de los errores al cuadrado
+
+con clases.
+
+estos gatos y acá era perro
+
+digamos predijo o algo por el estilo
+
+es como, es una probabilidad
+
+es como que esta función de la suma de un real al cuadrado
+
+no tiene mucho sentido
+
+entonces la cosa que cambian
+
+en árbol de decisión de
+
+relación a clasificación es primero
+
+cómo se predice en una región
+
+no es el promedio de las ideas
+
+sino es la proporción de cada una de las clases
+
+y lo segundo es
+
+y es lo último que se cambia es
+
+cómo se mide el costo
+
+y ya no se mide el costo
+
+expresión que la suma los errores al cuadrado, sino que se usa alguna otra métrica. Y hay dos
+
+como que son muy populares y que son muy parecidas, que son las de Gini o la de entropía,
+
+que esta es muy popular. Fíjense, y la intuición la van a captar bien ustedes, en esta región
+
+el árbol
+
+está cometiendo muchos errores
+
+¿o no?
+
+en la región esta de acá
+
+no, ¿no?
+
+de hecho yo digo
+
+es azul y son todos azules
+
+¿no?
+
+en esta región
+
+está cometiendo
+
+errores ¿o no?
+
+en realidad no se está jugando
+
+es como que siempre
+
+que le dice
+
+probablemente 0,5
+
+está errando mucho
+
+o eso no es
+
+digamos
+
+entonces
+
+fíjense que
+
+esta región
+
+en este año
+
+se le dice como que
+
+es una región
+
+como muy pura
+
+digamos
+
+pertenece a una única clase, mientras que esta está más mezclado.
+
+Si yo cambiase los colores y dijese, che, todos estos son no venenosos
+
+y todos estos venenosos, esto seguiría siendo una buena región,
+
+sería donde están todos los no venenosos.
+
+Entonces no importa que estén o solo los no venenosos acá,
+
+o solo los no venenosos.
+
+Lo que no importa es que haya de una clase y solo de una clase,
+
+ya sea o venenosos o no venenosos.
+
+¿Estamos? Que digamos, che, tenemos una región en donde separamos un grupito que solo pertenece a esta clase.
+
+¿Va? En esta región lo logramos, en esta no lo logramos.
+
+¿Vamos bien?
+
+Estas expresiones captan exactamente eso.
+
+Y es justamente eso.
+
+Dice, che, si yo tengo, para el caso supongamos binario, de venenoso o no venenoso, ¿no?
+
+esto es K mayúscula, son dos, son dos valores, ¿no?
+
+Entonces yo digo, che, captó una región que solo tiene no venenosos,
+
+entonces digo, che, para no venenosos, digo,
+
+la proporción de no venenosos que hay es de 1,
+
+y logaritmo de 1 es 0, entonces 1 por 0 es 0, ¿no?
+
+Y para venenosos, que sería la otra parte de la sumatoria,
+
+lo que voy a tener es 0 por logaritmo de 0, que es indefinido,
+
+pero por convención es 0 por indefinido, acá lo estamos tomando como 0, ¿no?
+
+Entonces es 0 más 0, ¿está?
+
+Entonces, si yo estoy en una región donde hay solo venenosos,
+
+tengo que esta suma, ¿no?
+
+Esto de acá, me da cero.
+
+¿Va?
+
+Mientras que si tuviese solo no venenosos,
+
+bueno, va a ser solo no venenosos.
+
+¿Qué ejemplo dije antes?
+
+Solo venenosos, solo no venenosos.
+
+Solo venenosos.
+
+Bueno, solo no venenosos voy a ir y voy a decir,
+
+para los no venenosos voy a tener 1 por logaritmo 1,0,
+
+y para los venenosos 0 por logaritmo 0,0,
+
+y voy a estar en este caso.
+
+Entonces, lo que te dice es que hay poco error,
+
+hay poco entropía, hay poco desorden,
+
+si o solo tengo venenosos o solo tengo no venenosos.
+
+De hecho, si hubiese más de una clase sería lo mismo.
+
+Sería bajo error si logro que haya un nodo o una región
+
+solo con una de las clases.
+
+Lo que va a cambiar es el máximo
+
+Al que llega si no es binario
+
+Lo que hace es ver
+
+Cuántas veces le pega
+
+No, lo que hace
+
+La intuición acá es ver qué tanto se observa
+
+En la región esa
+
+Que solo hay observaciones que pertenecen
+
+A la misma clase
+
+En vez de mezclados
+
+Bien
+
+Entropía
+
+Se lo puede asociar como desorden
+
+Como mezcla de cosas
+
+Es como qué tanta entropía hay
+
+es qué tan mezcladas están
+
+las cosas acá.
+
+Están solo de un tipo, solo de otro.
+
+Y el peor de los escenarios en términos de atropía
+
+¿qué sería? Y también para predicciones
+
+tener una región que tiene mitad y mitad
+
+digamos en el caso binario.
+
+Y que sería este de acá
+
+en donde vos decís
+
+0,5 por logaritmo de 0,5
+
+más 0,5 por logaritmo de 0,5
+
+es el logaritmo de número negativo
+
+negativo, por eso está ese menos acá.
+
+Y cuando haces el calculito te da
+
+1. ¿Estamos?
+
+entonces esta función de costo
+
+lo que se enfoca
+
+es armar árboles
+
+en donde las particiones
+
+lo que va a tratar de hacer el árbol es buscar minimizar
+
+la entropía, en este caso su entropía
+
+tal que las particiones sean
+
+lo más puras posibles
+
+que de un lado estén de una clase
+
+y del otro lado estén solo de una clase
+
+que vas a separar las soluciones de esa manera
+
+bien
+
+este coeficiente de Gini
+
+que no es el que se usa en economía
+
+como distribución de ingresos
+
+sino que es más de computación
+
+lo que tiene es la misma intuición
+
+fíjense
+
+básicamente esto alcanza un máximo
+
+cuando es 0,5
+
+que es el mayor desorden
+
+y que el máximo es 0,5
+
+y si fuese solo una clase
+
+sería 0 por 1 menos 0
+
+0 por 1
+
+y si fuese la otra sería
+
+1 por 1 menos 1
+
+0 digamos
+
+entonces
+
+si estás de solo una clase
+
+te da 0
+
+si está solo 3 a 0, el peor caso
+
+donde está totalmente mezclado.
+
+Y fíjense que hasta la forma de las dos funciones
+
+son muy parecidas, no sé si son Gini o Antropía.
+
+Entonces, bueno, no cambia tanto
+
+cuando trabajo en clasificación
+
+con árboles de decisión,
+
+cuando lo uso para clasificación de regresión
+
+no cambia tanto. ¿Qué cambia?
+
+Cómo predigo las proporciones
+
+y cómo mido el costo con algunas de estas dos funciones.
+
+Pero después del entrenamiento es lo mismo.
+
+Tengo una predicción, veo cuál es la función de costo,
+
+y pruebo todas las X y S que me hacen lo más pequeño posible.
+
+Si uso entropía, la entropía, por ejemplo.
+
+No cambia nada, salvo esas dos cositas.
+
+Bien.
+
+Eso está bueno, digamos, ¿no?
+
+Tener un modelo que se adapta a otro tipo de problema de predicción
+
+simplemente cambiando la función de costo y cómo se predice.
+
+¿Está?
+
+Sí.
+
+Claro, si vos
+
+Le das un clóset de tropi de cero
+
+Estás como separando perfectamente
+
+Las cosas, ¿no?
+
+Pero no siempre va a ser el caso
+
+No siempre va a ser el caso, ¿no?
+
+De hecho, no lo crees que sea el caso
+
+Porque si lo llevas muy muy bajo
+
+Que estés en sobrefitting seguramente
+
+Porque esto lo estás midiendo en entrenamiento
+
+Bien
+
+Yo hasta ahora hice la distinción si la variable predecida es la clasificación o relación.
+
+Dije, che, árbol de relación, árbol de clasificación, pero cambiaba las cosas.
+
+Lo que puede suceder es que el predictor sea categórico también.
+
+Y no hay problema, podemos hacer lo que hicimos en la clase pasada,
+
+podemos hacer one-call encoding y transformarlo en varias columnas de 0 y 1,
+
+como vimos en la clase pasada, y vamos a ver de vuelta un poco más en detalle de la que viene.
+
+Pero árboles de decisión
+
+tienen algo que a mí me gusta.
+
+Y es que
+
+permite trabajar de una manera
+
+un poquito más elegante,
+
+con una regresión o otros algoritmos,
+
+las variables predictoras,
+
+o sea, las que uso para predecir,
+
+cuando son categóricas.
+
+Y fíjense, yo acá hago una partición del estilo
+
+che, una variable continua es más oro,
+
+menor a tanto.
+
+Y eso que me dice, che, de todos mis datos,
+
+unos se van para un lado y otros se van para el otro.
+
+¿No? ¿Ok?
+
+Con categóricas
+
+Yo podría hacer algo parecido
+
+Si yo tengo en vez de tamaño
+
+Tengo una categoría que dice
+
+Small, Medium, Large
+
+¿No?
+
+Yo puedo decir
+
+Che, ok
+
+Si parto por esta variable
+
+Y tiene tres valores
+
+Es como que estoy partiendo el dataset
+
+En tres grupitos
+
+¿No?
+
+Y para cada uno
+
+Lo considero como una región
+
+Y le calculo el costo
+
+¿Está?
+
+Y se acabó
+
+Entonces yo con
+
+Árbol de decisión
+
+puedo partir en función de variables
+
+en función de variables
+
+categóricas, de esta manera
+
+una rama para cada una
+
+de las diferentes categorías
+
+¿Estamos?
+
+Ahora bien
+
+Cada uno de ustedes tiene un DNI
+
+y asumo que nadie
+
+tiene acá un DNI pirateado
+
+entonces no hay duplicado, nada por el estilo
+
+¿No?
+
+Y yo le pregunto, ¿el DNI es un número?
+
+es un número, ¿no?
+
+Pero, ¿qué es eso?
+
+Es un número que identifica, ¿no?
+
+Lo único que no importa,
+
+después tiene una cardinalidad,
+
+más bajo el número, más viejo,
+
+pero olvidémonos de eso, ¿no?
+
+Es un número que lo que me importa
+
+es que el mío es diferente del tuyo
+
+y el tuyo es diferente del otro,
+
+así es el error que cumple.
+
+De hecho, es más casi una categoría,
+
+en cierto sentido,
+
+no tiene mucho sentido sumar DNIs
+
+o cosas por el estilo, ¿no?
+
+Entonces, tampoco habría mucho problema
+
+si yo le digo, che, a su DNI
+
+le cambio el 1 por A, el 2 por B,
+
+el 3 por C, tal,
+
+Sería una palabra, pero a fines prácticos es casi lo mismo.
+
+Entonces vean que el DNI es más parecido a una palabra,
+
+a una categoría.
+
+Uno guarda como número, pero es más parecido a una categoría.
+
+El número de teléfono también.
+
+Ok.
+
+¿Qué pasa si yo tengo una variable categórica en un dataset,
+
+que es el DNI, que no tiene duplicados,
+
+y viene un árbol y me dice, y hice los cambios,
+
+el 1 para A, así no le genera ruido, ¿no?
+
+Y viene un árbol y hace un split por DNI.
+
+¿qué va a pasar?
+
+¿cuántas ramas?
+
+si yo tengo mil observaciones, ¿cuántas ramas nuevas se van a crear?
+
+mil
+
+¿no?
+
+y si sucede eso, ¿qué va a pasar?
+
+overfitting, para cada una
+
+va a predecir perfecto
+
+entonces está buenísimo que trabaje con categóricas
+
+pero no queremos
+
+que habrá en un montón de
+
+categorías a la vez
+
+entonces típicamente eso no se permite
+
+entonces
+
+corte de este estilo no se permite
+
+y se trata de mantener esta característica
+
+de los árboles
+
+que va partiendo
+
+de dos, partiendo en dos
+
+que se llaman árboles binarios
+
+que van partiendo
+
+en dos de esa manera
+
+y lo que se hace es
+
+se prueba en combinación de esta manera
+
+small y medium para un lado
+
+esos son un grupito
+
+y large del otro
+
+o medium y large del otro
+
+o podría ser medium de un lado
+
+y small y large es la que falta del otro.
+
+¿Estamos bien?
+
+Se trata de mantener que sea
+
+binario.
+
+Y no excede, digamos, esto.
+
+Y de hecho yo no leí muy bien
+
+sé dónde está y lo he leído que funciona así,
+
+pero hay estrategias
+
+para elegir de manera inteligente
+
+cómo decir, si estas categorías
+
+van de un lado y estas van del otro.
+
+Como no probar a todas, sino
+
+simplemente probar
+
+unas, digamos, decir, si es small de un lado,
+
+después small, medium y large.
+
+hay una estrategia,
+
+entonces esa búsqueda se puede hacer
+
+y se trata de mantener binarios.
+
+Esto está súper bueno, digamos,
+
+a mí me encanta, digamos,
+
+pero la parte media rara
+
+es que no todas las librerías
+
+tienen implementado esto,
+
+de hecho, Scikit-Learn
+
+no lo tiene implementado,
+
+o no lo tenía hasta, no hace tanto, ¿no?
+
+Scikit-Learn tenía cosas muy raras,
+
+no podía trabajar con Missing,
+
+árboles de decisión,
+
+cuando hay alguna estrategia como inteligente para trabajar con misis en la decisión.
+
+Entonces, a mí como que mucho no me gustaba esto,
+
+después me di cuenta que si uno solo una variable categórica hace one-hole encoding,
+
+no es tan dramático, también funciona bien, digamos.
+
+Y puntualmente, donde queda muy claro es que en XGBoost,
+
+que es el modelo como más competitivo,
+
+originalmente no tenía para trabajar con variables categóricas,
+
+y te obligabas a hacer one-hole encoding,
+
+y aún así le ganaba todas las versiones de árboles que tienen estas cosas.
+
+Entonces, está bueno esto,
+
+pero hacer OneHot Encoding no es tan dramático.
+
+Aún así, las nuevas versiones de XGBoost
+
+tienen implementado trabajar de esta manera.
+
+Bien.
+
+Que no es necesario hacer OneHot Encoding.
+
+Ok.
+
+¿Cuál de estos dos árboles hace más overfitting?
+
+¿El de la izquierda o el de la derecha?
+
+El de la izquierda, ¿no?
+
+Es como que capta más particularidades
+
+de la tasa de entrenamiento.
+
+Bueno, se hace más overfitting, digamos.
+
+Es más flexible, sabemos, ¿no?
+
+¿Cuál tiene más riesgo sobre ajustar los datos?
+
+Este.
+
+Si este tiene más riesgo,
+
+podría ser de underfitting.
+
+Ok, perfecto.
+
+Bien.
+
+Entonces puede haber escenarios
+
+en donde yo prefiero este árbol
+
+por sobre este árbol, ¿no?
+
+Entonces lo que vamos a ver
+
+es que los árboles de decisión
+
+que se conoce como criterios de parada.
+
+Que es, che, yo los voy construyendo
+
+hasta que hay algo que se activa
+
+que dice no sigas.
+
+¿Va?
+
+Bien.
+
+Hay varios.
+
+Hay un montón.
+
+Los más populares son estos.
+
+¿Qué es?
+
+Profundidad máxima.
+
+Si yo digo que un árbol puede tener
+
+profundidad máxima,
+
+un árbol puede tener,
+
+un binario puede tener una partición.
+
+Porque es profundidad,
+
+pero profundidad máxima de 1.
+
+Si yo tengo profundidad máxima de 1,
+
+tengo una partición,
+
+porque tiene profundidad de 1.
+
+Si yo digo,
+
+che,
+
+puede tener profundidad máxima de 2,
+
+puede llegar a construirse esto.
+
+Si es de 3,
+
+este de acá se ve.
+
+No, los nodos no son,
+
+porque los nodos son 2 a la tanto,
+
+digamos, ¿no?
+
+Los que te quedan finales.
+
+Si hay profundidad 3,
+
+va a ser 2 a la 3.
+
+Lo que vas a tener,
+
+básicamente es que
+
+esta profundidad 1, 2, 3.
+
+Pero ya este,
+
+esta profundidad 3,
+
+no lo vas a poder seguir partiendo
+
+porque tu profundidad máxima es 3.
+
+¿Estamos?
+
+Entonces, profundidad máxima de 3 es
+
+o de n, voy a construir un árbol
+
+hasta profundidad de n.
+
+Si ahí en ese nodo me quedaron
+
+un millón de observaciones,
+
+mala suerte.
+
+Profundidad máxima de 3
+
+y no se explitea más.
+
+¿Estamos?
+
+Bien.
+
+Observación de entrenamiento.
+
+Pero perdón
+
+Eso lo definí
+
+Como acá
+
+En medicinos más cercanos
+
+Como
+
+En donde
+
+En validation
+
+Si
+
+Es como voy a empezar
+
+Todo así
+
+Todo con validation
+
+Probas y validation
+
+Perfecto
+
+Mean sample splits
+
+ok, ¿qué es?
+
+yo solo una hoja
+
+en entrenamiento, yo le dije acá
+
+puede ser casi un millón de observaciones
+
+acá, no lo parto más
+
+profundidad máxima de 3
+
+pero por el contrario, si yo estoy construyendo un árbol
+
+y tengo
+
+mean
+
+sample split
+
+de 5 por ejemplo
+
+y tengo acá
+
+100 observaciones y parto
+
+y acá me quedan 4
+
+y acá me quedan 96 observaciones
+
+y mi mean sample split es de 5,
+
+lo que quiere decir es que yo a este ya no lo puedo partir más.
+
+¿Se ve?
+
+¿Por qué?
+
+Porque bueno, yo solo voy a partir
+
+si al menos tiene esta cantidad de observaciones.
+
+Si me hubiese quedado 50 de este lado,
+
+50 observaciones de este lado,
+
+y 50 de este,
+
+puedo partir los dos.
+
+Pero en el caso anterior no.
+
+¿Está?
+
+Y hay otro que es mean sample leave, ¿no?
+
+Que dice, che, cuando yo estoy acá, ¿se ve?
+
+Yo voy a probar un montón de combinaciones de JS.
+
+Es lo que dijimos, ¿no?
+
+Voy a probar variable 1, estés con la K, acá, acá, acá,
+
+y lo voy a mover como en una grilla muy fina, ¿está?
+
+Probablemente cuando yo haga las primeras grillas,
+
+me quede una observación de este lado y 99 del otro, ¿se ve?
+
+no le estoy diciendo ya hice la partición
+
+sino que estoy probando esa
+
+¿Va?
+
+Min sample leaf dice che
+
+si al menos una partición
+
+si al menos antes de crearla
+
+digamos, si al menos no me queda una
+
+no me queda min sample leaf observaciones
+
+por ejemplo si yo pongo un 10
+
+no me quedan 10 observaciones a un lado
+
+ni la considero
+
+entonces si esta por ejemplo me hubiese dejado
+
+5 observaciones a un lado
+
+y 95 al otro, esta no me importa
+
+si me da el mínimo costo.
+
+No es válida.
+
+¿Está?
+
+Entonces,
+
+veamos la pregunta
+
+como más fácil
+
+de verdadero y falso
+
+que puede haber en un examen.
+
+Si yo subo max def,
+
+¿aumenta o disminuye
+
+la capacidad de hacer overfitting?
+
+Aumento max def.
+
+Aumenta.
+
+Si yo subo
+
+min sample split,
+
+¿aumenta o disminuye
+
+la capacidad de sabor
+
+fit. Diminuye,
+
+¿no? Porque estoy pidiendo que tengan
+
+observaciones o menos profundo los árboles.
+
+Y si yo aumento min sample slip,
+
+lo mismo, ¿no?
+
+En el extremo,
+
+si yo pongo max def en
+
+cero, es una raíz.
+
+Si yo pongo min sample split
+
+en un valor muy alto,
+
+el árbol no crece nada y min sample leaf también.
+
+Una pregunta,
+
+¿cuál es el min sample
+
+leaf?
+
+El MintSupplyLift es que solo acepto una partición de las candidatas
+
+si al menos hay en observación, en MintSupplyLift observaciones en los dos nodos.
+
+¿Está?
+
+Y el de Mint y el segundo, MintSupplyLift.
+
+En Mint, sí.
+
+Si por ejemplo había, no sé, si le pongo 5 y en una hay 4 y en otra hay 10.
+
+¿Puedo ir partiendo el de 10?
+
+Sí.
+
+El de cuatro no, pero el de diez sí.
+
+Y noten que tiene que haber una relación entre mean sample leaf y mean sample split,
+
+que lo pregunto al final, digamos, es una preguntita, digamos,
+
+pero no tiene sentido decir que uno sea mayor que el otro, ¿no?
+
+Piénsenlo porque hay una relación.
+
+Bien.
+
+Sigamos.
+
+Yo tengo otra forma
+
+de controlar la profundidad de un árbol
+
+que le voy a empezar a decir
+
+la flexibilidad del modelo
+
+árboles más profundos, más flexibles
+
+tengo otra estrategia para controlar la flexibilidad del modelo
+
+y es esta de acá
+
+que la vamos a ver por el momento acá
+
+y la van a ver seguramente mejor
+
+en Machine Learning, pero es esta de acá
+
+es que
+
+modifica un toque
+
+función de costo, un poquitito de la función
+
+de costo, ¿no? Y vuelvo al problema de
+
+revisión, en árboles de clasificación
+
+para revisión, y fíjense,
+
+cuando yo no metía
+
+esta modificación, que voy a
+
+hablar ahora, lo que trataba de hacer más
+
+chico en entrenamiento era esto, ¿se ve?
+
+Es lo que vinimos hablando hasta ahora.
+
+Ahora yo les
+
+digo esto.
+
+Ya no es la función de costo
+
+lo que voy a tratar de minimizar cuánto ajusta
+
+entrenamiento, sino que le voy a
+
+incorporar una cosita más, que le puede sonar
+
+o por el momento, ¿no?
+
+Que es este alfa
+
+por cantidad
+
+de regiones que hay.
+
+¿Está?
+
+Entonces, cuando yo tengo cero splits,
+
+esto es, bueno, uno, ¿no?
+
+Cuando yo hago un split,
+
+¿esto pasa a ser cuánto?
+
+Uno más.
+
+Porque tenía una región, y pasa a ser dos, ¿no?
+
+Dos, está.
+
+Entonces, cuando yo pasé de uno a dos,
+
+¿todo esto en cuánto aumentó?
+
+¿En cuánto cambió?
+
+No, valía alfa
+
+y ahora tengo alfa por 2.
+
+Entonces aumentó en alfa.
+
+¿Estamos bien o no?
+
+Alfa.
+
+Perfecto.
+
+Bien, entonces fíjense,
+
+cada vez que yo hago un split,
+
+¿cuánto aumenta mi costo?
+
+Alfa.
+
+¿Está?
+
+y yo lo que quiero hacer
+
+lo más chico posible
+
+es toda esta expresión
+
+¿estamos?
+
+algo así, va por ese lado
+
+tiene un componente de eso, es cierto
+
+está bien, es penalizar
+
+exactamente
+
+pero fíjense
+
+cuando yo hago un split
+
+seguramente esto baje
+
+de hecho se puede demostrar que no puede subir
+
+yo no puedo hacer un split
+
+se quedan de peor que si no hubiese hecho el split.
+
+O se mantiene igual, que sería muy raro,
+
+o baja, que es lo normal.
+
+Entonces, cuando yo hago un nuevo split,
+
+tengo una ganancia, por ejemplo,
+
+de ese caso de la máxima que tenía era de 1.400.
+
+Bajó 1.400.
+
+Si yo hubiese puesto alfa en 2.000,
+
+¿qué pasaba?
+
+Acá bajaba 1.400 y acá subía en 2.000.
+
+¿Está?
+
+Y el costo total me aumentó.
+
+Entonces, ¿qué es ese alfa?
+
+Si lo quiero empezar de una manera un poquito más intuitiva,
+
+es como el precio que estás pagando por un split.
+
+Si a mí lo que me mejora en error no me alcanza a esto que me cuesta hacer ese costo,
+
+ese corte no lo hago.
+
+Entonces, alfa básicamente es un parámetro que se va a fijar
+
+como en la profundidad, o como en mi split, o cómo va a ser.
+
+Ya está, digamos, con validación.
+
+Vas a probar diferentes valores
+
+y vas a decir, ah, el alfa de 7 es buenísimo.
+
+¿Está? Perfecto.
+
+Entonces, alfa es un imperparámetro
+
+que al aumentarlo quita flexibilidad.
+
+Si yo alfa lo pongo en un millón,
+
+no va a haber splits.
+
+Supongamos, no sé cuál es la unidad,
+
+pero supongamos que un millón es un número muy, muy grande,
+
+no va a haber splits.
+
+Si alfa lo pongo en cero y todo lo demás
+
+lo dejo profundidad máxima,
+
+Lo que sea el árbol es lo más profundo posible.
+
+Entonces alfa es algo que,
+
+al igual que min split o max def o lo que fuera,
+
+te controla la flexibilidad del modelo.
+
+Valores altos de alfa, poca flexibilidad.
+
+Valores bajos de alfa, mucha flexibilidad.
+
+¿Está?
+
+Y ahí,
+
+probar cuatro parámetros,
+
+alfa más los tres que teníamos antes,
+
+no habría mucha complejidad del modelo para...
+
+Para encontrarlo, sí.
+
+vamos a ver cómo hacemos con eso
+
+pero sí, ya te está molestando un poco
+
+te adelanto que el XGBUS
+
+que se quemaba a Moussa
+
+yo le toco 8 parámetros a la vez
+
+digamos, el total es como
+
+que liga
+
+pero vamos a ver una estrategia para hacerlo y hacerlo bien
+
+si
+
+si había alguna regla de dedos
+
+nunca hay regla de dedos
+
+en nada
+
+la regla que hay que seguir
+
+es probar
+
+después uno va a
+
+uno va ganando algunas intuiciones, pero es más con práctica, ¿no?
+
+Es como, che, valores razonables de profundidad van por acá,
+
+valores, pero eso es mucho más con práctica,
+
+y yo no las tengo tan de antemano en árboles de decisión,
+
+pero en XGBoost, por ejemplo, es como que hay una intuición,
+
+yo empiezo a tirar ese modelo y sé que las cosas van por acá,
+
+y si veo esto, sé que cambiar, digamos,
+
+pero al principio no es que sea porque un libro te lo dice,
+
+sino porque uno se da cuenta que hay algunos patrones
+
+comunes en Dataset, pero te puede pasar
+
+que otros no los cumplan, digamos.
+
+Una pregunta más.
+
+Por ejemplo, si empezamos con un alfa
+
+muy chico o en las otras
+
+parámetros que es grande,
+
+en tener un alfa con determinadas particiones
+
+puede tener un overfit. Después, si acorto,
+
+¿las categorías quedan iguales
+
+o me las voy a acomodar para...
+
+No entiendo la pregunta.
+
+Si tengo, por ejemplo, 10 ramas.
+
+Sí.
+
+Y estoy diciendo que estoy haciendo
+
+Overlating. Y ahora decido
+
+tener siete.
+
+Las otras tres.
+
+Hojas o ramas.
+
+Hojas. O sea, particiones.
+
+Ok, particiones.
+
+Si tienes siete particiones y es
+
+binario, tienes ocho hojas. Perfecto.
+
+Si pasaba de diez
+
+a siete, la cantidad de
+
+hojas que me estarían faltando
+
+por haber definido la cantidad de niveles.
+
+Las niveles del resto.
+
+Y toda observación
+
+en alguna hoja, así que si vos tenés esto
+
+vos tenés una hoja
+
+un nodo interno que tenés en observaciones
+
+y que se parte en uno de 30 y otro de 70
+
+si matás esta partición, ese 30 y 70
+
+suben arriba
+
+lo que va a hacer es
+
+siempre construir, como lo vamos a trabajar
+
+nosotros, es construir desde cero
+
+vos vas a decir con profundidad 10
+
+hace este árbol, con profundidad 9
+
+este otro árbol, que bueno, va a coincidir en las primeras partes seguramente.
+
+Es así, no va a, che, yo le cambio la profundidad y el que ya tenía construido lo readapta de esa manera,
+
+sino que empieza de cero. ¿Está bien? ¿Bien?
+
+Sí.
+
+¿Qué te digo? X, G, B, B, B?
+
+No lo dije todavía, es el modelo que van a usar en el TP, básicamente.
+
+Es el modelo que también cuando vayan a la práctica, G, B, B, B, B, B, B, B, B, B, B, B, B, B, B, B
+
+El que hoy en día se usa en datos
+
+tabulares, básicamente. Como los del TPI,
+
+como los de muchísimos problemas
+
+de predicción.
+
+¿Se puede usar un tiempo de
+
+complejidad para casos de
+
+duplicación también? Sí, totalmente, sí.
+
+¿Pero eso es para regresión?
+
+No, también es que esto no cambia, lo que va a
+
+cambiar es que esto, en vez de hacer una error en el cuotado,
+
+es el Gini.
+
+Pero esta parte es lo mismo. Pasa que, bueno, el alfa
+
+será algo diferente.
+
+Seguramente va a los más chiquitos.
+
+Un comentario.
+
+Cuando lean el libro y lean el libro van a decir,
+
+che, esto es, construyo el árbol entero, profundo, total,
+
+y después voy quitando las ramas,
+
+si al menos no disminuían un error de tanto, de alfa, ¿no?
+
+Eso se llama post pruning, es construyo el árbol entero,
+
+pruning es podar y lo podo después, ¿no?
+
+Lo más común no es eso, lo más común es lo que yo les comenté,
+
+es Mini Impurity de Chris, que es, hago crecer el árbol
+
+Solamente acepto la precisión si disminuye el error al menos en alfa.
+
+Y eso es lo que más se usa en la práctica.
+
+Bien, vemos esto y ya casi estamos.
+
+Genial.
+
+Árboles de decisión tienen cosas muy buenas.
+
+Una de las cosas que está bastante buena es que permite ver lo que se conoce como importancia de atributos.
+
+Fíjense, si yo tengo un árbol que primero parte, por ejemplo, en...
+
+Que tengo el árbol acá y parte en X2, menor a T1.
+
+Y digo, che, al partir de esto tenía un error de 8000, como puse antes.
+
+Y ahora me lo dejan 1.400 y 6.000, no me acuerdo de cuánto, ¿no?
+
+Dijimos que el gain en este caso es, esto es 7.400, el gain de cuánto? 600, ¿no?
+
+Entonces yo puedo decir, che, mira, x2 me generó un gain de 600.
+
+O por acá al medio, no sé si va a ver la gente, x2 me generó un gain de...
+
+Ahora lo muevo.
+
+Disculpen.
+
+¿En qué me metí?
+
+Porque no sé qué hacer.
+
+Y quedó.
+
+Bien.
+
+X2 de 600.
+
+¿No?
+
+Y ahora digo, che, bueno, pero acá que tenía 1,400,
+
+ahora parto por X1 y me queda, era 1,400, disculpen,
+
+mejor no lo quito.
+
+¿No?
+
+Y me queda 200 y 800.
+
+El gain acá de cuánto fue.
+
+1.400, 800 más 200, de 400.
+
+Y se viene el cálculo.
+
+Sí, entonces el x1 ahora tiene un gain.
+
+Le puedo asociar un gain de 400.
+
+Y si acaso vuelvo a partir en x2,
+
+y me queda un error de 2.000 y otro de 2.500,
+
+el gain de cuánto fue.
+
+De 500.
+
+¿Estamos?
+
+Entonces yo puedo decir, ah, pero usé x2
+
+Entonces yo acá me quedé un gain de 600
+
+Y ahora acá me quedé un gain de 500
+
+Y puedo decir hasta ahora
+
+En este árbol
+
+A x2 me ha ayudado
+
+En
+
+1100
+
+Y x1 en 400
+
+¿Se ve?
+
+No
+
+¿No qué?
+
+¿Quién no lo ve?
+
+8.000.
+
+1.400 y 6.000.
+
+¿Cuánto fue el gain?
+
+600.
+
+1.400, 200 y 800.
+
+¿Cuánto fue el gain?
+
+1.400.
+
+El error todo acá.
+
+Lo partí.
+
+Me quedó un error de 200.
+
+800.
+
+¿A cuánto lo bajé?
+
+200 y 800, 1.000.
+
+Entonces tenía 1.400
+
+y lo bajé a 1000. ¿Cuánto me hizo
+
+ganar en error? ¿Cuánto me lo hizo disminuir?
+
+400. X2.
+
+Perdón, X1. Acá fue X2 y acá
+
+X1, ¿no? Y acá volví a partir
+
+este que tenía error de 6000
+
+en función de X2 y me quedó
+
+2000
+
+y 2500. ¿Cuánto me
+
+hizo ganar en gain?
+
+500, ¿no? Porque es
+
+4500.
+
+No, 3500 puse acá.
+
+Tendría que ser eso.
+
+A mi mente fue eso, discúlpenme.
+
+Esto es 5.500, digamos que es 2.000 y 3.500,
+
+me hizo ganar 500.
+
+Entonces por eso yo digo,
+
+ahora cuando partí en X2,
+
+que antes me había generado 600,
+
+ahora me genera 500 más.
+
+¿Estamos bien?
+
+En principio, a medida que uno va partiendo,
+
+los gains son más chiquitos los que uno va ganando.
+
+Es como que las variables de arriba generan más gain
+
+y las de abajo menos.
+
+Y en clasificación también será eso.
+
+Bien.
+
+y si el árbol crece mucho
+
+yo puedo ir armando esa tablita para todos
+
+si parten en algún momento en x3
+
+puedo decir, ah mira que x3 me creó gain de tanto
+
+en este split, y si se vuelve a usar
+
+le suma lo que me creó antes
+
+entonces yo puedo, si yo tengo
+
+n particiones
+
+voy a tener n gains que se fueron generando
+
+y cada uno lo puedo asociar a una variable
+
+y yo puedo decir, che bueno
+
+el gain de x2
+
+es igual
+
+o la importancia de x2, mejor dicho,
+
+lo voy a asociar a la suma de los gains
+
+de los split que usan en x2, ¿no?
+
+Y que va a ser como decir,
+
+che, bueno, te adjudico a vos
+
+haberme bajado de error en tanto,
+
+en todo el árbol, ¿no?
+
+Y cuando uno hace eso,
+
+uno puede rankear a las variables
+
+en función de cuáles tuvieron más
+
+como relevancia en bajar el gain
+
+y cuáles menos, ¿no?
+
+Algunas tendrán cero porque nunca se usaron en el árbol,
+
+otras tendrán mucho porque se usaron muchas veces
+
+o se usaron más arriba, sobre todo.
+
+Entonces, esa medida la vamos a asociar
+
+a importancia de atributos.
+
+Y acá el feature importance,
+
+esta importancia de atributos es que
+
+algo que capta cuánto usó el árbol esa variable
+
+para generar el gain,
+
+no para bajar el error.
+
+¿Estamos bien?
+
+Cómo las unidades de medida son errores al cuadrado,
+
+puede ser gene, entropía,
+
+son cosas como,
+
+medio raras,
+
+¿no?
+
+Lo que se hace,
+
+típicamente,
+
+es al que más gain tuvo,
+
+se le pone,
+
+como un numerario,
+
+se dice 100,
+
+y si,
+
+en realidad,
+
+el gain era de 800.000,
+
+le digo 100,
+
+y otro que tuvo de 400.000,
+
+es 0,5,
+
+la mitad se ve.
+
+Entonces,
+
+típicamente,
+
+se pone una escala de 0 a 100,
+
+donde,
+
+este es el que más gain generó,
+
+este generó,
+
+el 60% del que más generó,
+
+este es el 45,
+
+y así se ve.
+
+Esto sirve,
+
+Y esto está súper bueno para, nada, captar cómo se asocian variables con los atributos a predecir, digamos.
+
+Y es algo como que está bastante útil.
+
+Alguien me preguntó en el recreo, che, si yo tengo vecinos más cercanos que no elige atributos o cosas por el estilo,
+
+bueno, por ahí algo que tiene sentido es decir, uso el dataset de entrenamiento con un arbolito,
+
+hago este ranking, que son las que más asociadas van a estar,
+
+y en vez de usar las mil variables, me quedo con las 10, 20, 30,
+
+que el árbol detecta como más predictoras
+
+y lo uso para vecinos más cercanos.
+
+Puede, suena como
+
+razonable probar cosas por el estilo. De hecho,
+
+hay algoritmos de selección de atributos
+
+que usan árboles de decisión.
+
+Bien.
+
+¿Consultas sobre esto?
+
+Sí.
+
+¿La variable que mejor rankeaste
+
+va a ser la que más aparece en el árbol?
+
+La que más gen genera,
+
+digamos, ¿no?
+
+Porque si te aparece
+
+muy abajo,
+
+van a aparecer muchas veces, pero probablemente
+
+es que den poco gain.
+
+La realidad parece una vez la variable del árbol.
+
+No.
+
+No, la variable no.
+
+Porque fíjate, a ver si lo tengo acá.
+
+Fíjate, acá tenés
+
+tie, y acá es c a y c a.
+
+¿No?
+
+Sí.
+
+De hecho, yo cuando hice la construcción
+
+del árbol ese, el primer split
+
+era uno así,
+
+el segundo no lo hice, pero podría haber sido
+
+otro así, digamos, si es usar la misma variable.
+
+De hecho, fíjate, a modo de ejemplo, acá hay dos splits por x1, este y este.
+
+Y hay dos splits por x2, este y este.
+
+O sea, podría ser en uno que sea x1 menor a 100 y después que sea menor a 50.
+
+Y ahí está apareciendo dos veces.
+
+Exactamente.
+
+Ese menor a 50 obviamente te va a aparecer solo de un lado, no te puede aparecer del otro.
+
+Bien.
+
+Está bien, ¿no?
+
+Sí, sí.
+
+Genial.
+
+Veamos esto último y ya casi estamos.
+
+¿Cuándo hace más trabajo un árbol de decisión?
+
+¿Más trabajo de cómputo?
+
+¿Cuando construyo el árbol, cuando pruebo todas esas cotas S, bla, bla, bla?
+
+¿O al momento de predecir?
+
+¿Al momento de predecir qué pasa?
+
+Che, viene la observación, se tiene que fijar en el raíz si es mayor o menor a tanto.
+
+Después va para un lado o va para el otro.
+
+Se fija en esta cosa, ta, ta, ta, y llega, ¿no?
+
+Fíjense que no es mucho cómputo.
+
+Y fíjense también que ustedes ya vieron fundamentos de algoritmos
+
+que un árbol es como if dentro if.
+
+No es más que eso, ¿no?
+
+O sea, lo presentamos con un árbol, lo vemos como tal,
+
+pero es un if que tiene if else y adentro otro if, adentro otro if.
+
+Es eso, eso es como se representa, no es más que eso.
+
+¿Está?
+
+Será más, menos eficiente, como se lo guarda, lo que sea,
+
+pero en el fondo es eso.
+
+Entonces, un árbol de decisión, ¿cuándo hace más trabajo?
+
+cuando llega a una situación para predecir
+
+o cuando tiene que armar el árbol
+
+¿cuándo?
+
+armar el árbol
+
+sí, sí, ¿no?
+
+es como que, sí
+
+armar el árbol cuesta
+
+ok
+
+vecinos más cercanos
+
+¿cuándo hace más trabajo?
+
+¿cuándo predice
+
+o cuando se arma el modelo?
+
+cuando predice
+
+porque cuando se arma el modelo
+
+cuando yo pongo FID
+
+y nos fui como un poquito engañando a Copp.
+
+No hace nada, digamos.
+
+Dice, che, bueno, perfecto, sí.
+
+Pero cuando llega a una observación,
+
+calcula toda la distancia,
+
+encuentra la vecindad
+
+y calcula la proporción o lo que fuera, ¿no?
+
+Entonces, fíjense que es bien diferente.
+
+Vecinos más cercanos
+
+es un algoritmo que cuando yo le doy los datos,
+
+se tira hacia la plancha
+
+y recién trabaja cuando tiene que predecir.
+
+¿Algora de decisión?
+
+No, es muy responsable.
+
+Y le doy los datos,
+
+le digo predict, calcula el árbol,
+
+hace trabajo antes,
+
+y después del momento de predecir,
+
+es muy poquito el cómputo que hace.
+
+¿Se ve?
+
+Una pregunta.
+
+En vecinos más cercanos,
+
+no había explicado el otro día
+
+que se generaban como zonas,
+
+y vos ya podías identificar
+
+si en la nueva observación cae en...
+
+Pero esas zonas, yo las armé,
+
+eso yo lo dije,
+
+es como un ejercicio que se libró,
+
+arma una grilla muy finita,
+
+y dice, si hubiese caído acá,
+
+¿qué se predecía?
+
+si hubiese caído acá, que se pre-dece, si hubiese caído acá, que se pre-dece,
+
+y en función de eso derivada cómo serían las, el espacio de tributo,
+
+cómo se particiona, ¿no? La frontera de decisión.
+
+Pero el progresión más cercano no te encuentra una expresión de eso.
+
+No te dice, che, esta es la función que te parte del espacio de tributo,
+
+cómo se alza el árbol de decisión.
+
+Lo que es, ok, si yo sigo ese criterio, habría como implícita esta frontera de decisión,
+
+Pero solo la encontrás si probás una grilla sobre todo el espacio de tributos.
+
+Entonces, no es que encuentre, no hace trabajo, básicamente.
+
+En el saque de la nada hace unas cositas, algunos puntos lo quita,
+
+pero es mínimo, digamos, no es nada, no es nada, no es nada.
+
+Importante.
+
+Entonces, fíjense, son bien diferentes.
+
+Árboles entrena lento, pero predice rápido, porque es muy poquito.
+
+Decidimos más cercanos, entre comillas,
+
+entrena porque no hace nada, demora
+
+en el momento de predicción.
+
+¿Estamos?
+
+Entonces, lo que tenemos es que los dos
+
+algoritmos pertenecen a dos familias diferentes.
+
+Los,
+
+el de tipo de decido más cercano se los conoce
+
+como lazy, como vagos, y son
+
+algoritmos que, cuando ustedes ponen
+
+punto fit, no hacen nada.
+
+Y cuando ponen punto predict, hacen
+
+todo el trabajo de cómputo.
+
+Mientras que árbol de decisión,
+
+es eager, que es como ansioso, goloso,
+
+algo por el estilo, ¿no?
+
+Y lo que hacen es lo opuesto.
+
+Cuando ustedes ponen punto predict,
+
+hacen todo el trabajo,
+
+y cuando ponen punto fit,
+
+es muy rapidito lo que tienen que hacer.
+
+Obviamente, si vos querés velocidad al momento de predecir,
+
+como sería, che, si vos tenés que predecir
+
+mil millones de cosas a la vez
+
+porque te están llegando,
+
+preferís algo eager, ¿no?
+
+Que prediga rápido.
+
+Si vos no tenés problemas de tiempo para predecir,
+
+si no tenés restricción,
+
+bueno, por ahí podés estar dispuesto a usar un lazy.
+
+pero no es lo mejor
+
+y a su vez
+
+hay otra particularidad
+
+yo le dije que va a cambiar este dataset
+
+este es más fiel de lo que uno tiene en verdad
+
+nosotros dijimos
+
+tengo datos de entrenamiento, propongo un algoritmo
+
+aprendo un modelo, lo hago aprender
+
+y tengo un modelo que aprendió
+
+después le doy este dataset de testing
+
+aplico el modelo y tengo las predicciones
+
+si yo tengo un modelo tipo
+
+árbol de decisión
+
+fíjense que una vez que yo aprendí el modelo
+
+no necesito más estos datos
+
+necesito los ifs
+
+y después se acabó
+
+mientras que en uno lazy yo tenía que volver
+
+a la base, porque tenía que buscar
+
+los vecinos, ¿no?
+
+entonces lo normal también y la mayoría
+
+van a hacer así es que
+
+los modelos de aprendizaje
+
+de sofrovisado típicamente tienen esta pinta
+
+son más del tipo los
+
+Iger, ¿no? una rola de decisión
+
+donde cuando vos ya aprendiste el modelo
+
+podés olvidarte del dataset de entrenamiento
+
+y lo podés repartir en muchas máquinas
+
+de manera fácil y sin grandes problemas.
+
+¿Va?
+
+Bien.
+
+Genial.
+
+Puntos a favor de árbol de decisión.
+
+Súper útiles para seleccionar atributos.
+
+Fíjense que si una variable no aparece en el árbol,
+
+si vos tenés una columna que no aparece en el árbol,
+
+es lo mismo que si no hubiese estado en tu dataset.
+
+O sea, vamos a hablar un poco de eso.
+
+Entonces, elige qué atributos son los que valen la pena usar.
+
+¿Está?
+
+bien, tiene buen manejo de no linealidades
+
+cada vez que hace un split por una misma variable
+
+está detectando que es una no linealidad
+
+si esto vale menos de 10 es tanto
+
+pero si no, sube, y si no sube más
+
+no es como una relación lineal que es una línea
+
+sino puede tener una forma de la que tengan ganas
+
+¿no?
+
+Cata interacciones también
+
+¿qué quiere decir cata interacciones?
+
+cuando yo hago un split primero por x2 y después por x1
+
+estoy diciendo que si x2 vale esto
+
+y x1 vale esto
+
+entonces esto, es la combinación
+
+de dos variables, es la interacción
+
+si es profundidad 3 es la interacción de tres variables
+
+entonces capta no linealidades
+
+e interacciones entre variables
+
+y las detecta de manera automática
+
+digamos, ¿no?
+
+tiene manejo elegante de atributos cartegóricos
+
+manejo elegante de datos faltantes
+
+que no lo estoy diciendo ahora pero lo vamos a ver
+
+cuando veamos XGBoost, lo voy a mencionar un poquito
+
+y son interpretables
+
+si no son excesivamente profundos
+
+¿ok? uno lo ve y dice
+
+Che, tiene sentido o no lo que encontrás.
+
+Puntos en contra y acá se metieron un tomatazo,
+
+no está mal, es como, che, no predicen tan bien.
+
+Y es bueno, ¿para qué decimos esto?
+
+Bueno, son los ladrillitos con los que se trabajan
+
+los modelos que predicen bien, principalmente por eso.
+
+Su estructura puede cambiar mucho
+
+en función de pequeñas perturbaciones del dataset.
+
+La estructura del árbol, no necesariamente el valor que se predice,
+
+pero por ahí la estructura del árbol puede cambiar un montón,
+
+entonces eso de interpretables es como que se puede perder,
+
+no es tan importante, de hecho,
+
+para mí no es tan importante que sean interpretables,
+
+y de hecho si son muy profundos, lo vamos a ver ahora,
+
+es como, bueno, es una maraña de nodos,
+
+y no se entiende mucho, digamos, que es lo que está captando,
+
+y sirve mucho más ver la importancia de atributos,
+
+o caso por el estilo.
+
+Bien, probemos en Python un poquito de árboles de decisión.
+
+Fíjense, acá estoy usando un dataset que es...
+
+Ah, no, el mismo.
+
+Decision Tree Classifier es el modelo de Sacky Langer Decision Trees.
+
+Fíjense que yo ya lo estoy instanciando con una profundidad dada.
+
+De tres.
+
+Y bueno, hay una paratelita aleatoria que le estoy dejando fija.
+
+Hago esto y lo instancié.
+
+No le puse pre-it nada.
+
+Dije, che, voy a usar un árbol con estas características.
+
+Ahora le pongo el feed.
+
+Ahora se construye el árbol.
+
+Vengo acá
+
+Punto fit, le paso las X y las Y
+
+Y está
+
+Lo construyo
+
+No demora nada, es rapidísimo
+
+Acá lo hago predecir
+
+Y tengo las predicciones
+
+Para cada una de las observaciones
+
+Y veo cómo le fue
+
+Bueno, la performance fue de 0.82
+
+Me dio mejor credición más cercano
+
+Sin tuñar, digamos
+
+En este caso anduvo mejor
+
+Si yo lo quiero visualizar al árbol
+
+Tiene
+
+chicos, esta pinta
+
+¿está?
+
+ahora, fíjense
+
+feature importance, se lo puedo pedir
+
+y me da la importancia de atributos
+
+el más importante de esta set es uno que se da atributo 25
+
+¿bien?
+
+y fíjense este experimento
+
+voy a probar diferentes combinaciones
+
+maxdef, minsplit y minsamplelift
+
+para encontrar la mejor combinación
+
+¿cómo?
+
+entrenando entrenamiento y viendo cómo le va en validación
+
+y hago este ejercicio de acá
+
+y la mejor performance
+
+fíjense que
+
+son 175
+
+es un montón lo que está haciendo
+
+la mejor performance
+
+fue un modelo que
+
+la mejor configuración
+
+es de profundidad 20
+
+min split 2, min bucket 2
+
+y una cura de 0.85
+
+mejor que lo que teníamos antes
+
+super bien
+
+ahora entrando al mejor árbol
+
+y veo como levanta esteo
+
+y le da 0.79.
+
+Bueno, bajó y tiene sentido,
+
+porque yo probé muchas más cosas sobre validación
+
+y después usé testeo que está limpio y me da 0.79,
+
+pero anda todavía un poquito mejor que ves
+
+si nos más cercanos.
+
+¿Es eso que se puede guardar como un archivo?
+
+Sí, se puede guardar como un archivo,
+
+lo podés guardar, disfrutar entre máquinas,
+
+sin problema, y guardar cosas.
+
+Déjenme la última cosita y estamos.
+
+Solo para que vean, el árbol de mayor profundidad,
+
+no el de mayor profundidad
+
+disculpe, sino el árbol que se obtiene
+
+de esto es ese, ser interpretable
+
+ya digamos
+
+así que bueno
+
+eso es todo por hoy
+
+y seguimos después que viene
+
+un aviso importante
+
+espero que nadie sea muy anti-fútbol
+
+como yo, pero no se asusten
+
+la clase que viene la vamos a
+
+hacer a las virtual
+
+100% porque no me va a venir
+
+nadie y la vamos a hacer de 7
+
+a 10. Así pueden terminar
+
+rapidito y se van a ver
+
+el partido. ¿Qué clase que viene virtual?
+
+¿Sí?
+
+¿Cómo? Chicos.
+
+¿Y qué problema hay?
+
+No sé si hay partido
+
+a los dos.
+
+Sí, sí, esa no me importa.
+
+Si tiene cronograma
+
+dice eso, es eso.
+
+Si no, pregúntale a él, que es coordinación.
+
+Pero sí.
+
+¡Chau! ¡Qué te son!
+

@@ -1,0 +1,7540 @@
+Bien.
+
+La tenemos.
+
+Entonces, venimos viendo un montón de cosas y venimos bastante rápido.
+
+Como les dije, de ahora en adelante se calma un poquito la materia
+
+y pasamos a ver cosas igualmente súper importantes,
+
+pero a un ritmo más tranquilos.
+
+Ahora, con lo que ustedes tienen, ya deberían poder avanzar bastante en el TPE,
+
+entre el código que les di, los temas que vimos,
+
+todas estas cosas, te dan algunas intuiciones
+
+de por dónde debiera ir la mano.
+
+Incluso ya no hay misterio.
+
+Yo le dije en la primera clase, che, el área
+
+bajo al cura, le dije, bueno, ahora ya debería
+
+saber bien qué es lo que está midiendo, toda una serie
+
+de cosas. Entonces, genuinamente hemos llegado
+
+a una etapa donde el TP, nada, es algo
+
+que debieran poder abordar
+
+sin mayores problemas
+
+conceptuales, es decir, qué estoy haciendo, digamos.
+
+En esta etapa ya deberían saber bien qué se está
+
+haciendo.
+
+Bien.
+
+Ahora vamos a ver, en el
+
+es una cosita corta que va a servir para ATP, ¿no?
+
+Y después pasamos a otra cosa que es el Ingebus,
+
+que va a servir seguramente mucho,
+
+y pasamos después al final de esta clase a no supervisado,
+
+que es algo diferente a lo que venimos viendo, ¿va?
+
+Entonces empecemos con este tema, ¿no?
+
+Una cosita, la clase pasada con ustedes fue virtual,
+
+y entre que me andó mal la compu,
+
+que hacía mucho que no era la clase virtual,
+
+no me quedé 100% contento con la clase, digamos, ¿no?
+
+Creo que me salió mejor la de la otra sección.
+
+Si ustedes llegan a revisar o a estudiar,
+
+no les digo que salió terriblemente mal,
+
+salió bien, digamos,
+
+pero me sentí un poquito más cómodo
+
+con cómo salió en la sección del jueves, ¿no?
+
+Así que si la llegan a chequear, nada,
+
+pédenle una escuchada al jueves.
+
+No hay nada diferente, no hay nada extraño, digamos,
+
+pero siento que nada,
+
+que me falló una cosita de la compu,
+
+otras cenas, y no fue la que me excluyó.
+
+Bien, sigamos.
+
+Entonces, nosotros en la clase 1 y la clase pasada,
+
+vimos que cuando tenemos variables categóricas
+
+y tenemos modelos que no la saben trabajar de una manera directa,
+
+podemos hacer esta estrategia de One Hold Encoving, ¿no?
+
+Y dijimos, che, bueno, ¿qué es lo que más se genera?
+
+Uno, de hecho, si uno tiene un millón de observaciones
+
+y una variable con 10.000 valores diferentes,
+
+generan 10.000 variables
+
+con un millón de observaciones.
+
+Y son un montón de números.
+
+Son 10.000 millones de números que potencialmente
+
+pueden ocupar muchos lugares
+
+en la memoria de la computadora
+
+y pueden hacer nada, que se rompa el código,
+
+que se cierre Python,
+
+que se tilde la computadora o lo que fuera.
+
+Entonces,
+
+potencialmente son útiles
+
+y suelen ser muy útiles esas variables
+
+categóricas. Che, ¿qué podemos hacer?
+
+Y dijimos,
+
+bueno,
+
+vamos a tener muchos
+
+ceros dando vuelta
+
+y vamos a aprovechar eso
+
+pero antes quiero hablar un poquito de
+
+qué pasaría
+
+y qué idea tienen ustedes
+
+de qué podría pasar si uno
+
+inventa esa variable, tiene
+
+human
+
+penguin
+
+octopus
+
+alien, un NA
+
+o sea un missing
+
+y alien
+
+o sea que de golpe desapareció
+
+Un missing, por puro azar o por lo que fuera, ¿se ve?
+
+Entonces ahora ustedes no saben que eso era octopus, ¿no?
+
+Sino que podría haber sido cualquier cosa y no tiene información respecto a eso en principio.
+
+Entonces ustedes hacen one call encoding.
+
+Y acá queda uno, uno.
+
+Cero.
+
+Penguin, octopus y alien, ¿no?
+
+Cero, cero, cero.
+
+Acá en penguin queda cero, uno, cero, cero.
+
+En Octopus queda 0-0-0-1.
+
+En Alien queda 0-0-0-1.
+
+En este va a ser la pregunta que hacemos.
+
+Y acá 0-0-0-1.
+
+¿Qué harían ustedes con esa fila?
+
+Con la fila donde la categoría tenía un missing.
+
+¿Qué les parece razonable hacer?
+
+¿Cómo?
+
+¿Dropearla?
+
+Por ahí vos decís, para entrenar.
+
+ok, tengo argumentos para decir
+
+un random que no está
+
+totalmente random,
+
+pero eso puede estar en evaluación.
+
+Y vos podés decir que me digas,
+
+che, no voy a predecir
+
+una predicción de algo que necesito
+
+porque en una variable tiene missing.
+
+Yo no haría eso.
+
+Realmente,
+
+se tiran algo en evaluación
+
+y tienen que predecir, digamos.
+
+Entonces, ¿qué?
+
+Ok.
+
+Acá uno de sus compañeros dice
+
+ponerle cero.
+
+¿Por qué?
+
+Desde cero, cero, cero, cero
+
+¿Por qué?
+
+No estaba asignada ninguna categoría
+
+Está bien el argumento, digamos
+
+Pero hay que ver qué significa un 1
+
+Un 1 significa es esa categoría
+
+Y un 0 significa no es esa categoría
+
+Entonces un modelo que tomaría en este caso
+
+un modelo así. Tomaría que no es Alien, no es Octopus, no es Penguin y no es Human.
+
+Cuando en realidad podría hacerlo.
+
+Entonces un cero, bueno, nos va a gustar por un lado, porque algo tiene,
+
+de hecho no va a ocupar espacio, pero también estás confundiendo el modelo,
+
+estás diciéndole, no sos esto, o no es esto, cuando en realidad podría hacerlo.
+
+¿Qué otra cosa podríamos hacer?
+
+Bueno, está bien.
+
+Vamos a terminar en eso
+
+y es algo muy razonable que tiene implementado
+
+muchas librerías. ¿Alguien tiene otra idea?
+
+¿Imputarla alguna parecida?
+
+Bueno,
+
+imputarla, digamos, depende
+
+de que esté relacionado con
+
+otras variables o que justo
+
+tenga algo, digamos. Pero por ahí no.
+
+Yo de hecho te hice
+
+completely random.
+
+Podría ser.
+
+¿Cómo?
+
+Podría ser, pero es como medio raro, digamos.
+
+Sí, al día de fondo veo a alguien levantar la mano.
+
+Es totalmente aleatoria.
+
+Supongamos que sí.
+
+Cualquier otro, tipo, que sea alien, que sea penguin, que sea human,
+
+tipo, aleatoriamente, ¿qué debería ser?
+
+Bueno, pero está metiendo ruido el modelo.
+
+Está diciendo es algo cuando no es.
+
+Pero cuando tenés N.A. también puedes dejar tu modelo
+
+dependiendo de cómo se les producen
+
+los valores
+
+que nos dan
+
+yo te estoy diciendo, che, es totalmente al azar
+
+estoy haciendo un ejemplo simple
+
+y quiero hacer el cargo
+
+menos sofisticado, quiero transmitirle
+
+esto, que
+
+a ver, podría ser humano, sí o no
+
+podría ser pingüino, sí o no
+
+podría ser octopos, sí o no
+
+podría ser alien, sí o no, entonces genuinamente
+
+¿Es un cero, es un uno o qué es?
+
+Es un NA.
+
+En realidad yo no sé.
+
+El NA no lo sé.
+
+Y lo que yo generalmente no sé si es esto,
+
+no sé si es esto, no sé si es esto,
+
+o no sé si es esto.
+
+Eso es como lo más puro.
+
+R tiene una forma de trabajar con los NA muy de este estilo,
+
+digamos, como que transmite las cosas que no sabes.
+
+Si calcula una media con un NA en el medio,
+
+no sabes cuánto da la media, por eso te devuelve NA.
+
+Y la verdad que la forma más prolija, a mi modo de ver,
+
+es decir, che, no sé, en verdad,
+
+si esto es de NA, yo no sé cuáles son y debiera tener NA.
+
+Pero los de NA tienen un problema.
+
+Yo puedo elegir no guardar los ceros,
+
+pero si elijo no guardar los ceros,
+
+tengo que guardar los de NA.
+
+Y típicamente ocupan espacio.
+
+Entonces, si vos tenés una fila o una columna categórica
+
+con un 20% de NA,
+
+El 20% de las columnas, de las filas, disculpen,
+
+van a tener NA en todas las categorías,
+
+en todas las darmig generadas.
+
+Y eso potencialmente es un problema
+
+porque te va a terminar ocupando mucho espacio de vuelta.
+
+Entonces, algo que uno puede decir es,
+
+che, bueno, una mezcla de las dos ideas
+
+que te dan al comienzo.
+
+Decir, bueno, voy a poner un cero,
+
+pero no voy a hacer solo eso,
+
+sino que voy a crear una columna nueva que es,
+
+supongamos que esta es B1,
+
+que B1 tiene NA acá, ¿se ve?
+
+Entonces acá me queda, che,
+
+0, 0, 0, 0, 0, 1, 0, ¿está?
+
+Y trato al NA como una categoría más.
+
+Y es algo que, bueno, che,
+
+estoy diciendo que no es human, no es alien,
+
+no es octopus, sino es penguin,
+
+pero estoy pasando información
+
+que en ese registro esa variable era una NA, ¿no?
+
+Y es como un compromiso y está razonablemente bien,
+
+Y anda, de hecho, bastante bien.
+
+¿Está?
+
+Entonces, típicamente se suele hacer esta estrategia.
+
+Es muy común de hacerla.
+
+Y tiene una virtud.
+
+Te sigue quedando esta idea de que hay un 1 por fila.
+
+Y todos los demás son 0.
+
+Que lo vamos a querer, lo vamos a tratar de aprovechar.
+
+¿Estamos bien?
+
+Genial.
+
+Es muy común que las matices que se usan para entregar modelos como los del TPE,
+
+modelos críticos, haya muchos ceros dando vuelta.
+
+Cuando uno hace One Hold Encoding ya te aparecen muchos ceros
+
+y es común que los que más abunden sean ceros.
+
+Es algo común de este tipo de matices que uno termina armando.
+
+Entonces, uno puede decir, che, si yo tengo que usar todos los ceros y guardarlos,
+
+me voy a ocupar mucho espacio y puedo tener problemas de memoria.
+
+Cuando tengo problemas de memoria, no lo puedo calcular y punto, se acabó, ¿no?
+
+Lo que uno puede hacer es usar una implementación de matrices,
+
+una forma en que las computadoras las guardan.
+
+Estaba que es que se llaman matrices ralas o esparzas.
+
+¿Está? Esparzas es una traducción de sparse, pero no está bien.
+
+Normalmente es rara, ¿no?
+
+Ok.
+
+Que básicamente lo que dice, che,
+
+son matrices en donde uno trabaja igual
+
+y uno multiplica las matrices y dan lo mismo, todo bien,
+
+pero internamente la computadora no guarda los ceros.
+
+De hecho, todo lo que no guarda asume que es un cero
+
+o asume que es un valor.
+
+Típicamente, por default está el cero.
+
+Entonces uno dice, che, voy a usar la matriz rara
+
+para guardar esta matriz de datos, ¿no?
+
+Que puede ser gigante.
+
+Si tienes muchos ceros, estoy guardando pocas cosas.
+
+¿Está? Porque no guarda los ceros.
+
+Que es justamente lo que nos pasa.
+
+Entonces vamos a ver que nosotros podemos estar trabajando
+
+con matrices de dimensiones muy grandes
+
+que si lo que tienen son principalmente ceros,
+
+nos puede entrar súper bien en memoria,
+
+nos trae unos grandes problemas y nada más.
+
+¿Está?
+
+Esto igual, como todos,
+
+si fuese algo que sirve siempre en todos los casos,
+
+Usaría siempre estas matrices, ¿no?
+
+Evidentemente, en algunos casos no sirve, ¿no?
+
+Y esos casos que no sirven son cuando no hay ceros,
+
+cuando una matriz no tiene ceros,
+
+guardar en el, trabajar como si es una matriz rala,
+
+es peor, es más lento, ocupa más espacio, es peor, digamos.
+
+Entonces, esto funciona si lo que abundan en tu dataset
+
+son los ceros, que en el TPE y en la práctica
+
+es lo que les va a terminar pasando típicamente, ¿no?
+
+Entonces, veamos un poquito el código.
+
+Hay un primer bloque que es, más o menos,
+
+como trabajar un poquito en Python con matrices raras
+
+y mostrarles, digamos, que efectivamente
+
+tiene comportamiento que decimos.
+
+Y segundo, cómo adaptar el código del TP
+
+para que las damis que están dando vuelta,
+
+tipo sistema operativo, título de la canción,
+
+o lo que quieran, ¿está?
+
+Ustedes le puedan hacer sin grandes problemas
+
+OneHottenCovid
+
+y la matriz que dé algo razonable.
+
+¿Estamos?
+
+Bien.
+
+Primero bloque de código.
+
+Básicamente esta es una funcioncita
+
+para ver el tamaño que ocupa
+
+en memoria de las matrices.
+
+Y fíjense, lo que estoy haciendo acá
+
+es una matriz M1
+
+que tiene mil por mil,
+
+un millón de elementos,
+
+está, y es densa,
+
+o sea, no es rara,
+
+se guardan los ceros.
+
+De hecho, la matriz está llena de ceros.
+
+Y después hago una matriz.
+
+Little Matrix es una implementación de matriz ralas
+
+del mismo tamaño, idéntica, todo con ceros.
+
+Está.
+
+Y la guardo en M2.
+
+Cuando vemos M1, la densa,
+
+ocupa 7.63 MB en memoria.
+
+No es mucho, tampoco una matriz gigante, ¿no?
+
+Ok, solo tiene ceros.
+
+Mientras que M2, la rala,
+
+no ocupa nada.
+
+O sea, bueno, sí ocupa un poquito,
+
+pero no alcanzas ni a decir cuánto ocupa, digamos.
+
+Bien, perfecto.
+
+Fíjense que yo las puedo modificar.
+
+Son todos ceros en la matriz.
+
+Le puedo modificar, le puedo poner en la posición 500-500,
+
+un 1, que es lo que estoy haciendo acá,
+
+y no pasa nada, ¿no?
+
+M2, acá le estoy pasando en otro formato de matrices ralas,
+
+y puedo ver que, nada, no cambió el tamaño.
+
+Le puse un numerito, no cambió.
+
+Está bien, es un numerito nomás, no pasa nada.
+
+Genial.
+
+Ahora veamos otro tipo de matriz, no una que sea todo cero,
+
+sino una que no tenga ceros, básicamente.
+
+Podría haber puesto todo uno, lo que fuera,
+
+pero aquí se puede tirar números aleatorios normales 0 y 1, ¿no?
+
+Que probabilidad que tenga un cero exacto es nula.
+
+¿Ok?
+
+Lo hago con densa y lo hago a esto mismo que es raro, ¿está?
+
+Entonces, acá podemos ver que efectivamente
+
+una densa ocupa lo mismo
+
+guardar todos ceros
+
+que guardar todos números aleatorios
+
+entre 0 y 1.
+
+Mientras que en el caso de la rala,
+
+que antes era 0 lo ocupaba en memoria,
+
+este caso te ocupa
+
+11,45 megabytes.
+
+Entonces, esta idea
+
+no es que siempre es buena idea,
+
+sino que es buena idea
+
+cuando lo que abundan son los ceros.
+
+Que típicamente es el tipo de problemas
+
+al que ustedes se van a enfrentar.
+
+Ok.
+
+Acá lo que estoy haciendo son algunas cosas para que eventualmente jueguen y vean, digamos.
+
+Pero fíjense, estoy haciendo una matriz que es una matriz rala,
+
+que lo que tiene son coordenadas XY o IJ, llamémosle mejor,
+
+porque hace X, Y, IJ y valor.
+
+Entonces, estoy haciendo I, J y valor, ¿no?
+
+Y estoy haciendo uno que tiene en la posición fila indexada 4, que es 0, 1, 2, 3, 4, sería la quinta, como humano, no como computadora, ¿no?
+
+Y en la posición 2, fíjense que acá dice 4, 1, guardo un 2.
+
+En 4, 1, guardo un 2.
+
+¿Está?
+
+Y acá en 8, 19, guardo un 4.
+
+¿Estamos?
+
+8, 19, guardo un 4.
+
+Es como que tengo una matriz acá.
+
+Y J está acá en la fila 5, posición 2, guardo un 2.
+
+Y en la fila 9, posición 20, guardo un 4.
+
+Eso es lo que tenemos.
+
+¿Está?
+
+Esta forma de crear matrices
+
+Con listados de I, J y valor
+
+Es una estrategia básicamente
+
+Para crear matrices
+
+Y fíjense
+
+Yo la creo acá
+
+Y le pregunto
+
+¿Qué tipo de matriz es?
+
+Una matriz rara, sparse matrix
+
+¿Qué valores tiene?
+
+Tiene en 1, 2
+
+Tiene guardado 4
+
+Es lo que habíamos dicho
+
+Esperen
+
+Ah, no
+
+Valor
+
+1, 2, valor
+
+Esto es
+
+Valor y j
+
+Disculpen
+
+Entonces, básicamente
+
+Esto es
+
+dos
+
+cuatro
+
+y el valor
+
+es ese que
+
+al comienzo era cuatro ocho
+
+y está
+
+en realidad
+
+es
+
+cuatro
+
+y estos
+
+que va a ser 1 y 19.
+
+Ahí va.
+
+Bien.
+
+Va.
+
+Es fila 1, 2, 1, 4, 19, 4,
+
+1, 2, 1, 8.
+
+Bien.
+
+Fíjense esto.
+
+Lo más lejos que yo llegué en i,
+
+o sea, la cantidad de filas,
+
+la fila más alta es la 19,
+
+que sería la 20 como persona, ¿no?
+
+Y lo más lejos que yo llegué en j,
+
+es la 4, que sería la 5, ¿no?
+
+Entonces, este elemento, que no es así, digamos, sino que en realidad es 1, 2, tengo un 4,
+
+y acá en 19, 4, tengo un 8.
+
+Este elemento es como el más lejano del origen, está en la fila 20, columna 5, ¿está?
+
+Por eso es que cuando yo vengo acá y digo la forma de la matriz, me dice 25.
+
+Porque yo no dije antemano qué tamaño tenía.
+
+Entonces la matriz más chica que puedo armar es 25.
+
+Pero yo en realidad puedo tener un número acá
+
+y un montón de ceros por ahí dando vueltas.
+
+Se ve, podría ser más grande.
+
+Por eso es que típicamente
+
+uno le pasa las coordenadas
+
+y también el tamaño.
+
+Por ejemplo, 25 filas, 10 columnas.
+
+Hago eso.
+
+Esto es M2.
+
+Y estoy armando lo mismo.
+
+Pero en donde tengo
+
+no 20, sino 5 más con ceros acá
+
+y un par de columnas más dando vuelta por ahí.
+
+Pero fíjense que podría tranquilamente haber armado una matriz de 25.000 por 10.000.
+
+O sea, con dimensiones muy grandes, ¿está?
+
+Pero donde lo que hay principalmente son ceros, ¿va?
+
+De hecho, esa M2 que voy a armar acá, es esa de 25.000 por 10.000.
+
+Entonces, fíjense que una matricita re pequeña, que tiene 20 por 5, ocupa 0,0.
+
+Y una como la M2, que es gigante, ocupa 0,10 megabytes.
+
+Alguna cosita está guardando ahí de más, digamos, pero es una matriz gigante.
+
+Y no ocupa nada en la memoria, ¿estamos?
+
+Entonces, ese va a ser el truquito que van a usar.
+
+O que deberían usar en el TP y que deberían usar en la práctica también.
+
+¿Cuál es la clave acá?
+
+la clave es poder representar las matrices así
+
+pero también tener un modelo
+
+que lo que haga
+
+sea poder trabajar con matrices raras
+
+que no te implique, bueno tengo esta matriz pero no sé
+
+trabajar con matrices raras, tengo que trabajarlo como
+
+densas y ahí se te pincha
+
+el código, ¿está?
+
+KXGBoost o varios modelos trabajan así
+
+sin problema
+
+¿bien?
+
+sigamos, esto
+
+es
+
+código que ya viene en la práctica
+
+que viene conmigo, cargan los datos
+
+Castea las variables al tipo adecuado en cada uno.
+
+Datos para las fechas.
+
+Algunas variables de conteo, como vimos en la clase pasada.
+
+Acá hay una nueva función que limpia los nombres de las columnas.
+
+Porque vamos a estar haciendo columnas nuevas tipo Penguin, cosas por el estilo.
+
+Y por ahí hay canciones con caracteres raros o cosas por el estilo.
+
+Los limpia básicamente para que después no nos traiga problemas al guardarlo.
+
+Y lo que hace es cargar los datos.
+
+Castea las variables.
+
+Arma el target, básicamente.
+
+Tira MS Plate, que no nos sirve después.
+
+Hace algún ingenio de atributos en este lugar.
+
+Y lo quiero ejecutar hasta acá.
+
+Y acá lo que dice, che,
+
+¿cuáles son las numéricas que voy a quedarme?
+
+Voy a quedarme básicamente todas las que son number o bool, el tipo.
+
+¿Y cuáles son las que voy a hacer one code encoding?
+
+No voy a hacer sobre todas, no voy a hacer sobre algunas.
+
+User ID, dije voy a hacer OneHonelCoding,
+
+Platform Family,
+
+Connection Country,
+
+y MasterMatedData,
+
+Album Artist Name, básicamente,
+
+el nombre del artista.
+
+No estoy haciendo de canciones ni de muchas cosas.
+
+¿Está?
+
+Ok.
+
+Hago eso, tac.
+
+Y ahora me quedo con un attack name
+
+en donde están filtradas esas columnas que elegí antes,
+
+las numéricas y las que digo tres
+
+sobre las que voy a hacer OneHonelCoding.
+
+Y OneHonelCoding acá es súper fácil.
+
+Fanda tiene un modulito, un método básicamente que se llama getDummies,
+
+que le paso el data frame para hacer one for encoding,
+
+y lo que le digo, che, dummyNA es igual a true,
+
+es que genere un 1 para cada variable con los dummies,
+
+y este es parse equal true, básicamente lo que dice,
+
+che, guardalas como matices ralas, ¿está?
+
+No guardes los ceros.
+
+Súper fácil.
+
+Hacemos eso, y lo tenemos.
+
+Demora un poquitito, hace sus cálculos,
+
+no es pequeño el dataset de TP, digamos.
+
+¿Ok?
+
+Y ahora,
+
+estas matrices de OneCode,
+
+OneCode,
+
+OneCode,
+
+y las categóricas,
+
+básicamente lo que estoy haciendo es che
+
+a las numericas que elegí,
+
+pegarle esto al costado.
+
+¿Está?
+
+Entonces ahora me va a quedar todo un dataset
+
+de solo numéricos.
+
+¿Vas?
+
+Ok.
+
+Hago esto,
+
+un data frame de esas características.
+
+Perfecto.
+
+Acá limpio un poquito el nombre de las columnas,
+
+acá después vuelvo al nombre de las columnas
+
+porque puedo crear algunas cosas.
+
+Y un mini reporte de este data frame,
+
+que ya está en formato raro,
+
+de qué dimensión tiene,
+
+cuánto ocupa en la memoria y diferentes cosas.
+
+Un detalle, cuando yo cargué los datos,
+
+cargué el 100% de los datos en este caso.
+
+Entonces estamos hablando de dataset entero.
+
+Vengo acá, lo ejecuto,
+
+tiene 962.000 filas, casi un millón,
+
+y 19.000 columnas.
+
+O sea que ya es un dataset importante.
+
+¿Cuánto ocupa memoria?
+
+65.28 megabytes.
+
+Nada, básicamente.
+
+Entonces, hemos trabajado de una manera data frame
+
+para que esta compu la pueda manejar de una manera buena.
+
+Créanme que si ustedes no ponían el Sparcy 4U
+
+o esas cosas de C1 con el COVID,
+
+no sé si lo intentaron o no,
+
+pero pincha.
+
+O empieza a andar muy lento,
+
+otra problema.
+
+Así.
+
+Un segundito.
+
+¿Va?
+
+Perdón.
+
+¿Podrías pedir que es el dummy en A-True?
+
+Lo que dijimos antes, ¿te acordás de armar una categoría nueva?
+
+Sí, sí.
+
+Bien.
+
+Y acá, lo que estoy haciendo básicamente es,
+
+porque XGBoost me va a pedir que la matriz real está en un formato este que se llama CSR,
+
+lo que estoy haciendo es DataFrame, lo estoy partiendo en Taining Evaluation,
+
+¿está?
+
+y cada uno lo voy a pasar
+
+en vez de un data frame de pandas a este formato
+
+CSR, pero es la misma data
+
+estas son las líneas que hacen eso
+
+lo paso a CSR
+
+veo cuáles son los entrenamientos
+
+que acá lo tenía seleccionado, que son los que básicamente
+
+tienen list test, que es una variable que yo creé
+
+arriba, y separo
+
+y separo en esos dos grupitos
+
+fíjense que el nombre de las columnas que yo la había
+
+por acá separado
+
+se lo estoy poniendo
+
+lo estoy guardando acá
+
+Ok, hacemos eso
+
+Y ya tenemos dos dataframes
+
+El dataframe cuál
+
+El de entrenamiento completo
+
+Y el de evaluación completo
+
+Está como separados en formato ralo
+
+Sin ningún tipo de problema
+
+¿Va bien?
+
+Genial, ahora esperamos un segundo
+
+Para ver qué hacemos con esto
+
+Pero ahora ya tenemos muchos datos
+
+Guardados en la compu
+
+Y esta compu no trae problemas
+
+Y ninguna de estas computadoras va a traer problemas
+
+Genial
+
+¿Qué necesito ahora?
+
+Bueno, un modelo
+
+Acá estamos cargando
+
+Con el depiction, data sets
+
+Early
+
+CCB
+
+¿No lo tenés?
+
+¿No?
+
+O sea, es el que
+
+Completo
+
+Todo lo que yo estoy dando
+
+Es lo que ustedes tienen
+
+Ah, ok
+
+Es el data set entero
+
+Early abandonment
+
+esta es una carpeta mía
+
+interna que yo tengo donde están todos
+
+digamos los entrenamientos
+
+no, no
+
+esa es la carpeta, es el directorio
+
+donde tengo guardadas cosas, fíjate que acá va
+
+que dentro de esa carpeta
+
+está train y test, que es lo que ustedes tienen
+
+ah, perfecto, gracias
+
+por favor
+
+¿quieres una consulta?
+
+ahí cuando le pedís que te haga la columna
+
+de NA, que lo hace para todas
+
+las columnas que sean
+
+categóricas
+
+para todas las que yo en un momento de dataframe separo
+
+en las categóricas que yo quiero considerar,
+
+y ahora por cada una de estas variables
+
+categóricas te genera una nueva
+
+NA, si hay.
+
+Si no hay NA no las hace.
+
+Vamos.
+
+Bien.
+
+Veamos esta idea.
+
+Yo puedo tener un data frame,
+
+y por el momento
+
+enfoquemos no solo en training,
+
+en esta idea de usar
+
+una métrica de costo o algo de performance
+
+para ajustar un modelo en training,
+
+que es lo que hace un árbol de decisión
+
+o lo que hace
+
+muchos modelos.
+
+Tengo un dataset de training, ¿no?
+
+Que tiene sus X
+
+y sus Y, ¿no?
+
+Yo puedo proponer un arbolito
+
+que lo aprendo
+
+y con eso saco predicciones.
+
+¿Está?
+
+Supongamos, pero en el momento que estoy en el mundo de regresión,
+
+que es un poquito más fácil de presentar, ¿no?
+
+Entonces yo sé que si esto valía 7,
+
+y esto valía 2, ¿está?
+
+Yo tengo un error en este caso, ¿de cuánto?
+
+De 5, ¿estamos?
+
+El error dio che como y a menos de h.
+
+Si acá yo tenía, voy a poner otro número, 3 y predijo 4,
+
+yo tengo un error de menos 1.
+
+¿Está?
+
+Si yo predije 2 y era 2,
+
+tengo un error de 0.
+
+Este es el Y verdadero
+
+y este es el Y page.
+
+Ok.
+
+Fíjense que para cada observación
+
+yo estoy haciendo la diferencia,
+
+simplemente la diferencia.
+
+Puedo hacer un cálculo de error.
+
+Y en este caso le pongo signos.
+
+se pasó, ¿no? En este caso es, che, se quedó corto en 5,
+
+acá se pasó en 1, acá le pegó perfecto.
+
+¿Estamos? Un modelo que ajusta perfecto la tasera de entrenamiento,
+
+¿cuánto me va a dar en cada uno de esos numeritos?
+
+Cero, ¿no? Pero muy probablemente un modelo que dé cero
+
+en cada uno de esos números, está haciendo qué?
+
+Overfitting, perfecto. Entonces, nos gusta que no sean todos iguales a cero, ¿no?
+
+Pero tampoco queremos que sea estudiante, sino que ajusten.
+
+Ok.
+
+Fíjense qué puedo hacer.
+
+Supongamos que acá tengo 3.
+
+¿Por qué?
+
+Porque supongamos que acá era 8 y 5.
+
+Y acá tengo 2.
+
+Y tengo menos 2.
+
+Y así.
+
+¿Está?
+
+Bien.
+
+¿Yo qué puedo hacer?
+
+Yo puedo construir un segundo árbol, ¿no?
+
+Que ya no trate de predecir las y originales, sino que trate de predecir el error que tuve con el primer árbol.
+
+Entonces ya no es un arbolito, un modelo que trate de predecir esto, sino que trate de predecir esto de acá.
+
+¿Qué es esa idea?
+
+Trata de predecir lo que el primero no logró predecir bien.
+
+¿Se ve?
+
+¿Está?
+
+Y supongamos que yo armo ese modelo.
+
+Y le llamo, qué sé yo, arbolito 2.
+
+Que va a tener los mismos predictores.
+
+Va a tomar siempre las X como predictores.
+
+Pero cambia la Y.
+
+Y ahora el que trata de predecir es esto.
+
+¿Se ve?
+
+Y supongamos que predece 4.
+
+Supongamos que predice menos 0,5.
+
+Supongamos que predice, bueno, 0,1, yo qué sé, por ahí.
+
+Supongamos que predice 3,5.
+
+¿Está?
+
+Supongamos que predice 2.
+
+¿Ok?
+
+Y supongamos que predice 1,2.
+
+¿Está?
+
+Y así.
+
+Fíjense.
+
+¿Qué pasa acá?
+
+¿Ok?
+
+Esto es lo que predijo el primer árbol.
+
+Esto es lo que predijo segundo árbol.
+
+¿Está?
+
+El primero árbol trató de predecir esto.
+
+Y el segundo árbol trató de predecir lo que no había predicho el primero.
+
+¿Se ve?
+
+Y yo puedo hacer la suma.
+
+De lo que predice el primer árbol.
+
+Y me da.
+
+Y el segundo.
+
+Seis.
+
+Y la suma de lo que predice el primer y segundo árbol.
+
+Disculpen.
+
+Primero.
+
+Y segundo árbol.
+
+Y me da.
+
+3,5.
+
+Y puedo hacer.
+
+Este más este.
+
+Ok, 2,1
+
+¿Va?
+
+Y puedo hacer este
+
+5 más 3,5
+
+8,5
+
+¿Está?
+
+Y así
+
+¿Estamos?
+
+Fíjense que puedo decir
+
+Che, ahora tengo un segundo error
+
+Esto es F1
+
+Más F2
+
+Y puedo decir
+
+¿Cuánto le erran los dos árboles juntos?
+
+¿A qué?
+
+A lo que es verdaderamente interesante
+
+decir que es la y, ¿no?
+
+Y fíjense que ahora acá
+
+el error
+
+es de 1.
+
+Acá 3,5.
+
+Y era 3.
+
+Es de menos 0,5.
+
+¿No?
+
+Acá que era 2,1 y valía 2, bueno.
+
+Era 2 y valía
+
+0,1.
+
+¿Ok?
+
+Perfecto.
+
+Acá que es 8.
+
+8,5.
+
+y 0,5.
+
+Y fíjense en general,
+
+no en cada caso particular.
+
+Pero el error que yo tenía con un único árbol
+
+está en estos valores.
+
+Y el error que yo tengo cuando sumo
+
+los dos árboles construidos con esta estrategia
+
+tiende a ser más grande o más chico.
+
+Más chico, ¿no?
+
+Ok, ¿qué hicimos acá, no?
+
+Lo que hicimos acá fue entrenamos un modelo.
+
+El modelo no es perfecto.
+
+y dijimos, che, traemos
+
+alguien más al equipo
+
+pero que no se enfoque
+
+en predecir las Y de cero, sino que ya, che
+
+me enfoco en predecir lo que
+
+mi compañero, mi árbol anterior, no logró
+
+captar bien, ¿estamos?
+
+Genial
+
+Y yo también
+
+como predicción, una combinación de las dos
+
+predicciones, los dos, que en este caso es la suma
+
+¿Va?
+
+Pero no predice perfecto
+
+Yo podría
+
+el error.
+
+¿Qué sería repetir?
+
+Volver a
+
+tomar ese error
+
+a lo que ya tenía.
+
+El error de los dos árboles
+
+es esto, ¿no?
+
+Entonces podría hacer qué.
+
+Un tercer árbol
+
+que predía qué.
+
+Que predía lo que no predijeron bien los primeros dos.
+
+El segundo árbol predecía lo que no predijo bien
+
+el primero. El tercer árbol podría
+
+predecir lo que no predijo bien
+
+los primeros dos.
+
+Y si no anda perfecto
+
+El tercer árbol
+
+Y todavía hay un error
+
+¿Qué podemos hacer?
+
+Un cuarto árbol
+
+¿No?
+
+Y un quinto
+
+¿Eventualmente en qué terminaremos?
+
+En cero
+
+Y entonces terminaremos
+
+Muy probablemente en
+
+Overfitting
+
+¿No?
+
+Genial
+
+Pero está interesante la idea esta
+
+¿No?
+
+Tiene algo como
+
+Que parece llamativo
+
+Y de hecho
+
+Es una familia
+
+Es una estrategia
+
+De lo que se conoce
+
+ensambles, de combinar modelos
+
+para tener una predicción.
+
+Y básicamente lo que nosotros
+
+estamos viendo acá es, o lo que acabamos
+
+de ver, es como el espíritu
+
+de la estrategia que se llama boosting.
+
+Después van al bugging con Federico Pousa,
+
+que es otra estrategia
+
+diferente para combinar modelos.
+
+Pero esta estrategia se llama boosting
+
+básicamente y hace uso
+
+de la idea que vimos, que es
+
+a los modelos, básicamente,
+
+los vamos a entrenar de manera
+
+secuencial, pero vamos a tomar como
+
+predicción final la combinación
+
+de alguna manera de la predicción
+
+de esos modelos individuales, ¿se ve?
+
+Cada uno de esos modelos individuales
+
+se los conoce como modelos base.
+
+Yo acá dije, che,
+
+entrené en un árbol, pero la verdad es que
+
+podría haber entrenado una predicción logística,
+
+podría haber entrenado otra cosa, ir combinándolo de esta manera.
+
+Es un poco
+
+útil en
+
+Bustin usar árboles,
+
+pero podría haber sido
+
+así en términos generales podría haber
+
+usado otro modelo.
+
+Y,
+
+así como las predicciones
+
+de cada uno de los modelos,
+
+cada uno de los modelos se conoce como modelo base,
+
+a la combinación de los modelos
+
+se llama ensamble, como un ensamble
+
+de instrumentos musicales o cosas por el estilo,
+
+como el combinar.
+
+Bien.
+
+Boosting lo vamos a ver para
+
+regresión.
+
+Se podría usar para clasificación sin ningún tipo de problema,
+
+se puede usar para el ranking sin ningún tipo de problema.
+
+Lo que pasa es que la matemática es como más peluda, digamos.
+
+No hay que trabajar con gradientes, con expansión de Taylor,
+
+con todas las cosas que no van a creer que nos metamos ahí.
+
+Pero si ustedes quieren, digamos, yo le paso,
+
+de hecho está ahí al final de las slides,
+
+quien quiera meterse y le guste eso, está bueno,
+
+pero no vamos por ahí.
+
+En el fondo lo bueno que tenemos es que
+
+si nosotros entendemos bien las intuiciones,
+
+y la intuición es generalmente para la regresión,
+
+no va a servir para clasificación, las nuevas intuiciones, lo que sea.
+
+Entonces, enfoquemos en regresión sabiendo que
+
+esto se puede adaptar a otro tipo de problema.
+
+La prensa es que se puede revisar.
+
+Bien.
+
+El algoritmo que van a ver es este día de
+
+un algoritmo que se entrega de manera secuencial,
+
+y voy a seguir el que dice en el libro, que es bien simple, ¿no?
+
+Y es bien general.
+
+Lo que dice es, che, mirá, vos vas a tener un problema donde tienes X,
+
+si querés predecir unas Y, son numéricas, están en problemas de relación.
+
+Y como todo algoritmo, vamos a ver que en los dos que vamos a ver esta clase pasa lo mismo,
+
+hay un paso, una inicialización.
+
+Y la inicialización básicamente es, che, inicializo con un modelo muy pago,
+
+que para todos te dice cero, que siempre te dice cero, ¿está?
+
+Fíjense que si yo siempre predigo cero,
+
+yo básicamente lo que voy a tener,
+
+básicamente, ¿qué es el error?
+
+Bueno, el error es,
+
+si lo medimos como,
+
+lo vas a hacer así.
+
+Lo vas a hacer así.
+
+Valor predicho menos valor verdadero.
+
+No, está bien.
+
+Valor verdadero menos valor predicho,
+
+y siempre predigo cero,
+
+¿está?
+
+¿El error qué es?
+
+El valor verdadero, ¿no?
+
+Y.
+
+Entonces, básicamente,
+
+lo que estás diciendo acá,
+
+si yo inicializo con un modelo que siempre predice cero,
+
+estoy haciendo que el error que acá ya recibí para cada observación
+
+es igual al valor de la variable predecir.
+
+¿Está?
+
+Y esto lo hago para todo TENICET.
+
+Inicialización bien simplona.
+
+Entonces, tenemos un vector Y para predecir,
+
+entrenamos un modelo que es el base, que predice para todos ceros,
+
+y lo que me falta predecir, bueno, es lo mismo que Y.
+
+Es esto de acá.
+
+Y ahora viene
+
+La parte como iterativa
+
+De este algoritmo, la parte secuencial
+
+Y lo que va a decir es
+
+Che, voy a entrenar
+
+B mayúsculas modelos
+
+¿Cuántos más B mayúsculas?
+
+Podría ser 5, podría ser 10
+
+Podría ser 20, podría ser
+
+1200
+
+¿Cómo vamos a seleccionar ese B mayúscula?
+
+Comaliación
+
+del modelo. Y típicamente eso, si uno tiene un buen conjunto de validación, prueba cuál es el
+
+que conviene. Genial, primero hiperparámetro. Entonces, supongamos que son cinco, no voy a
+
+llegar a cinco, supongamos que son mil, siempre son números grandes, típicamente. ¿Qué dice en cada
+
+uno de esos pasos, en esos B mayúsculos pasos? En cada uno de esos B mayúsculos pasos dice: "Che, voy a
+
+crear un modelo, que es este F con sombrerito, con su braín y se ve, digamos que en el primero
+
+se ve a 1, 2, 3, 4, 5, digamos, por eso yo ahí puse F1, o acá pongo F1, ¿ok? Que va a tratar de
+
+predecir básicamente el residuo que tenés hasta ese momento. En la primera iteración va a tratar
+
+de predecir esto, que justo en la primera iteración es igual a eso, ¿se ve? Igual a Y, que es lo que
+
+dice en este ejemplo acá.
+
+Entonces,
+
+supongamos que tenemos un modelo
+
+y te dice esto. El libro dice,
+
+che, va a ser un modelo con
+
+desplits. Un árbol que
+
+es de nodo y parato
+
+una vez, tiene un split.
+
+Si después da otro, lo parato otra vez, tiene
+
+dos splits. Splits es cuántas veces abre
+
+en ranos, ¿no? Si es un árbol binario
+
+y lo piensan, che, yo tenía
+
+un único split y tengo dos nodos.
+
+Tengo dos splits y tengo
+
+tres raíces, básicamente, ¿no?
+
+Tres nodos terminales.
+
+Entonces, si vos tenés D splits, como dice ahí,
+
+vas a tener D más uno, nodos terminales o hojas.
+
+¿Está? Que es lo que dice acá.
+
+Entonces, fíjense qué dice acá.
+
+Che, voy a traer un árbol con D splits.
+
+¿Cuál es el número adecuado de?
+
+Bueno, otro hiperparámetro.
+
+Podés probarlo con tres, con cuatro, con cinco, con lo que fuera, ¿no?
+
+Vamos a ver que no vamos a usar exactamente splits,
+
+sino vamos a usar profundidades o otros parámetros.
+
+El libro lo presenta con él.
+
+¿Ok?
+
+Entonces, entreno un modelo con desplits,
+
+o sea, con una determinada ya de antemano,
+
+una flexibilidad dada,
+
+a la tasez de entrenamiento que viene con esta pinta.
+
+X, es decir, usando las X,
+
+es residuo hasta ese momento.
+
+En la primera iteración, acuérdense,
+
+R es igual a Y.
+
+O sea que lo que estoy haciendo es con unas X
+
+que están por acá, trato con este modelo
+
+predecir esto de acá.
+
+¿Está?
+
+Y listo, aprendí un modelito, un modelo base.
+
+Y ahora lo que dice Che,
+
+hace un update de la predicción
+
+del ensamble, ¿no?
+
+¿De qué manera?
+
+Sumando lo que predecía antes
+
+más lo que suma
+
+este nuevo modelo multiplicado
+
+por lambda.
+
+¿Y ahí qué aparece? Bueno, aparece otro
+
+parámetro. Ese lambda típicamente
+
+es un valor
+
+pequeño. Es un 0,10,
+
+0,001,
+
+algún número pequeño. Suele ser algo que
+
+hace que
+
+el aprendizaje sea más lento. ¿Por qué hace que
+
+el aprendizaje sea más lento? Porque veamos,
+
+si yo trato de predecir esto,
+
+y tengo estas predicciones
+
+del primer modelo, y lo multiplico, supongamos
+
+por un lambda 0,10,
+
+ahora el modelo predice 0,8,
+
+0,1, 4 por 0,10,
+
+0,4, y así se ve.
+
+O sea que lo que estás haciendo es que no ajuste también lo que querías decir,
+
+sino que se aleje menos de donde estabas, digamos.
+
+Se mueve un poquito.
+
+Y tiene sentido, ¿por qué?
+
+Porque si este modelo ya era overfitero, estaba ajustado a perfecto,
+
+este modelo no lo va a hacer tanto, ¿estamos?
+
+Porque estás haciendo como que un modelo base no te lleve las direcciones
+
+directo a las ideas que tendría que ser, sino que estás diciendo,
+
+bueno, que suma el ensamble, pero que suma un poquito.
+
+Bueno, no anda tan bien.
+
+Pero recordemos que el objetivo no es que un modelo ande bien,
+
+sino que el ensamble entero ande bien.
+
+Entonces le falta predecir a un modelo multiplicado por lambda,
+
+le falta mucho más para predecir que si no lo hubiese hecho,
+
+evidentemente, pero no pasa nada,
+
+porque después vendrán otros modelos bases
+
+que tratan de predecir esa parte, ¿no?
+
+Entonces, ok, estamos acá.
+
+Genial.
+
+¿Cómo?
+
+Mi modelo anterior era todos ceros,
+
+y ahora lambda por F1 es esto de acá,
+
+yo voy a tener 0 más 0,8, 0,8,
+
+entonces acá, justo en este caso,
+
+el ensamble, después de la primera iteración,
+
+me queda esto, ¿no?
+
+¿Y el error qué es?
+
+Bueno, uno lo puede calcular así,
+
+para mí es una forma más fácil de verlo,
+
+decir, che, de las ideas que tenía,
+
+¿en cuánto le están errando en el ensamble?
+
+Si predice 0,8, es 9,2,
+
+porque era 10 menos 0,8, ¿no?
+
+que es menos 0,1, 2,9, y así estamos.
+
+Otra forma de haberlo hecho, podrías decir,
+
+che, al error que tenías antes, restarle esto de acá,
+
+fíjense, 10 menos 0,8, da lo mismo, digamos.
+
+Para mí es un poquito más natural siempre decir,
+
+che, el ensambla hasta este momento te dice esto,
+
+tenía que predecir esto, esto.
+
+Bueno, menos que predecir el ensambla en este modelo,
+
+el error que te queda en R1.
+
+¿Estamos?
+
+Update los residuos y terminás la primera iteración acá.
+
+¿Está?
+
+Este modelo, genial, no es un buen modelo.
+
+¿No?
+
+¿Por qué?
+
+Porque no predice bien estas ideas para nada.
+
+Predice 0,8 y de hecho tiene un error más grande o grande.
+
+Pero tiene más chico lo que tenía el modelo sin eso.
+
+Lo bajó un poquito.
+
+Y nuestra idea va a ser, che, bueno, que no sea un modelo,
+
+sino que vengan más que se encarguen de eso.
+
+Entonces acá lo que sucede es, che,
+
+existe el update de los residuos
+
+y vas a la iteración 2.
+
+¿Y la iteración 2 qué hice?
+
+Entré en un árbol con desplits
+
+para predecir X con las X
+
+para predecir los residuos del ensambla
+
+hasta ese momento.
+
+¿Y cuántos son los residuos del ensambla hasta ese momento?
+
+Esto de acá.
+
+Entonces ya no intenta predecir las ideas
+
+sino intenta predecir
+
+lo que no predijo el modelo
+
+o el ensamble con un único árbol base.
+
+¿Ok?
+
+Y supongamos que
+
+El modelo que trata de predecir esto
+
+El arbolito que trata de predecir esto
+
+Nos da 8,7
+
+2,5
+
+1,2
+
+1,2
+
+Y así está
+
+Lo multiplicamos por lambda
+
+El mismo lambda
+
+0,1
+
+¿Está?
+
+Y nos da 0,87
+
+0,25
+
+0,12
+
+¿Ok?
+
+Y ahora el ensamble
+
+¿Qué es?
+
+El ensamble es
+
+Lo que valía antes
+
+Que era esto
+
+0,8
+
+más 0,87, 1,67.
+
+Lo que valía antes, que era 0,1,
+
+más 0,25, 0,35.
+
+Y así, ¿estamos?
+
+¿Qué tenemos?
+
+Que ahora el ensamble con dos árboles base
+
+predice esto.
+
+¿Y cuál es el error?
+
+Bueno, el error es lo que tenías originalmente
+
+menos lo que predice el ensamble hasta ese momento,
+
+10 menos 1,67, 8,33.
+
+3 menos 0, 35, 2, 65.
+
+Y así está.
+
+Fíjense qué fue pasando.
+
+Este era el error, lo bajé y lo fui bajando más.
+
+¿Se ve?
+
+No necesariamente siempre va a bajar.
+
+Fíjense que, perdón, no necesariamente para todas las observaciones va a bajar.
+
+Fíjense que yo, por ejemplo, acá hice que algo que tenía error 0,
+
+en algún momento subo un poquito, ¿no?
+
+O sea, sale este 0.
+
+Pero bueno, si sube no pasa nada.
+
+tendrán otros árboles que se encarguen de eso
+
+que hizo subir hasta ese momento acá.
+
+Eventualmente yo dejo andando esto,
+
+y va cada vez viendo más detallecitos
+
+de lo que no encontró en el ensambla hasta ese momento.
+
+¿Estamos bien con esta idea?
+
+¿No resulta?
+
+Sí.
+
+¿El lambda siempre tiene que ser menor a 1?
+
+¿Pero eso es que no?
+
+Sí, típicamente es un valor pequeño.
+
+Porque, digamos, ni siquiera se caería.
+
+Es como que estarías alejando de las predicciones,
+
+digamos, con 1 mayor a 1, digamos.
+
+Si estudiamos acá en 1, en el sample
+
+probablemente hagan un refi
+
+en muy pocas situaciones.
+
+Bien.
+
+Si hay un valor entre 0 y 1,
+
+¿no?
+
+Mayor a 0 y menor o igual a 1,
+
+pero 1 es como muy extremo,
+
+suelen ser valores pequeños.
+
+¿Cuál es el modelo final?
+
+Bueno, el modelo final va a ser, che,
+
+si yo entendí en veces, el que me queda
+
+haber hecho esas 100 sumas, digamos, básicamente.
+
+¿Qué es esto de acá? Es,
+
+a cada uno de los arbolitos,
+
+básicamente que estoy multiplicado por lambda, lo sumo.
+
+¿Qué sería? Un segundo.
+
+Esto más esto, y cuando sea F3, eso lo da ahí,
+
+y me va a dar un modelo final.
+
+Sí. ¿Alguien te dio una pregunta o no?
+
+Sí.
+
+Yo, en realidad, en la iteración 2,
+
+lo que estoy queriendo predecir es R1.
+
+Sí.
+
+Pero de todas formas, cuando comparo
+
+cuánto se triunfo la iteración 2,
+
+lo comparo contra I.
+
+Lo comparo contra I, exactamente,
+
+porque es cuánto va errando el ensamble hasta ese momento, ¿no?
+
+Claro.
+
+Eso sí.
+
+Pero no entiendo, si te seguís haciendo
+
+X veces,
+
+te va a terminar el árbol de fitting de vuelta.
+
+Sí.
+
+Está bien, y un árbol simple de decisión,
+
+si yo vendría hasta el fondo, también a sobrefitting,
+
+digamos, ¿qué hacías en un árbol de decisión?
+
+Lo parabas antes.
+
+¿Qué vas a hacer acá?
+
+No vas a dejar que B sea un número que hace.
+
+¿Cuál es el número óptimo?
+
+¿Cuál es el número óptimo?
+
+Ahí está el palito. ¿Cuál es el número óptimo?
+
+Sí.
+
+es que un FES con un conjunto de validación
+
+es algo para experimentar
+
+un hiperparámetro
+
+todas estas cosas sueltas
+
+no tienen un argumento teórico
+
+es siempre 100, es siempre tanto
+
+son cosas testidas para la validación
+
+un segundo, de hecho si ustedes ven el libro
+
+van a ver que el libro dice algo como
+
+D suele
+
+D tiene que ser
+
+D tiene que ser un valor pequeño
+
+en la práctica
+
+eso me pasó a mí, yo de hecho le creí
+
+al libro y muchos problemas.
+
+Así que cuando estaba aprendiendo decía, no, ni pongo
+
+10, no pongo 12 profundidad porque el libro
+
+dice esto. Y otros dijeron, che,
+
+pero 12, no pasa nada, ¿no? Y era
+
+mucho mejor que lo que yo estaba. Así que todos esos valores,
+
+yo ahora
+
+estoy tirando árboles en el ensamble muy profundo,
+
+pero con lambda chicos, y suele ser
+
+para mí una mejor estrategia.
+
+No hay
+
+en nada de estos valores que están
+
+sueltos, hay un valor que sea bueno siempre.
+
+Sí.
+
+La idea es ver cuando esto es literal para
+
+al mínimo error posible
+
+y después esa es una manera
+
+de iterar el modelo conjunto
+
+de evaluación.
+
+Ok, perfecto. Ahí era donde yo iba.
+
+Quería ir. ¿Cómo predice este árbol?
+
+¿No?
+
+Este ensamble, mejor dicho, este ensamble de árboles.
+
+Porque yo de fondo, ¿qué dice?
+
+Si ve igual a 100, tenés 100 árboles, ¿no?
+
+Pero me lleva una observación nueva
+
+sobre la que tengo que predecir.
+
+¿Qué pasa? Bueno, che, esa predicción
+
+vale al árbol 1, al árbol 2, al árbol 3,
+
+esa observación vale al árbol 1,
+
+2, 3, 4, hasta el 100, estamos,
+
+y yo voy a tener 100 valores de dichos.
+
+Y lo que tengo que hacer es,
+
+a cada uno multiplicarlo por lambda,
+
+y sumarlos, y la predicción del ensamble.
+
+¿Se ve o no?
+
+Esa es la estrategia, digamos.
+
+De decir, básicamente, al final,
+
+paso la observación por cada uno
+
+de los árboles que entretenemos,
+
+multiplico por lambda, sumo esos productos,
+
+y se acabó.
+
+¿No me termina de quedar muy claro el lambda?
+
+¿Por qué no ponés directamente
+
+la predicción del error
+
+y lo vas haciendo de atrás.
+
+Porque vas a hacerlo de fitting muy rápido.
+
+Y vos no querés
+
+típicamente tratar,
+
+vas a hacer una buena estrategia,
+
+como empieza el siguiente slide,
+
+tratar de que el ensamble
+
+aprenda lento, digamos, que no sea un árbol
+
+que se enfoca en todos los patrones,
+
+sino que sea más el conjunto
+
+de los árboles el que captan
+
+los patrones de entrenamiento.
+
+Y si vos dejás que un árbol predilla mucho
+
+de las Y, es como que le está dando
+
+mucha importancia al árbol. De hecho, los primeros árboles
+
+van a predecir un montón y los otros ya casi nada, digamos.
+
+Si vos querés que sea más el equipo el que trabaja bien
+
+y no uno solo que está haciendo otro trabajo
+
+y lo demás solamente detalles que no se han firmado.
+
+¿Y el ámbito igual tiene el mismo peso en todos los árboles?
+
+En esta implementación acá sí, en otras no.
+
+Pero acá como estamos viendo, tiene que ser un poco más.
+
+Sí.
+
+Veamos.
+
+¿Esto funciona?
+
+solo porque aprende lento.
+
+Te lo puedo poner en un caso extremo.
+
+Lambda igual a uno, árbol de máxima profundidad.
+
+Con una iteración, eso hiciste por el fitting.
+
+¿Estás?
+
+No ganas nada haciendo esta cosa secuencial, ¿no?
+
+Entonces, básicamente, lo que vos vas a querer es que, che,
+
+de alguna manera que el aprendizaje
+
+ir retardándolo y que sean muchos árboles
+
+los que logran aprender los patrones
+
+y no uno solo, o no los dos primeros,
+
+o los que fueran, ¿estás?
+
+sino que sea como el equipo que funciona bien.
+
+Y para eso...
+
+Perdón, ¿y por qué buscamos?
+
+¿En qué nos suele que aprenda el libro?
+
+Que un árbol, o sea, si lo hace aprender rápido,
+
+es un árbol profundo.
+
+Es sobrefite en derecho, ¿no?
+
+¿Está?
+
+Es como, ¿para qué hace ese ensamble, digamos?
+
+Es básico.
+
+En el caso muy estemos lambda igual a 1,
+
+un árbol de profundidad alta,
+
+es...
+
+muy profundo, si querés,
+
+muy profundo, pero si pones
+
+el lambda chiquito, ya ese
+
+árbol no hace oro de fitin, y quizás
+
+100 árboles no te hacen oro de fitin, y ya empiezan
+
+a captar patrones, ¿está?
+
+De hecho, vas a ver, digamos,
+
+y acá es cuando te empieza a servir,
+
+de hecho, lo van a ver mucho en
+
+esos posts que yo puse de clase anterior,
+
+de competencia de acá, van a ver que hay
+
+algunos que siempre dicen, o en algunos dicen
+
+al menos, él
+
+tuneó los modelos
+
+que dije, porque
+
+puede ver cuáles son los hiperparámetros
+
+que conviene, digamos, ¿no?
+
+Y es porque genuinamente hay algunas conexiones ahí.
+
+Hay que empezar
+
+a pensar en, che, ¿qué quita o qué
+
+da más flexibilidad, no?
+
+Si yo pongo árbol en alto fondo, el modelo es más flexible,
+
+entonces me puedo quitar rápido.
+
+Entonces, ¿qué puedo hacer? Bueno, o B más pequeños
+
+o lambda más pequeños.
+
+Típicamente la estrategia que te conviene, che,
+
+si subís la profundidad del árbol,
+
+usa lambda más pequeños, ¿no?
+
+Y no tenés que bajar
+
+los B, el B más úsculo. Entonces
+
+empieza a estar como un poquito
+
+conectado al parámetro y uno va viendo,
+
+digamos, che, estoy
+
+refiteando, bueno, subo profundidad
+
+o le mantengo a profundidad
+
+y bajo el lambda, ¿no? O che, no ajusta
+
+bien los parámetros, no ajusta bien hasta hacer
+
+entrenamiento todavía. Bueno, ponenle más profundidad,
+
+pero probablemente toques un poquito el lambda
+
+también, digamos. Ahora empieza a estar
+
+todos un poquito conectados.
+
+Pero, perdón, ¿hay una diferencia
+
+que no termino de ver? Porque digo, si vos tenés un
+
+B igual a 1, ¿qué diferencia
+
+o sea, es como si estuvieses
+
+en vez de estar prediciendo i, estás prediciendo el error
+
+entonces, ¿por qué harías overfitting sí o sí?
+
+porque si no es b igual a 1, error es sí
+
+por la inicialización, ¿no?
+
+error igual iría
+
+pero no vas a predecir perfectamente tu error
+
+porque si no
+
+yo te dije, si te veo un b igual a 1
+
+y tenés algún árbol mutofundo
+
+vas a hacer overfitting
+
+si es muy profundo, sí, pero digo
+
+Bueno, si no es mutuofundo,
+
+se va a hacer underfitting.
+
+Pero podrías tener un B igual a 1
+
+y no hacer overfitting
+
+si no es profundo ese B.
+
+Perfecto.
+
+Pero vas a tener el desempeño
+
+en un solo árbol.
+
+Y en el TP vas a llegar a 0.78 de AUC,
+
+porque generalmente andan peor
+
+esos modelos.
+
+Esta estrategia, digamos,
+
+es una estrategia donde cuando uno
+
+permite captar algunas cosas,
+
+protege a decisiones que no tienen,
+
+yo, qué sé, por ejemplo,
+
+querés captar una diagonal así
+
+en el espacio de atributos, un árbol tiene que hacer un montonazo de cortes,
+
+un ensamble empieza a captar cosas como esa de manera más simple.
+
+Es un modelo genuinamente más flexible,
+
+con posibilidad de captar patrones más complejos,
+
+pero que vos acá lo podés hacer que no perfitee rápido, básicamente.
+
+Es mejor que...
+
+O sea, es más potente la capacidad como de particionar el espacio de atributo
+
+de un ensamble que un arbolito solo, sin ningún tipo de duda.
+
+Por lo menos lo puede hacer de una manera
+
+no tan
+
+rara, digamos, como
+
+poder hacer un corte primero así, así, así,
+
+para tener. Es mejor.
+
+Este...
+
+Tienes razón, si vas a decir, che,
+
+lambda igual a 1 y B igual a 1,
+
+bueno, estás en un árbol común, y vas a
+
+llegar hasta donde llega un árbol común, digamos.
+
+Si tienes sus limitaciones, es un árbol común.
+
+Esto mejora, por supuesto.
+
+Si lo haces mal,
+
+que sería, che, dejar el lambda igual a 1,
+
+vas a hacer que muy pocos árboles en muy poco tiempo overfitean.
+
+Bien.
+
+Entonces, van como una idea, che, que aprenda lento.
+
+Estos modelos son rápidos, parecen, sobre todo en GGBUS, digamos,
+
+pero que aprenda lento, que es decir, che,
+
+que cada árbol sume poco a la predicción,
+
+que sea el equipo el que funciona bien y no cada árbol de manera individual, ¿no?
+
+Entonces, lo que vamos a hacer es tratar de lograr eso.
+
+Típicamente cada árbol suele ser pequeño, con pocos cortes.
+
+Profundidad 4, profundidad 5, profundidad de 8, 10, digamos.
+
+Típicamente es que se toca la profundidad.
+
+Otra cosa del parámetro lambda, el learning rate,
+
+típicamente uno tiene valores bajos.
+
+Obviamente están conectados, ¿no?
+
+Si uno hace algo en un alto fondo, probablemente el lambda tenga que ser más chiquito.
+
+Y una cosa que tiene mala, entre muchas comillas, este algoritmo,
+
+es que es medio difícil de paralizar.
+
+Cuando ustedes vean árboles de sesión,
+
+ranofores, van a ver que
+
+cada árbol se puede construir de manera independiente del otro.
+
+Entonces yo puedo estar construyendo 100 árboles a la vez y los combino.
+
+Acaso no se puede hacer para construir yo el árbol 2,
+
+tengo que haber construido el 1 primero, se ve.
+
+Y para el 3, tengo que haber construido el 1 y el 2.
+
+Entonces yo no puedo estar haciendo muchos árboles en paralelo.
+
+De hecho, no puedo estar haciendo árboles en paralelo.
+
+Pero
+
+Hay algunas ventajas
+
+Que cada árbol si es pequeño
+
+Si hacemos algunos triunfitos
+
+Se construye súper rápido
+
+¿No hay una manera de cómo estimarlo
+
+Que sería lambda óptimo?
+
+A ver
+
+La manera es con validation
+
+Es
+
+Si tenemos un conjunto de validation
+
+Como estimas, comprueba error
+
+podés usar un hiperoptal
+
+o predestido que de alguna manera
+
+no lo estimás, pero una manera
+
+de cuentita de estimar cuál es lambda óptimo
+
+en principio no
+
+si vos ves el libro vas a ver que hay una versión
+
+GBM que para cada algo le estima
+
+un lambda mejor porque es el que
+
+te minimiza, ok
+
+pero ninguno de los frameworks modernos hace eso
+
+básicamente, es como hay veces
+
+que están esas cosas matemáticas pero vas a decir
+
+que vos si eso no existen esas opciones que estés usando lambda
+
+o sea no podrías hacer eso
+
+en X
+
+No, no, no, no.
+
+Y probablemente si no está para hacer es porque no debe ser algo
+
+que en la práctica mejore tanto en performance.
+
+No te lo puedo decir, pero suele ser así.
+
+Vas a ver, hay una forma de vuelta, yo no me acuerdo,
+
+porque tampoco es muy popular que vean hoy en día,
+
+pero hay una forma para que use diferentes landas
+
+para diferentes árboles optimizando algo,
+
+pero no es lo que hacen los frameworks más modernos.
+
+Así que hay una forma matemática, no se la usa, digamos, de ninguna manera.
+
+En ningún caso, y lo típico es encontrar lambda mejor para tu problema con validation.
+
+O sea, como vas chequeando cuantegame todo eso.
+
+Sí, sí, sí, sí. Es un poco el sabor que tiene más un darme, digamos, eso es.
+
+Bien.
+
+Perdón.
+
+Sí.
+
+¿Para qué quisiéramos paralizar? ¿Es para una interpretación?
+
+No, paralizar es algo que hacen las computadoras naturales.
+
+O sea, es bueno poder paralizar cosas.
+
+¿Qué quiere decir?
+
+Che, si yo tengo un cálculo que tiene 100 pasos
+
+y puedo tener 50 computadoras,
+
+a cada una le doy un paso,
+
+combino las soluciones y me demoró un cincuenta yado del tiempo
+
+más lo que está.
+
+Eso es paralizar.
+
+De hecho, internamente, cuando vos haces producto de matrices,
+
+se paraliza entre diferentes núcleos, cosas por el estilo.
+
+Incluso con una compu misma,
+
+las compas paralizan cuando se puede,
+
+y es mucho mejor.
+
+Si lo podés hacer, es un golazo.
+
+¿Por qué? Porque te demora
+
+uno sobre en el tiempo, y eso sí.
+
+Pero acá no se puede hacer.
+
+¿Va?
+
+Bien.
+
+Bien.
+
+Lo que vimos fue para la relación.
+
+Hay una adaptación
+
+de uno de los autores del libro más avanzado,
+
+creo que es el libro que estamos usando acá,
+
+que se llama KBM,
+
+Gradient Boosted Machine,
+
+que ya dice, che, plantea todo en función de costo diferenciable,
+
+por eso está la parte de gradientes,
+
+y eso permite hacer clasificación y relación, perfecto.
+
+Pero quizás lo más importante de la práctica hoy es que
+
+en algún momento un estudiante de doctorado dijo,
+
+che, voy a hacer una librería,
+
+doctorado de computación de Seattle, si no me equivoco, de Washington,
+
+y dijo, che, lo voy a programar súper bien
+
+y le voy a meter algunas ideas como de machine learning más moderno,
+
+la función de costo, con un componente de regularización,
+
+y gradientes, cosas por el estilo,
+
+y la librería se llama XGBus.
+
+Y básicamente no es en espíritu, digamos,
+
+el motor de tal, la idea no es diferente a esto,
+
+pero es mucho más general y está programado hermoso, digamos.
+
+Y que implica eso, que todas las cosas,
+
+quizás no se paralizan los árboles,
+
+pero quizás dentro de cada árbol se pueden paralizar algunas cosas,
+
+todo lo que se puede paralizar se paraliza,
+
+todo lo que se puede optimizar está optimizado,
+
+Está como súper tuneado para que sea rápido.
+
+De hecho, si ustedes tienen acceso a una GPU,
+
+está también hecho para que se pueda correr en GPU
+
+y andan mucho más rápido, digamos.
+
+Está muy optimizado para diferentes frameworks,
+
+para diferentes concursos.
+
+Entonces, XGBoost básicamente es una implementación inteligente
+
+de la idea que vimos y muy bien armadita, básicamente.
+
+Y se usa un montón en academia
+
+y se usa, esto creanme, un montón en la industria, digamos.
+
+Este es el algoritmo que si ustedes van a trabajar a donde sea,
+
+que se prenden a datos tabulares, incluso muchas veces en serie de tiempo,
+
+nada, lo que usan es XGBUS.
+
+Y ahí es como que hace años que se acabó la magia, ¿no?
+
+El modelo es XGBUS y no hay mucha vuelta.
+
+Así que necesitas que sea rápido, porque hay una reacción logística,
+
+algo por el estilo, pero XGBUS es lo que va.
+
+Hay dos versiones más de lo mismo, básicamente, ¿no?
+
+La GVM es una que otros prefieren, que la hizo la gente de Microsoft,
+
+por ejemplo, Mercado Libre usa la GVM,
+
+y CatBus es otro que le hizo una empresa rusa que se llama Zandex,
+
+que en su origen tenía la particularidad de que trabajara variedades categóricas,
+
+no con OneHottenCoding, sino como sin necesidad de hacer OneHottenCoding,
+
+como vimos en la clase que presentamos a árboles.
+
+Pero hoy en día eso XGBus lo tiene y creo que la GVM también.
+
+Yo suelo usar XGBoos, pero el Lice y VM también es muy usado,
+
+y es lo mismo, básicamente.
+
+Los parámetros son muy parecidos, los que se tocan son lo mismo, digamos.
+
+Difícil un poco de las tradiciones, no de las mismas tradiciones,
+
+pero la idea es que son las mismas.
+
+Ok.
+
+Estos algoritmos son súper útiles,
+
+y son los que van típicamente en notas Z tabulares, básicamente.
+
+Y no hay mucha vuelta en eso.
+
+van para regresión, para clasificación,
+
+para ranking, para un montón de problemas,
+
+suele ser XGBoos el que va,
+
+básicamente.
+
+XGBoos
+
+tiene
+
+una cosa
+
+también que está buena,
+
+déjenme un segundo,
+
+que es, trabaja con
+
+Missings. Y trabaja con Missings,
+
+la verdad, igual que como trabaja
+
+el árbol de decisión de Cyclic Learn,
+
+que le copió lo que hacía XGBoos.
+
+hace unos años Saki-Learn no trabaja con Missings,
+
+XGU propuso una forma y los de Saki-Learn le copiaron,
+
+básicamente,
+
+que es bastante simple.
+
+¿Se acuerdan que cuando nosotros dijimos,
+
+che,
+
+un árbol hace un split,
+
+o evalúa un split?
+
+¿Qué es?
+
+Bueno, supongamos que X20
+
+sea mayor a 7, ¿no?
+
+Que estoy evaluando ese split
+
+¿Está?
+
+¿No?
+
+Ok, yo tengo
+
+Cota, que era la variable
+
+20
+
+Y ese que era el cote
+
+Es 7, ¿no?
+
+Estaba probando eso
+
+Y quiero ver cuál es el gain
+
+Con ese split
+
+¿Estamos?
+
+Pero yo en X20
+
+Puedo tener 10
+
+Que se va para un lado
+
+¿No?
+
+Si el corte que estoy probando
+
+De X20
+
+Y mayor a 7
+
+¿No?
+
+Se va a ir para el lado
+
+De que sí
+
+¿No?
+
+O puede tener 2 que se va para la izquierda, o puede tener 0 que se va para la izquierda, o puede tener 20.
+
+Si yo tengo un número, yo sé para qué lado se va, ¿no?
+
+Pero si yo tengo un NA, ¿qué pasa?
+
+Bueno, para esta regla, no sé si lo tengo que decir es mayor o no a 7.
+
+Pero esa es la única pregunta que tengo que hacer, ¿no?
+
+O sea, si es mayor o no a 7.
+
+Si es mucho mayor o un poco mayor, o si es un poquito menor o mucho menor, ¿no?
+
+Casi que no nos importa.
+
+No importa si de ese threshold está a la izquierda o a la derecha.
+
+Entonces lo que hace el QGBUS es decir,
+
+che, calculo dos gain.
+
+¿Qué pasa si mando todos los de derecha?
+
+Y el gain 2, ¿qué pasa si mando todos los NA a la izquierda?
+
+¿Se ve?
+
+Entonces es como aprender, che, en este caso,
+
+cuando en estas observaciones que están acá y hago el clip por este caso,
+
+los NA los tomo como un valor muy grande
+
+o como un valor muy chico a los fines prácticos.
+
+¿Está?
+
+Y eso es lo único que hace.
+
+dice, che, ¿qué ganancia se obtendría
+
+cuando calculo un split
+
+si los missings fueran mayores
+
+el valor más alto básicamente
+
+o el más bajo
+
+posible para esa XJ
+
+¿está? y ok, si yo mando
+
+todos a la derecha y tengo un gain de 200
+
+si mando todos a la izquierda y tengo un gain de 180
+
+lo que aprendo es que en este split
+
+me conviene mandar los missings
+
+a la derecha
+
+¿está? bien
+
+y después
+
+construyo el árbol y el árbol
+
+aprende no solamente el X
+
+usado en un nodo,
+
+el threshold, el S, sino también
+
+para qué lado mandar los missings. Aprende una
+
+cosita más. Y cuando me lleva una nueva
+
+observación y cae
+
+en ese nodo y justo tiene un missing
+
+en esa observación, el árbol ya aprendió que
+
+conviene mandarla en esa dirección y sigue viajando
+
+hasta eventualmente una hoja. Entonces, lo que
+
+hace básicamente es eso. Che,
+
+para cada nodo prueba y para cada
+
+J, cada S, dice, che, ¿qué pasaría
+
+si todos los missings los mandan de J,
+
+los mandan de izquierda o a la derecha?
+
+aprende en qué dirección va
+
+y maximiza el game
+
+no cambia mucho
+
+esa técnica
+
+se llama
+
+Sparsity Aware Split Finding
+
+y si ustedes van al foro de XGB
+
+le preguntan al autor
+
+de XGB, le dicen
+
+está bueno lo que hiciste con los missings
+
+y le dicen
+
+¿de dónde lo sacaste? ¿qué hiciste?
+
+el tipo dice, no sé, me pareció lógico
+
+que tenía que hacerlo, dice, pero no está en ningún lugar
+
+en la literatura, le dicen
+
+ah bueno, ¿qué nombre le ponemos?
+
+Sparsity Aware Split Finding
+
+digamos, no es algo que
+
+y está ahí escrito, digamos, no es algo que
+
+se haya ideado así
+
+sino que fue el tipo que cogió y dijo, ¿qué hago con los misiles?
+
+Bueno, creo los dos lados y me quedo con el que va mejor
+
+y aprendo qué dirección va
+
+y hoy en día un montón de algoritmos hacen eso
+
+de hecho Cycle Learning incorpora
+
+esta estrategia para manejar misiles
+
+las anteriores eran súper complicadas
+
+súper muy rosa de implementar
+
+bien
+
+Perdón
+
+Sí
+
+¿A qué llamás con ganancia?
+
+¿Cómo? ¿A qué cosa?
+
+Que decíamos que según la ganancia
+
+En la clase 2 vimos que
+
+Lo que vos reducís en error
+
+Por hacer un split se le daba ganancia
+
+Si vos tenés un error de 2.000 o hasta 1.700
+
+Tenés una ganancia de 700
+
+Bien
+
+Fíjense
+
+Lo último le vamos a un reteo
+
+XGBoost
+
+Tiene muchos parámetros
+
+De hecho, estos no son todos
+
+Van a ver que si ustedes van
+
+Y ponen
+
+XGBoost
+
+XGBoost Parameters
+
+todos estos, cada uno de estos,
+
+UCRMM, todas estas cosas
+
+son hiperparámetros para modificar.
+
+Es como que se pueden tocar un montón de cosas,
+
+un montonazo de cosas.
+
+Sigo bajando, MaxDivs, MaxBeam,
+
+hay un montón de hiperparámetros.
+
+En la práctica,
+
+no quiero decir que no sirva
+
+tocar eso para nada,
+
+pero en la práctica típicamente se modifican 7.
+
+El primero es la cantidad de árboles.
+
+en el round se le llama
+
+y es el B mayúscula que vimos
+
+¿no?
+
+el segundo es la profundidad máxima
+
+podría ser más pequeño
+
+profundidad máxima que tiene un árbol
+
+¿está?
+
+el tercero
+
+en el que juego se llama eta
+
+y es lo que vimos como lambda
+
+ese es como learning rate
+
+¿no?
+
+después hay uno que se llama gamma
+
+que es la mínima reducción
+
+que se tiene que hacer en el error
+
+para aceptar un corte
+
+Que ya lo vimos, le llamamos complexity parameter
+
+Cuando vimos algo
+
+Era eso
+
+Que a la suma
+
+Le sumaba un alfa
+
+Por cantidad de hojas
+
+Es ese alfa, es lo mismo
+
+Después hay otros que se llaman
+
+Mean Child Way
+
+Que no es exactamente
+
+Lo mismo, pero es muy parecido
+
+A la cantidad mínima de observaciones
+
+Que tiene que tener cada hoja para ser aceptado
+
+Que ya lo vimos también en la clase de
+
+árboles. Entonces,
+
+esto
+
+y estos cuatro ya los conocemos.
+
+¿No? Y son las mismas
+
+interpretaciones. Perdón, el primero, bueno,
+
+primero también es estos dos,
+
+ya lo vimos al menos hasta acá.
+
+En el Rouse, más grande, más
+
+overfitting. Máxima profundidad, más
+
+grande, más overfitting. ETA,
+
+tasa de aprendizaje, lambda, más
+
+grande, más cercana a uno, más chance de overfitting.
+
+¿Está? Minchai Weight,
+
+básicamente, ¿qué es? Si yo
+
+tengo que, se aceptan, por ejemplo,
+
+splits que te deja una observación de un lado
+
+y todas las demás del otro, hay más chance
+
+overfitting, porque deja como
+
+casos puntuales de un lado, entonces
+
+si yo a esto lo subo, menos
+
+chance overfitting
+
+y aparecen
+
+dos más
+
+que son un poquito más mañosos
+
+pero son muy útiles y funcionan muy bien en la práctica
+
+son el subsample
+
+y el cost sample by 3
+
+y fíjense
+
+Las X que se usan para cada árbol
+
+Son las mismas, ¿se ve?
+
+Siempre son las mismas
+
+Acá KGBoos se inspira un poquito
+
+En lo que van a ver en el Random Forest
+
+Más adelante
+
+Y dice, che, que
+
+Permutemos un poquito
+
+El dataset que usa para entrenar
+
+Cada árbol, ¿está? Para construirse cada árbol
+
+Y lo que dice, che, si yo
+
+Tengo las X
+
+¿No?
+
+Y las ideas
+
+¿No?
+
+Y yo tengo, por ejemplo
+
+200 columnas
+
+Y tengo 5000 filas
+
+¿Estamos?
+
+Si yo pongo
+
+Cold sample
+
+By tree
+
+Cold sample
+
+By tree
+
+En 0,1
+
+¿Qué es lo que hace?
+
+Para la iteración 1
+
+Ok, trata de predecir
+
+Siete error
+
+Digamos que ya está ahí, eso como siempre
+
+Pero la X que usa no es la X entera
+
+Sino que hace Val Dataset
+
+Se amplía al azar
+
+10% de las columnas
+
+Por ejemplo me queda la columna
+
+2, la 7, la 11
+
+Así hasta
+
+Por ejemplo la
+
+178
+
+O sea me quedan
+
+20 columnas elegí al azar
+
+y ese dataset de 20 columnas
+
+lo uso para predecir Y, ¿se ve?
+
+¿Y después qué hago?
+
+En la iteración 2,
+
+también uso un dataset
+
+de 20 columnas, pero no
+
+se ha ampliado acá, sino vuelto a se ampliar
+
+acá, ¿está? Una variable
+
+por ejemplo la 11 que apareció acá puede
+
+volver a aparecer acá, pero no tiene por qué aparecer
+
+acá, ¿estamos?
+
+Entonces, ¿qué pasa? Y cada uno
+
+de los árboles
+
+no está aprendiendo con exactamente el mismo
+
+data 0, el mismo atributo, seguro.
+
+Y el sample o el subsample
+
+es muy parecido, pero por filas.
+
+¿Está? Sí.
+
+¿En algún caso sería deseable
+
+elegir qué variable es el que
+
+es el que va a dar?
+
+Adelante un poco la intuición de esto, digamos.
+
+¿Esta es un poquito más difícil de overfitear?
+
+porque orfitear es básicamente
+
+como que siempre está diciendo, che, para una variable
+
+cuánto vale esto, capta eso
+
+y si vos a la variable no la tenés
+
+en todos los árboles, es como que
+
+es difícil que se ajuste a un patrón, por ejemplo,
+
+a una variable, digamos, y otro árbol tiene que decir
+
+che, bueno, tengo que aprender sin esto que la otra
+
+estaba usando, ¿no? Entonces,
+
+no solamente los árboles aprenden sobre los demás
+
+sino que aprenden cosas que los demás
+
+un poco no estaban viendo, ¿está?
+
+Entonces, este es un poquito diferente
+
+la idea, acá lo que vos estás haciendo es
+
+es medio loco, es al introducir ruido,
+
+que hace que todos los árboles aprendan con predictores
+
+un poco diferentes, así es un poco más difícil
+
+el oversteating, básicamente. Entonces, no querés
+
+necesariamente las variables más predictoras, que sean
+
+estas 20, sino querés que generalmente cada vez aparezca
+
+una predictora, cada vez no, y se tenga que hacer con la otra
+
+para que no se guíe siempre por una variable y tienda a hacer
+
+oversteating. Entonces la idea es típicamente
+
+no. Típicamente lo que se hace
+
+es que se han alazado.
+
+Si vos querés hacer algo como eso, bueno,
+
+tenés que hacer, antes
+
+de entrenar el QG Boost, o lo que
+
+fuera, el QG Boost en este caso,
+
+hago de alguna manera una selección de atributos y les doy
+
+esa, y después queda,
+
+pero no es la estrategia, digamos.
+
+¿Está bien?
+
+Ahí es una pregunta.
+
+Sí. Y tómala,
+
+obviamente, ¿los resultados van a variar?
+
+¿O no?
+
+¿En qué sentido van a variar?
+
+¿No vas a protestear con el mismo set de testeo?
+
+No, porque una vez que vos aprendiste los árboles,
+
+los árboles son fijos, ¿no?
+
+Sí.
+
+Este árbol ya está fijo, no tiene un componente aleatorio,
+
+no es que no hay nada de eso.
+
+Entonces, el árbol está fijo,
+
+lo que sí es cierto que va a ser un poco aleatorio
+
+es que dos veces que corras el algoritmo
+
+no te van a dar los mismos árboles.
+
+¿Está?
+
+Puso las iguarias y las pilas.
+
+Todavía no lo dije, voy ahí ahora, sí.
+
+No sé si lo habías dicho, pero
+
+XGBoost siempre usa árboles de decisión
+
+siempre como lo que habíamos visto
+
+o puede ser mejor?
+
+Está bien, XGBoost está
+
+hecho para árboles de decisión únicamente
+
+digamos, sí
+
+en los cálculos que tiene, digamos,
+
+internos, gradientes, todas esas cosas
+
+está pensado para árboles de decisión
+
+¿no?
+
+Este sí
+
+Boost en general no, pero
+
+XGBoost sí
+
+Este
+
+¿Tú has consultado?
+
+Vamos a lo último que falta,
+
+que es el último,
+
+y preparándolo,
+
+pero que es lo mismo en el fondo,
+
+pero con filas,
+
+como ya intuiste vos.
+
+Sí.
+
+Por ejemplo,
+
+yo podría poner subsample
+
+en 0,2.
+
+¿Está?
+
+¿Cuál es 0,2 de 5.000?
+
+Es 1.000.
+
+¿Estamos?
+
+Entonces,
+
+yo lo que podría hacer
+
+es que cada uno de los árboles
+
+no solamente elija 20 columnas a azar,
+
+sino que elija
+
+sin repetición en este caso
+
+mil filas al azar
+
+¿está?
+
+entonces cada uno de los datos va a ser de 20 por mil
+
+ok
+
+una observación
+
+puede salir acá
+
+puede volver a salir acá
+
+o solo acá o solo allá
+
+o en ninguno de los 12
+
+porque son
+
+saco mil, entreno, vuelvo a sacar mil
+
+del final y veo como le va a ir
+
+¿estamos?
+
+esto de vuelta es la misma idea
+
+no va a poder
+
+fitear a una observación
+
+por ejemplo, porque esa observación no está siempre
+
+se hace más difícil
+
+este escenario
+
+en este caso las columnas son todas
+
+podés usar los dos
+
+yo acá fíjate que lo hice con 20
+
+pero podría haber dejado las 200 columnas y 1000
+
+o podría haber hecho como antes
+
+son dos hiperparantes que se modifican a la vez
+
+y eso después lo pruebo en el
+
+Comedation Set y entiendo
+
+pero acá ya va a haber un problema
+
+damos un segundito
+
+que la vamos a hablar en la clase que viene.
+
+Un detalle.
+
+Dataset más pequeño, con menos columnas,
+
+es más rápido de entrenar también, ¿no?
+
+Es uno de los casos de este año
+
+en donde probablemente algo que tenga sentido
+
+en términos estadísticos
+
+también tiene términos computacional, ¿va?
+
+Porque si vos tenías una tasa gigante,
+
+ahora tenés, bueno, un 20% del tamaño del dataset.
+
+Será grande, ¿no?
+
+Pero sigue siendo el 20%.
+
+Entonces, esto tiene la ventaja también
+
+de que el modelo tiene que ser más rápido, ¿no?
+
+Lo importante también es eso que ya adelantaron,
+
+que una vez que aprendiste los árboles,
+
+los árboles los tenés y pueden predecir
+
+para cualquiera de las observaciones que te lleguen.
+
+No es un problema.
+
+Los árboles quedan fijos.
+
+Les adelanto un pequeño problemita, ¿no?
+
+Que lo vamos a ver que se me viene.
+
+Si yo creo 10 valores de esto,
+
+y 10 valores de esto,
+
+y 10 valores de esto,
+
+y 10 valores de esto,
+
+y 10 de esto, 10 de esto, 10 de esto,
+
+estoy probando 10 a las 7 valores.
+
+¿Está?
+
+10 a las 1, 2, 100,
+
+mil, diez mil, un millón,
+
+diez millones, cien millones de modelos.
+
+¿Está?
+
+Y parece un número un poquito grande, ¿no?
+
+Entonces, bueno,
+
+ahí la idea de, che,
+
+eso que dice la intuición,
+
+que tiene con el XGBoos
+
+y sabe cómo ir tuneando,
+
+parece buena, ¿no?
+
+Pero también vamos a ver la clase que viene,
+
+es lo que ahora vamos a comenzar,
+
+una estrategia para buscar
+
+en un espacio tan grande de hiperparámetros
+
+de una manera un poco más inteligente
+
+que probar diez a los siete valores
+
+imposible. Bueno,
+
+como comentario, todos los que están en rojo,
+
+cuando los subo tienden a hacer
+
+el fitting, todos los que están en azul, cuando los subo
+
+tienden a... nada.
+
+A reducir el fitting,
+
+básicamente. ¿Estamos?
+
+Genial.
+
+¿Tengo una consulta? Sí.
+
+O sea, si vos para armar el árbol
+
+2, necesitas el
+
+error que tuviste para I1.
+
+Sí. Pero si
+
+en el árbol 2 no tenés I1...
+
+No, pero está bien. Vos acá aprendés un árbol.
+
+¿no?
+
+y este árbol lo aplicás sobre todos
+
+pero las is
+
+las is se van mareando
+
+perfecto, pero si yo tengo un árbol que dice
+
+x igual a
+
+x7 mayor a 8
+
+por decir algo, yo la predicción
+
+no la aplico, sino sobre todo
+
+eso no invalida, ese es el tema
+
+yo puedo predecir para todos
+
+para aprender el árbol, pero no implica
+
+que no puedo predecir para todos
+
+¿va? genial
+
+Sony, 35.
+
+50 volvemos.
+
+y 50.
+
+¿Se escucha?
+
+¿Sí?
+
+¿No?
+
+Genial, gracias.
+
+Bien.
+
+Entonces, ¿qué vimos hasta ahora?
+
+Vimos cosas muy buenas para el TP.
+
+La primera es, che, ¿cómo poder hacer que este dataset potencialmente es gigante?
+
+Me entre en la compu, ¿no?
+
+Y este es un dataset chiquito, el Carmel, porque lo hice nada más con los nombres del artista, ¿no?
+
+Si lo hacen con nombre de canciones, con más detalles, más cosas,
+
+nada, pueden tener un dataset de un millón por cien mil columnas por doscientos mil,
+
+y no es una locura, y la computadora se la banca sin problema, digamos.
+
+Entonces, eso es súper potente.
+
+Lo segundo que vimos fue un modelo más competitivo,
+
+en el sentido de que usa esta idea de boosting,
+
+de entrenarse cuencialmente modelos en donde cada uno aprende
+
+lo que no aprendió en la ensambla hasta ese momento,
+
+y que genuinamente van a ver que hay una mejora notoria
+
+en la performance que tienen estos modelos, muy marcada.
+
+Otra cosa que tiene buena XGBoost
+
+es que funciona con matices
+
+ralas. Hay que programar un poquito
+
+más, eso
+
+por suerte creo que es un limitante cada vez menor,
+
+yo se lo estoy dando al código, digamos, pero
+
+nada, si uno guarda las matices
+
+con formato ralo, como dice ahí,
+
+se las pasa a XGBoost, como lo pide XGBoost,
+
+anda.
+
+Y eso 90 o 60
+
+o no más con un megabyte que ocupaba la memoria,
+
+es todo lo que hace y se acabó.
+
+No va a necesitar más que eso. Entonces,
+
+está buenísimo.
+
+Lo que tiene este tercer bloque de código es justamente el TP.
+
+¿Dónde habíamos dejado antes?
+
+Habíamos dejado Che con las matrices RALAS de entrenamiento y de evaluación
+
+con OneCodeEncoding, ¿no?
+
+Y esta parte de acá hace que, bueno, deja las primeras 10.000 observaciones
+
+como validación, que seguramente no es una buena estrategia,
+
+y el resto como entrenamiento.
+
+y lo guarda, esto es,
+
+en formato, como lo toma
+
+xgboost, que es con xgb
+
+dmatrix, se lo pasas,
+
+le pasas la x, la y, los nombres de atributos,
+
+lo de train, lo de validation, y también lo de
+
+evaluación.
+
+Lo paso ahí,
+
+tomo un poquito, y ya están guardadas,
+
+¿no? Para que lo use xgboost.
+
+Y ahora xgboost tiene algo
+
+que como es secuencial,
+
+en el rey van
+
+entrando como en batches,
+
+te llaman, ¿no?
+
+reneuronales, esto va entrenando
+
+árbol por árbol y uno puede ver, che, el primer
+
+árbol como predice de entrenamiento y en validación
+
+por ejemplo, el segundo
+
+hasta donde va, uno va viendo, puede ir viendo como
+
+evoluciona tu performance en validation a medida
+
+que vas entrenando más árboles
+
+no es mucho problema, entonces ese watch
+
+que es un watchlist dice, che
+
+anda mostrándome la performance
+
+a medida que te entrena en entrenamiento y en
+
+validación, ¿no?
+
+y acá este diccionario
+
+tiene los valores que fijé para los
+
+y los parámetros.
+
+¿Son malos?
+
+Seguro son malos, digamos.
+
+No le quiero dar solucionado el TPE
+
+ni nada por el estilo.
+
+Puse el objetivo,
+
+que es la función de costo,
+
+que en este caso hay que dejarlo así.
+
+Puede ser que otra sirva, digamos,
+
+pero esto no me da algo que toque.
+
+Mucho es una función
+
+que es el objetivo binario
+
+porque vale 0 y 1, ¿no?
+
+Logística está bien,
+
+pero es binario que por ahí.
+
+La métrica de evaluación,
+
+no la que se usa para entrenar,
+
+la función de costo para aprender la evaluación,
+
+sino la evaluación
+
+con la que te va a transportar
+
+los valores del watchlist.
+
+salía bajo la curva, la del TP.
+
+La profundidad máxima de los árboles
+
+es de 6, el lambda, que acá
+
+le llamamos Z, es de 0,5. El gamma,
+
+que es el mínimo error
+
+que tiene que tener
+
+un split para que se acepte de 0,
+
+o sea, no está cortando nada acá, está haciendo algo muy profundo.
+
+Está con sample vertido,
+
+está quedándose con la mitad de columnas
+
+a la cerca del árbol.
+
+Min-tile weight es un árbol muy profundo,
+
+puede dar hasta una observación por hoja.
+
+Y subsample es la mitad
+
+de las filas.
+
+este es el
+
+7 hiperparámetros que elegí para
+
+ah perdón, apreté
+
+otro valor
+
+fíjense, y ahora
+
+xpb train, le paso los parámetros
+
+desde hace entrenamiento, la cantidad de árboles
+
+50, que es bajita, el watchlist
+
+y cada cuánto quiero que nos mostre
+
+el resultado del watchlist, entonces
+
+lo pongo a entrenar
+
+quiero que vean una cosita
+
+aparte se lo lleva
+
+zoom
+
+Pero acá esta compu tiene ocho núcleos y están los ocho al máximo, digamos.
+
+Se está paralizando todo lo que puede paralizar la construcción de un árbol, lo está haciendo.
+
+Zoom también se llama una partecita a eso, digamos.
+
+Así que los núcleos están sosteniendo con Zoom también.
+
+Si ustedes tienen GPUs y hacen esto, van a ver que ningún núcleo trabaja.
+
+Está trabajando en GPU y esto que va lento va a mil por hora, básicamente.
+
+Vale la pena tener una GPU en esto.
+
+si no la tienen disponible
+
+el TP va también
+
+sin ningún tipo de problemas
+
+bien
+
+dejemos
+
+entrenar 50 árboles
+
+¿no?
+
+o estoy por entrenar 50 árboles
+
+fíjense que pasa ¿no?
+
+el abuso de entrenamiento
+
+está en 84, la validación está
+
+en 0, 83, parece como que van de la mano
+
+no tienen mucho valor de fitting, pero ya estos son valores
+
+más altos que los que estaban con un
+
+arbolito solo ¿no?
+
+Y fíjense que cuando suban este modelo,
+
+acá él,
+
+mira, ahí está quejándose de...
+
+Perdón a la gente de Zoom,
+
+que proban el estado.
+
+Cuando suban esto acá él,
+
+van a ver básicamente que el improvement es alto.
+
+Así que los que están primeros,
+
+quizás no estén primeros mucho tiempo más,
+
+o quizás ya están haciendo esto,
+
+o no lo están haciendo, que sería increíble,
+
+y con esto van a subir más.
+
+Bien, una vez entrenado, el modelo para predecir sobre evaluación,
+
+nada muy extraño.
+
+Acá estoy haciendo el dataset de Submission.
+
+Y lo guardo.
+
+Fíjense que Submission DataFrame es exactamente lo del TP, ¿no?
+
+Es eso.
+
+¿Va?
+
+Así que con esto, pruebenlo.
+
+Y vean cómo les va.
+
+Y recomendaría empezar a jugar con XGBoos,
+
+con LightCVM, empezar a hacer cosas por el estilo
+
+también. Pueden probar
+
+XGBoos y LightCVM
+
+y promediar las predicciones de los dos modelos
+
+diferentes. Pueden hacer esas cositas
+
+más sobre el final, digamos.
+
+Pero hay margen para hacer cosas,
+
+para combinar
+
+modelos, usar esto que es interesante.
+
+¿Y qué cantidad de árboles recomiendas?
+
+¿50 está bien o...?
+
+Voy a preguntar si era el número que tenía que contestar.
+
+¿Cómo se prueba, digamos?
+
+Convalidación.
+
+¿Ves este numerito de acá?
+
+Si le confías a ese numerito,
+
+el que te lo haga más grande posible, básicamente.
+
+Esa es la estrategia.
+
+Lo que pasa es que no tenés que ver vos al numerito.
+
+Podés hacer un foro o algo que te vaya buscando
+
+y que diga, che, me quedo con el que me da mal,
+
+no te está viendo vos, digamos.
+
+Ese va a ser el chiste.
+
+Lo que pasa es que no queremos hacer 10 millones de foros.
+
+Ese es el problema.
+
+¿Estamos bien?
+
+Listo, ahora no hay excusa para que no tengan resultados competitivos, digamos, en la competencia.
+
+Yo veo que hay equipos...
+
+Están buenos.
+
+¿Alguno de los primeros tres está acá o no?
+
+¿Ustedes?
+
+¿Están haciendo alguna trampa o no?
+
+¿Le mandé alguna macana que se puede predecir algo con algo que no se debiera, no?
+
+No.
+
+¿No?
+
+Estamos usando todo lo que usamos en la clase.
+
+¿Es que vos usaste hasta ahora?
+
+Está bien, o la GVM o lo que sea.
+
+Está bien, pero yo que tenía miedo...
+
+Lo que vimos la vez pasaba.
+
+Bien, perfecto.
+
+Lo que tenía un poquito de miedo era,
+
+uno cuando uno armó una competencia,
+
+por ahí puede meter la pate, decir,
+
+si yo hubiese dejado, por ejemplo,
+
+el timestamp al detalle, cada media hora,
+
+ustedes podrían haber visto cuánto tiempo
+
+pasaba, dos renglones,
+
+dos situaciones, decir,
+
+¿cuánto demoró?
+
+Y te dicen, perfecto.
+
+Yo lo que tenía miedo era que se me haya escapado algo de eso.
+
+Pero me reconforta saber que no.
+
+genial
+
+una cosa también
+
+totalmente válido
+
+totalmente válido
+
+buscar información externa al
+
+dataset, si ustedes quieren buscar letras
+
+de canciones, si hay forma de acceder
+
+que no tengo ni idea, son muchas canciones
+
+y lo quieren hacer
+
+válido, es más
+
+totalmente premiado
+
+lo dejaría para el final
+
+porque con los datos que yo tengo que hacer
+
+tienen mucho, pero si quieren encontrar otro
+
+ritmo, lo que fuera,
+
+o lo que sea,
+
+totalmente válido, digamos.
+
+No es necesario que se limiten
+
+a lo que hay.
+
+Después sobre el final de la clase,
+
+en la clase 6 vamos a ver un poquito
+
+cómo trabajar con textos,
+
+con palabras de este tipo de modelos.
+
+Una estatística.
+
+¿Alguna consulta?
+
+¿Vamos bien?
+
+Genial.
+
+Entonces,
+
+cambiamos acá,
+
+Y acá es cuando yo digo, che, fue bastante más tranquilo que la clase pasada,
+
+lo que venimos viendo hasta ahora, y ahora va a ser más tranquilo todavía, ¿no?
+
+Para usted y para mí.
+
+Entonces, hasta ahora nosotros vimos, básicamente, aprendizaje supervisado.
+
+Y no vamos a ver muchas cosas más de aprendizaje supervisado.
+
+Después con Fede Pousa van a ver más cosas,
+
+y después quienes quieran hacer las optativas de redes neuronales,
+
+van a ver más todavía, ¿no? Perfecto.
+
+Pero hasta acá medio que llegamos acá, pero la maestría se ve mucho más.
+
+Ahora vamos a ver un poquito del no supervisado
+
+Y acuérdense que nosotros decíamos
+
+Che, aprendizaje automático
+
+Se divide en supervisado, no supervisado
+
+Por refuerzos, ¿no?
+
+Lo más que vamos a ver va a ser supervisado
+
+Pero vamos a ver en la materia algo no supervisado
+
+Empezamos con eso, ¿no?
+
+Y la idea del no supervisado era que
+
+¿Por qué se lo daba supervisado?
+
+Porque aprende los patrones
+
+Piliados por una Y
+
+Que es como que supervisa, que los guía
+
+Que camino vale la pena
+
+que este split es bueno hacer y ese otro no
+
+entonces hay una Y que
+
+va guiando la construcción del modelo
+
+o puesto en
+
+la clase 1, va guiando
+
+cómo se descubren los patrones
+
+que asocian, che, si escuchó
+
+esta cosa, alta probabilidad
+
+que pase la canción
+
+acá no
+
+no tenemos eso, solo tenemos
+
+X, ¿no?
+
+no hay Y, no queremos predecir
+
+no es un problema de predicción
+
+tenemos las X y queremos encontrar
+
+algún patrón que para tu negocio, tu dominio, tu startup o tu NG,
+
+o lo que sea, potencialmente sea útil.
+
+¿Está?
+
+Entonces no es el problema predecir, sino encontrar patrones útiles en los datos.
+
+Y no de manera manual, sino decir,
+
+che, bueno, yo quiero, por ejemplo, encontrar grupitos de observaciones.
+
+Bueno, que la computadora, entre muchos comienzos,
+
+automáticamente encuentre ese estilo de cosas.
+
+Todo es más vago. Fíjense, patrones interesantes empiezan a aparecer, ¿no? Cosas por el estilo, porque generalmente es como, acá lo voy a decir, es como mucho más desafiante saber si lo estás haciendo bien o mal, ¿no?
+
+Porque no tienes un Y que te dice, che, estoy prediciendo bien el 80%, el 90%, o unas, o sea, acá no hay esas métricas, sino que hay patrones que salen y pueden ser útiles o no útiles para tu problema en la vida por lo que estás haciendo este análisis no supervisado, ¿no?
+
+Entonces es mucho más desafiante.
+
+Habrá por ahí algunos criterios estadísticos
+
+que nos gustaría que se cumplan,
+
+cosas por el estilo,
+
+pero la verdad es que no va tanto
+
+por una métrica optimizar algo,
+
+sino por me sirve o no me sirve.
+
+Y es mucho más subjetivo.
+
+Ejemplo de cosas no supervisadas.
+
+Bueno, che,
+
+alguna manera de representar los datos
+
+que sea útil para visualizarlo.
+
+Alguna reducción de dimensionalidad
+
+podría ser, o lo que fuera,
+
+sería un ejemplo no supervisado.
+
+De hecho, el libro,
+
+el capítulo de no supervisado
+
+presenta clustering
+
+y componentes principales, que es algo de vuelta
+
+que van a dar con ustedes, ¿no?
+
+Que es también no supervisado y tiene un saborcito a eso.
+
+O sea, es reducir dimensiones para
+
+poder visualizar y hacer otras cosas
+
+con los datos.
+
+Otra cosa que podría
+
+decir uno es decir, che, hay grupos
+
+de observaciones que sean similares entre sí
+
+y podemos decir esto
+
+como un grupito, ¿no?
+
+Y no sabrá de antemano cuáles son los grupos
+
+sino que la computadora los descubra
+
+Bueno, eso sería algo como no supervisado también, ¿no?
+
+Y otro que podría hacer es, a nivel de variables,
+
+si hay variables que yo las puedo unir, digamos,
+
+y decir esto es un factor latente, algo que hay detrás de los datos, ¿no?
+
+¿Ok? Perfecto.
+
+Nosotros nos vamos a enfocar en la clase esta y en la que viene,
+
+en la segunda mitad de estas dos clases,
+
+en estos grupos o subgrupos similares de observaciones, ¿no?
+
+No supervisar, insisto, es más desafiante
+
+tiene un sabor bastante más exploratorio
+
+y es más subjetivo.
+
+Y a veces puede ser exploratorio
+
+incluso como una parte
+
+para generar nuevos atributos
+
+en un modelo predictivo.
+
+Ustedes podrían hacer clustering
+
+para hacer una variable nueva en el TP,
+
+por ejemplo.
+
+Pero no es que eso pase a ser supervisado.
+
+Che, aprovecha algo no supervisado
+
+para ponerlo como una etapa
+
+del proceso de aprendizaje supervisado.
+
+Pero no deja de ser eso
+
+de armar clústeres no supervisados.
+
+Bien.
+
+¿Qué es esto de clustering?
+
+Clustering básicamente es un problema,
+
+o una familia de técnicas, digamos,
+
+que tiene como objetivo encontrar subgrupos o clusters
+
+en un conjunto de datos.
+
+La idea es particionar un dataset, ¿no?
+
+De manera tal que observaciones que pertenecen a un grupo
+
+sean similares entre sí,
+
+empieza a jugar la idea de similaridad,
+
+algo por el estilo, ¿no?
+
+Y observaciones de grupos distintos sean distintas entre ellas.
+
+¿Está?
+
+Entonces, esto hay una idea de similitud
+
+Y vamos a suponer que nosotros
+
+Tenemos alguna forma de medir similitud
+
+Vamos a usar la distancia Euclidia
+
+Pero como vimos en la clase 1
+
+Que resultaba KNN
+
+Diferentes problemas pueden tener diferentes distancias
+
+Puede tener la mancata
+
+La de Leves, Stein
+
+Lo que sea
+
+¿No?
+
+Ok, mancala novice, lo que sea
+
+Entonces básicamente
+
+yo voy a traer una medida para decir
+
+estas dos oraciones son similares o no, típicamente
+
+porque están o no están en espacio atributos
+
+si este es el espacio atributos
+
+nosotros tenemos esto
+
+no tenemos ningún color
+
+no tenemos una Y, que para decir simplemente tenemos las X
+
+y esto es la posición
+
+de cada vector en espacio atributos
+
+o cada observación en espacio atributos
+
+y uno dice, yo quiero que la compu sepa
+
+que hay un grupo que es este
+
+otro que es este, otro este, otro este
+
+otro este, y otros puntitos
+
+sueltos, detectó acá en este
+
+caso, ¿estamos? Entonces el problema
+
+es pasar de esto, que no tiene una categoría
+
+a esto, que sí.
+
+Pero no porque genuinamente algo
+
+en el data-sign me había,
+
+sino que solo lo descubra.
+
+Está que hay grupitos que forman un grupo,
+
+¿estamos con eso o no?
+
+Bien.
+
+Así como en aprendizaje
+
+supervisado uno puede decir, che, hay modelos
+
+lazy o eager,
+
+generativos o no generativos
+
+o uno puede decir, che, hay modelos
+
+paramétricos, no paramétricos
+
+hay diferentes estrategias modeladas
+
+en clustering también
+
+y hay estrategias
+
+de partitioning, o que partitionan
+
+el espacio, jerárquicas
+
+basadas en densidad, que tienen la pinta de esto
+
+fíjense que esto parecía que como hay
+
+muchas densidades
+
+y hay un vacío en el medio de las otras
+
+otras que particionan
+
+el espacio en grillas
+
+si dos grillas al tracente
+
+están ocupadas, hasta el porcentaje por ahí
+
+son en el mismo grupo, o algo
+
+basado en modelos, uno dice, estos modelos
+
+se aprenden en función de
+
+una gaussiana multivariada
+
+o lo que fuera
+
+una mezcla
+
+de gaussianas, y bueno, aprendo los parámetros
+
+de modelos y uno puede asociar a clustering
+
+estas tres técnicas ni están mencionadas
+
+en el libro, en el libro avanzado se menciona
+
+esta, sobre todo,
+
+y hay algunas,
+
+en Grid Base hay una que es popular,
+
+básicamente, Diviscan,
+
+pero la verdad que lo más común,
+
+y lo que sale en el libro que estamos haciendo en la materia,
+
+son estas dos, y nos vamos a enfocar
+
+en esas dos, que con eso ya podemos tener
+
+dos casos particulares, pero bien
+
+diferentes, digamos, de cómo atacar el problema
+
+de clustering. Lo que vamos a ver
+
+va a ser vecinos más cercanos
+
+y clustering jerárquicos.
+
+Hoy vemos esto, y la clase que
+
+viene vemos esto.
+
+Y la última clase vamos a ver otra cosa diferente,
+
+pero que a mí cada vez me gusta más.
+
+Ok.
+
+Enfoquémonos en un algoritmo de este estilo, particional.
+
+¿Qué es lo que hace un algoritmo particional, básicamente?
+
+Particiona a las observaciones en K grupos,
+
+vuelve a aparecer la letra K, básicamente.
+
+Que se va a tener un decimo más cercano,
+
+aquí es el factor valiente, yo está acá,
+
+bueno, acá aparece de vuelta K, ¿no?
+
+Y vamos a partir de observaciones en cada grupo tal que, si yo uno, digo, en el grupo uno está en la observación 7, 8, 9, 10, o 7, 20, 48 y 90, si yo uno todas las observaciones tengo el de la tracera entero, ¿está?
+
+y si yo veo la intersección entre dos grupitos, tengo el conjunto vacío.
+
+¿Qué quiere decir eso?
+
+Básicamente que cada observación está asignada a un grupo y solamente a un grupo.
+
+¿Estamos? Esa es la idea.
+
+De ese modo, esto no es particional.
+
+Porque cada observación está en un grupo, pero hay observaciones que no están en grupo,
+
+estos puntitos sueltos.
+
+¿Estamos?
+
+Bien.
+
+hay algoritmos de clustering que a una situación dicen,
+
+che, está como un 60% en un grupo y un 30% en otro y un 10% en otro, digamos.
+
+Por ejemplo, los model-based hacen eso.
+
+Bien.
+
+En términos de dataset va a ser, che,
+
+yo tengo mis X
+
+y voy a armar una columna nueva que va a ser la de clúster,
+
+que va a tener cada valores diferentes, cada mayúscula,
+
+Y voy a decir, este pretende es al grupo 1, este es al 10, este al 2, este al 3, este al 10, este al 5 y así.
+
+Yo voy a poder decir, che, me quedo con todos los grupos 5 y saco un grupo de observación y digo, estos son similares entre sí.
+
+¿Estamos?
+
+Bien.
+
+¡Canerias!
+
+es un problema más que un algoritmo en realidad.
+
+Es el problema de Kmedia que se ataca con un algoritmo de Floor,
+
+si no me equivoco el nombre.
+
+Pero típicamente se mezcla la idea de qué es el algoritmo
+
+y qué es el problema, se le hace Kmedia a todos y se acabó.
+
+Entonces cuando ustedes vean Kmedia o uso Kmedia en Scikit-learn,
+
+va a ser bueno, ataco este problema con el algoritmo
+
+que vamos a ver más adelante.
+
+Pero en realidad el algoritmo es uno y el problema es lo que se llama Kmedia.
+
+El libro de hecho lo presenta bastante así.
+
+el libro, les soy honesto también
+
+yo lo sigo para no estar cambiando el libro
+
+pero no me parece la presentación más linda de K-medias
+
+ya vamos a ver algunas cositas ahí
+
+pero bueno
+
+vamos a decir que K-medias
+
+K-means asume que una buena asignación
+
+es aquella que
+
+dado un valor de K
+
+ya lo tenemos que fijar de antemano al valor de K
+
+yo voy a querer separar en 7 grupos
+
+en 10 grupos, en lo que sea
+
+de antemano yo digo cuántos
+
+básicamente valores de K voy a tener
+
+ok
+
+minimiza lo más posible lo que se conoce como la variabilidad entre clúster,
+
+o Within Cluster Variation.
+
+Veamos un poquito más qué es eso, porque ahí es como medio ambivo.
+
+Sigo el libro acá, ¿no?
+
+Y dice, bueno, el Within Cluster Variation es esto.
+
+Y nosotros vamos a decir que tenemos una medida media mágica,
+
+una medida W,
+
+que después le vamos a dar la ecuación,
+
+pero por el momento,
+
+tenemos una medida W,
+
+que si yo demanda un clúster,
+
+que digo, por ejemplo,
+
+si el clúster está formado por la relación 3,
+
+201, 47 y 1001,
+
+me dice Within Cluster Variation,
+
+eso es, por ejemplo, 326.
+
+Y si yo a esto, por ejemplo,
+
+le sumo o...
+
+o le cambio, por ejemplo, el 3 por el 8
+
+esto o puede subir o puede bajar
+
+¿está?
+
+y vamos a decir que nos va a gustar
+
+de esta W
+
+que si las observaciones son parecidas
+
+valga algo cercano de 0
+
+y que si son muy diferentes entre sí
+
+valga un valor alto
+
+¿está?
+
+entonces vamos a tener esta W
+
+que yo le paso
+
+las observaciones que hay en cada uno de los clúster
+
+y yo voy a tener para el clúster 1 una W
+
+para el 2 una W, para el 3 una W
+
+voy a sumar esos valores
+
+como es particional
+
+todas las observaciones van a estar
+
+solo en un clúster
+
+y voy a tener un valor como
+
+del within cluster variation
+
+básicamente en todo el dataset
+
+¿Va? ¿Qué es lo que yo voy a decidir?
+
+¿Qué observación ha sido
+
+en el clúster 1? ¿Cuál es al 2? ¿Cuál es al 3?
+
+¿Cuál es al 4? ¿Cuál es al 5?
+
+Y mi objetivo
+
+va a ser un objetivo
+
+de optimización y voy a decir
+
+yo quiero minimizar el within cluster variation
+
+minimizar el within cluster variation
+
+asignando
+
+de la mejor manera
+
+las observaciones a los diferentes
+
+clusters, como es decir, como partiendo
+
+los grupitos de la manera
+
+óptima según ese criterio
+
+¿no?
+
+ok
+
+y acá
+
+uno puede decir, che
+
+lo puedo hacer de manera, de forma bruta
+
+pruebo todas las combinaciones posibles
+
+Y supongamos que tenemos K igual a 5, 5 grupitos, ¿no?
+
+¿Está?
+
+Y que tenemos 1.000 observaciones.
+
+¿Va?
+
+Ok.
+
+Si yo tengo 1.000 observaciones, digo, bueno, saco la primera observación,
+
+N igual a 1, ¿y cuántas opciones tiene?
+
+Puede estar en el clasificado 1, 2, 3, 4 o 5, ¿no?
+
+Tiene 5 opciones, ¿no?
+
+La observación 2, ¿a cuánto la puedo asignar?
+
+También a 5, ¿no?
+
+La observación 3, a 5.
+
+En realidad, hasta la observación 1000, la puedo asignar a 5, ¿no?
+
+Cuando adquiere tantas posibilidades, todas las combinaciones posibles que hay,
+
+es un poco la productoria de esto, ¿no?
+
+Es 5 por 5 por 5 por 5, que es lo mismo que decir
+
+5 a la 1000
+
+está
+
+el 5 a la 1000
+
+es por mucho más
+
+por goleada más que la cantidad
+
+de átomos del universo
+
+5 a la 1000 es un numerazo
+
+estamos hablando de algo gigante, gigante, gigante
+
+entonces genuinamente
+
+no lo van a poder probar todas esas cosas
+
+con un dataset de 1000 observaciones
+
+no se puede probar, no hay que hacer el tiempo
+
+de nada, digamos
+
+para dar ante el universo que probar todas esas cosas.
+
+Entonces, bueno, por ahí perdimos y no lo podemos hacer.
+
+Lo que vamos a ver es que hay una estrategia
+
+no para encontrar el mínimo exacto de esta función,
+
+que es decir, para asignar las variables a cluster
+
+de manera tal que encuentro el mejor, el mínimo,
+
+el óptimo, digamos, el mínimo,
+
+genuinamente el mínimo mínimo que existe,
+
+sino para, bueno, siguiendo algún criterio,
+
+encontrar algo que muy probablemente quede bien.
+
+que quede cerca del mínimo, que quede en la vecina del mínimo
+
+que quede un valor cercano al mínimo
+
+que puede no ser el mínimo
+
+pero que si lo hacemos sea razonablemente
+
+bueno, eso se llama heurísticas
+
+en vez de un algoritmo, una heurística
+
+algo que aproxima la optimismo de una función
+
+en un tiempo razonable y no
+
+algo que es así
+
+bien
+
+entonces
+
+¿en dónde estamos parados? estamos parados en un problema
+
+de optimización que es complejo
+
+digamos, ustedes van a hacer materia de optimización
+
+con Juanjo Miranda, con Javi Marenco,
+
+con esa gente,
+
+ellos se dedican a estas cosas, digamos,
+
+y le ponen nombre, es un programa en el PECAR,
+
+digamos, es como de lo más peor que viene.
+
+Bueno, no lo vamos a optimizar
+
+directo, vamos a encontrar
+
+una forma de atacarlo de manera razonable.
+
+Y lo primero que vamos a hacer,
+
+y esto lo dice porque lo sigue el libro,
+
+che, tratar de ver
+
+cuál es la función de esta W,
+
+porque hasta ahora tengo una W que son
+
+similares bajos y son distintos
+
+son altas, pero
+
+veamos qué es la W.
+
+Y uno dice, bueno,
+
+si uno usa la distancia
+
+auslidia, al cuadrado
+
+en este caso, porque esta es
+
+auslidia, que tiene una raíz cuadrada, acá la vamos a
+
+sacar a esa, vamos a decir que
+
+el W viene dado por esto.
+
+Y esto parece feo,
+
+no es muy lindo tampoco, pero
+
+tampoco es tan feo. Y uno dice,
+
+che,
+
+supongamos que W
+
+cluster 1,
+
+Y uno tiene que clúster 1 está dado por,
+
+asumamos que tenemos dos variables,
+
+en el espacio de este atributos,
+
+y tenemos cuatro observaciones.
+
+Voy a hacer cinco.
+
+Esas cinco, ¿no?
+
+Y decimos, che, esto,
+
+estas cinco observaciones son clúster 1.
+
+Después hay otras que no son de clúster 1, son otros clústeres.
+
+Lo que dice esto es que, fíjense,
+
+Esto es, para cada par de observaciones que pertenece al clúster,
+
+al clúster 1 en este caso,
+
+al clúster sub K minúscula que vamos a decir al clúster 1,
+
+calculo esto.
+
+¿Qué es esto?
+
+I y prima son las dos observaciones y J son las diferentes variables.
+
+Para esas dos filas calculo la diferencia de cada una de X al cuadrado,
+
+que es la distancia euclidia, básicamente al cuadrado.
+
+Entonces tomo dos observaciones cualquiera,
+
+Por ejemplo, esta y esta, y calculo la distancia euclidia al cuadrado.
+
+Es el área de eso.
+
+Yo no voy a hacer cuadrado porque me va a quedar súper engorroso el gráfico,
+
+pero es ese segmento cuadrado.
+
+Pero no lo hace para dos, lo hace para cada par.
+
+O sea, lo hace este con este, este con este, este con este, este con este.
+
+De hecho, lo hace consigo mismo, pero como lo hace cero no pasa nada.
+
+Después hace este con este de vuelta, que ya lo hice.
+
+este con este, este con este, este con este,
+
+después este con este, me queda así,
+
+y después así.
+
+Y ahí están todos los pares de distancia.
+
+Bien.
+
+Esto lo suma
+
+a esta distancia de cuadrado,
+
+y después no es exactamente promedio,
+
+pero lo normaliza, digamos,
+
+por la cantidad de elementos que tiene.
+
+Entonces es como que todo un promedio.
+
+Fíjense que
+
+si están juntitas en el espacio,
+
+cada uno de estos segmentos pequeños,
+
+De hecho, el cuadrado se va achicando mucho más.
+
+Y ese W va dando chico.
+
+Si uno solo se aleja,
+
+y por ejemplo pasa de acá a ahí,
+
+todas estas distancias se agrandan un montón
+
+y crecen de manera al cuadrado, básicamente.
+
+Y ese W se vuelve muy grande.
+
+Entonces, ¿qué capta ese W?
+
+Que bueno, che,
+
+todas las observaciones que pertenecen al clúster
+
+están como cercanas en el espacio de atributo.
+
+¿Estamos?
+
+Y es sensible a esos outliers.
+
+Es más sensible a los valores muy lejanos.
+
+Por este cuadrado que hay acá.
+
+¿Dudas con esto?
+
+¿Estamos bien?
+
+Genial.
+
+Entonces, ahora el libro lo que hace es que
+
+sustituyo este W por esta expresión acá,
+
+que es lo mismo, le puse como nombre y apellido básicamente.
+
+y dice el problema
+
+el problema de optimización
+
+es este
+
+es
+
+minimizar
+
+la within cluster variation
+
+perdón
+
+within cluster variation
+
+disculpen si
+
+que
+
+modificando que
+
+que observación
+
+pertenece a cada cluster
+
+y lo último que hace el libro
+
+es decir
+
+che
+
+esta expresión es fea
+
+y se puede demostrar que esto de acá
+
+es lo mismo de ahí.
+
+Y dice, es fácil de demostrar.
+
+Yo me senté en su momento
+
+lo que parecía fácil de demostrar
+
+y estuve como,
+
+hasta que pide la toalla
+
+y no estaba tan sepiti en su momento
+
+y fui a
+
+tipo el map overflow,
+
+el start overflow,
+
+pero como era y vi,
+
+era como nada,
+
+un paso algebraico súper,
+
+así como galerazos,
+
+pero da, digamos.
+
+Y si una vez lo quieren ver,
+
+véanlo, yo no me acuerdo,
+
+lo vi, lo creo,
+
+Pero no lo pude sacar yo.
+
+Ok.
+
+Bien.
+
+Lo que te demuestra es que esto.
+
+Que es eso de ahí.
+
+Es lo mismo que esto de acá.
+
+Y esto es re interpretable la verdad.
+
+Visualmente.
+
+Y es.
+
+Fíjense.
+
+Si uno tiene cinco puntos.
+
+Más o menos como teníamos antes.
+
+Uno puede calcular lo que se conoce como centroide.
+
+¿El centroide qué es?
+
+cada uno de los valores
+
+esto tiene un x dado, este punto
+
+este otro, este otro, este otro, este otro
+
+los promedios
+
+y supongamos que promedios me da acá
+
+¿está?
+
+y después lo produjo acá
+
+tiene este valor
+
+este, este y este
+
+los promedios supongamos que me da por acá
+
+tomo
+
+la coordenada de los promedios
+
+y ese
+
+esto de acá
+
+es el centro de S
+
+¿ves?
+
+súper fácil de calcular
+
+filtro
+
+por ejemplo
+
+y calculo el promedio de cada columna
+
+y veo donde cae ese puntito
+
+y voy a calcular
+
+y lo que te dice es que todos esos pares
+
+de distancias así al cuadrado
+
+y toda la cosa de ahí
+
+es lo mismo
+
+que dos veces
+
+la suma de estas distancias
+
+al cuadrado
+
+al cuadrado
+
+por dos
+
+y ese 2
+
+es una constante
+
+si yo minimizo
+
+con una variable
+
+2 por algo
+
+lo mismo que no tener
+
+entonces ese 2
+
+en el fondo lo podemos
+
+reemplazar
+
+entonces ustedes van a ver
+
+que en la mayoría
+
+de los libros
+
+directamente empieza
+
+presentando la función
+
+se minimiza
+
+la asignación de clúster
+
+que hace mínimo esto
+
+sin ese 12
+
+pero es básicamente
+
+lo mismo
+
+ok
+
+ese es el problema
+
+de
+
+medias. Y lo que
+
+nosotros queremos es encontrar
+
+la asignación de observaciones
+
+a clúster que me hacen
+
+esto lo más pequeño posible.
+
+La fuerza bruta no va a poder ser.
+
+Esta figura de acá lo que te muestra
+
+es que
+
+si vos te des este dataset de dos variables
+
+y el color de los puntos
+
+es el clúster
+
+al que se asignó cada observación,
+
+este es el centroide de las naranjas,
+
+este de los rositas,
+
+que no es rosita pero no sé qué es,
+
+y esto es verde.
+
+¿Está?
+
+Bien.
+
+Genial.
+
+Entonces veamos ahora
+
+el algoritmo
+
+que el libro le dice
+
+algoritmo de K-media
+
+porque es el de Floyd.
+
+Que es este de acá.
+
+Y la verdad es que
+
+es súper siempre el algoritmo,
+
+no tiene gran ciencia.
+
+El algoritmo dice
+
+che, tenés que empezar
+
+con un número de K.
+
+¿Está?
+
+Y si vos tenés
+
+este dataset
+
+que todavía no tiene colores
+
+la inicialización es muy simplona
+
+dice che, a cada una
+
+de las observaciones
+
+asignala al azar
+
+a un clúster cualquiera
+
+de uno acá a madrúfila
+
+entonces esto que era así
+
+al azar le puse un color
+
+acá elijo un K igual a 3
+
+y queda como papel confeti
+
+todo mezclado
+
+y este es el step 1, la inicialización
+
+no tiene más ciencia que eso
+
+¿estamos bien?
+
+y ahora viene el paso
+
+en donde se itera.
+
+Y lo que va a hacer son
+
+iterar dos pasitos que cada uno
+
+es muy simple.
+
+El primero, dice Che,
+
+dada la asignación
+
+que tienes de observación a clústeres,
+
+acá he dado todos los naranjas,
+
+todos los rositas
+
+y todos los verdes,
+
+lo que vas a hacer
+
+es computar los centroides,
+
+que los centroides ya les dije que es.
+
+Y cuando uno calcula los centroides,
+
+todo en naranja, te queda acá.
+
+En naranja. Ahí el verde.
+
+Y acá ese
+
+rosita, ¿se ve?
+
+Como está asignado a la sal, es normal
+
+que en la inicialización queden juntitos.
+
+No solapados exactos. Sería raro que queden
+
+solapados exactos, muy poco probable,
+
+pero que queden juntitos.
+
+Entonces, el primer paso, calcular
+
+los centroides.
+
+El segundo paso es
+
+asignar cada observación
+
+a su centroide más cercano.
+
+Entonces,
+
+step en la iteración 1
+
+del step A,
+
+calculo dos centroides,
+
+en el step 2 de la iteración 1,
+
+acá dos situaciones
+
+las signos de centroide más cercano.
+
+Fíjense que esto era una mezcla de colores,
+
+quedó todo naranja,
+
+porque centroide más cercano es naranja,
+
+acá todo verde,
+
+porque centroide más cercano es verde,
+
+y acá todo rosita,
+
+porque centroide más cercano es rosita.
+
+¿Estamos?
+
+Bien.
+
+Se acabó la primera iteración
+
+del paso
+
+2
+
+pero acá
+
+dice che
+
+esto es un while
+
+bus tiene un for, era de 1 a b
+
+esto es un while, mientras suceda
+
+algo, lo que digamos fundamento
+
+mientras suceda algo
+
+seguí iterando
+
+ok, y cuál es la condición de while
+
+mientras haya cambios
+
+de
+
+clúster de pertenencia para al menos
+
+una observación
+
+hace esto de vuelta.
+
+Y vemos que acá
+
+empezó con estas asignaciones
+
+y terminó el paso 2 con esta.
+
+Hubo cambio un montón, de hecho, ¿se ve?
+
+Entonces, ¿cuál es el siguiente paso?
+
+¿Qué es lo que tenemos que hacer?
+
+Repetir el paso 2 una vez más.
+
+Y lo que dice es,
+
+bueno, volvé a calcular los centroides.
+
+Y ahora los centroides, ¿cómo se mueven?
+
+Para ahí en naranja,
+
+para acá en rosincha y para acá en verde.
+
+¿Y cuál es el siguiente paso?
+
+Bueno, una vez que hemos visto los centroides,
+
+pintar cada punto, asignar cada punto
+
+a su centro de más cercano. Y va a haber un cambio.
+
+En este caso, cada vez se cambia
+
+menos, indudablemente, pero va a haber un cambio.
+
+¿Está?
+
+Y si hubo cambio de lo que queda acá, que no es
+
+esto, en este resultado final, el step 2B
+
+no lo graficó.
+
+Si hubo cambio de step 2B como
+
+inicializó, como inició acá,
+
+¿ok? Una iteración más.
+
+De hecho,
+
+fíjense que acá
+
+las notas de esta figura te dicen
+
+que bottom right, the results
+
+obtain after 10 iterations.
+
+Que los resultados finales
+
+son 10 iteraciones.
+
+Y fíjense que no son un montón de cambios,
+
+pero esto que acá estaba naranjita,
+
+terminó de rosita,
+
+y así por el estilo.
+
+Hubo cambios cada vez más finos.
+
+¿Todo bien, chicos?
+
+Entonces,
+
+veamos.
+
+¿hay motivo por el cual el resultado final
+
+sea siempre el mismo?
+
+¿por qué no?
+
+¿qué es lo que te hace que no?
+
+ahora vos dijiste muy desconvencida que no
+
+¿por qué no?
+
+no, primero pensé que no
+
+porque es aleatorio el primer paso
+
+perfecto
+
+listo, está bien
+
+pensate bien en la primera
+
+como la licenciación es aleatoria
+
+de dónde poder llegar a esa inicialización
+
+puede variar y a veces poder llegar
+
+a soluciones mejores
+
+que otras veces.
+
+Entonces, típicamente, ¿qué es lo que se hace?
+
+Bueno, yo sé que quiero.
+
+Mi objetivo, yo lo tengo claro.
+
+Mi objetivo es que
+
+esta función, que la estoy calculando,
+
+sea lo más baja posible.
+
+Y si yo lo pruebo 80 veces
+
+y una vez me dio más baja que todas las demás,
+
+es con la que me quiero quedar.
+
+Entonces lo que te dice el libro es, che, perfecto, probá, correga el algoritmo con inicializaciones de este puno, diferentes muchas veces, y quedate con la mejor.
+
+Y acá te muestra seis soluciones, ¿no? Solución 1, 2, 3, 4, 5, 6, y acá lo de arriba es funcional, lo que querés minimizar, ¿no?
+
+El winning cluster variation.
+
+Acá me dio 3.20, acá 2.35.8,
+
+2.35.8, 2.35.8,
+
+2.35.8.
+
+Yo sé que esta es peor que esta,
+
+yo sé que esta es peor que esta,
+
+y sé que estas cuatro son indiferentes.
+
+De hecho no es que sean indiferentes,
+
+porque sí, son las mismas.
+
+¿Cuál es la única diferencia?
+
+El color, que todo lo que era naranja,
+
+acá era rosita, y todo lo que es rosita,
+
+en otro es naranja, y así digamos.
+
+Porque el cluster lo único que te importa
+
+es quién está con quién.
+
+Que se llame A, que se llame B, que se llame C,
+
+no pasa nada.
+
+Podríamos haber todo cambiado el nombre
+
+y no pasa nada.
+
+Bien.
+
+¿Es esta la mejor solución posible?
+
+¿O esta? ¿O esta? ¿O esta? ¿Qué dicen?
+
+No sabemos.
+
+No sabemos, la verdad.
+
+Podría haber una mejor.
+
+De hecho,
+
+estoy viejo, cuando yo hice la maestría
+
+en Data Science, que minería
+
+datos exactas,
+
+estoy tan viejo
+
+que cuando hice la maestría
+
+de redes neuronales era viejo.
+
+No sé si sabían ustedes que redes neuronales,
+
+todo eso, tuvo como un ausco,
+
+un descaimiento, un ausco y volvió a caer
+
+y después subió y estamos donde estamos ahora.
+
+Yo empecé cuando estaba ahí, que no lo veía
+
+nadie, y una profe de La Plata decía
+
+es fácil acá publicar, porque se sabe
+
+qué cosa nadie hace sobre esto, y le sacan un paper, básicamente.
+
+Y ese es un profe de Columbia que vino una vez y me dijo,
+
+ustedes ven los jornales, qué viejos, qué atrasados que están acá.
+
+Y dos años después era una locura lo que es ahora.
+
+Pero bueno, ahí había algo que yo creo que en alguna materia del MIR se puede ver,
+
+pero se llama heurísticas, que es como atacar problemas de optimización
+
+con estrategias diferentes.
+
+Y una la tiene Solverdexel, por ejemplo, que es algoritmos genéticos,
+
+Y ahí yo saqué una intuición importante, y es que yo dije, bueno, puedo usar algoritmos genéticos para hacer esto más pequeño todavía que con el algoritmo de cada media cesteracácer.
+
+Y la verdad es que sí, que uno lo podría correr y encontrar soluciones mejores que este algoritmo, un pelín, un épsilon, ¿no?
+
+Es como una observación se movía, digamos, nada.
+
+Y la diferencia que yo tenía es que para encontrar eso me demoraba una noche entera, mientras que esto uno lo ejecuta y literalmente corre en nada, en décimas de segundo.
+
+¿no? Entonces, ¿cuál es la ventaja de esto?
+
+Por lo menos la intuición que yo saqué
+
+es que
+
+esta estrategia
+
+tiene resultados súper dignos
+
+probablemente no tenga resultados tan buenos
+
+como otras estrategias de jurídicas, seguramente
+
+pero es rapidísimo
+
+y es una ventaja súper fuerte que tiene
+
+entonces te permite hacer pruebas como esto
+
+con probar 80 veces
+
+las inicializaciones diferentes
+
+Bien
+
+Ustedes que siempre preguntan, ¿cómo elijo tal cosa?
+
+Ya se asustaron y no me lo preguntan.
+
+Pero hay algo que tendrías que estar conectando.
+
+¿Qué es?
+
+¿Cómo?
+
+El K.
+
+¿Cuántos grupos tengo que tener?
+
+Y es difícil la respuesta a esa pregunta.
+
+Porque no es como en el otro caso,
+
+que yo tenía algo que yo sabía si lo estaba haciendo bien o mal.
+
+De hecho, en aprendizaje no supervisado
+
+Tiene bastante poco sentido
+
+O nulo, en general
+
+Hago un conjunto de validación
+
+Porque no hay respuesta cierta
+
+Hago un conjunto de validación cuando sabes que lo cierto
+
+Es pegarle a esto
+
+En no supervisado, ¿qué es lo cierto?
+
+¿Qué sé yo cuántos?
+
+Las traían en realidad
+
+¿No?
+
+Ok
+
+Entonces es un problemón
+
+Y a veces, el valor de K
+
+La K mayúscula, la cantidad de clúster
+
+viene dado por el negocio.
+
+Yo estoy con un
+
+utilidad eléctrico, que es el ejemplo
+
+que vamos a ver en la clase que viene, y digo, che, quiero hacer
+
+cinco tarifas diferentes, entonces se dividió
+
+en cinco grupos, algo por el estilo,
+
+y eso es válido. Estoy con una campaña de marketing
+
+y quiero dividir a mi atacer en
+
+diez grupos diferentes porque me lo pide el negocio,
+
+porque quiero segmentar
+
+el mercado en tantos grupos.
+
+Totalmente válido y el cat viene dado
+
+por el dominio, digamos. No es la solución que ustedes
+
+seguramente quieren. Les gustaría decir, che,
+
+hay una métrica, hay una estrategia.
+
+La verdad es que no.
+
+Pero
+
+el libro sí recomienda a uno.
+
+Y tiene sentido
+
+el que recomienda, pero también hay que tener
+
+un poquito de cuidado.
+
+Y lo que dice es, che,
+
+uno lo que puede calcular
+
+o lo que puede construir
+
+es este gráfico.
+
+Yo sé qué función quiero
+
+minimizar.
+
+¿no?
+
+el within cluster variation
+
+¿va?
+
+y within cluster variation
+
+no puede subir
+
+y tiene que bajar en principio
+
+en función
+
+de la cantidad de clusters
+
+¿no?
+
+si yo tengo un único cluster
+
+la distancia de centroides
+
+va a ser más grande
+
+que si tengo dos centroides
+
+y tengo la flexibilidad
+
+de moverlos
+
+¿no?
+
+y va a ser más grande
+
+de dos
+
+que si tengo un centroide adicional
+
+y puedo mover los tres centroides
+
+¿no?
+
+uno lo puede mostrar
+
+con desigualdades, pero lo puede hacer.
+
+En principio,
+
+la forma que tiene
+
+Winning Cluster Variation en función de la cantidad
+
+de centroides, tiene que ser decreciente.
+
+Y lo que hace
+
+esta figura es eso mismo.
+
+Winning Cluster Variation
+
+Winning Groups, Sum of Squares.
+
+Cada libro o cada lugar lo ponen diferente.
+
+Winning Groups, Sum of Squares.
+
+Números de clusters.
+
+Este es el mismo libro que lo ponen diferente.
+
+Y dice, ¿qué pasa si uso
+
+k igual a 1, a 2, a 3, a 4
+
+hasta 14, ¿no?
+
+En el extremo, si pongo k igual a n
+
+¿cuánto vale?
+
+¿Cuánto?
+
+No va a ser tipo
+
+overfitting, va a ser acá
+
+No hay overfitting acá tampoco
+
+pero es cero, porque cada clase
+
+es su propia observación y que distancia es cero
+
+es el propio diccionario, ¿no?
+
+Entonces eso converge a cero, ¿no?
+
+Pero ya es rápido
+
+parecida que baja en este dataset
+
+A ver
+
+lo que dice el libro
+
+y es algo que hay
+
+con algunos libros que aconsejan
+
+esa cosa, es decir, usá lo que se conoce
+
+como el codo
+
+¿qué es el codo?
+
+un codo, le pongo el brazo ahí
+
+está el codo acá
+
+como lo tengo ahí, esto tiene pintado un codo
+
+¿se ve?
+
+¿qué significa? es que hasta un punto baja muy rápido
+
+y de ahí se estanca
+
+el punto a partir del que se estanca
+
+se le llama el codo
+
+¿y por qué el codo
+
+puede tener sentido. Y a mí me costó ver un poquito esto. ¿Por qué puede tener sentido?
+
+Y fíjense qué es lo que capta.
+
+Si yo les muestro
+
+este dataset.
+
+¿Cuántos grupos me dicen que hay?
+
+Tienen tres. Podrían ver dos, digamos. Yo también veo tres, ¿no?
+
+Ok.
+
+Si yo tengo un K igual a 1,
+
+¿el centroide por dónde va a estar?
+
+El centroide va a estar por acá.
+
+Pongamos que hay,
+
+en realidad hay mucha más situación acá,
+
+va a estar de este lado.
+
+Voy a poner más otra opción ahí para que...
+
+Supongamos, está por ahí.
+
+¿No?
+
+Bien.
+
+El error, la distancia de cada uno de los puntos del centro,
+
+va a ser tirando a alta, ¿no?
+
+Porque el centro derecho, en este caso,
+
+no está encima de ninguna obstáculo.
+
+Entonces, cuando yo hago K y within...
+
+Ah, es bueno.
+
+Within examen eso de ahí.
+
+La suma de los W.
+
+Hago 1.
+
+Es un valor.
+
+No sé lo que es, pero el valor es alto.
+
+¿Ok?
+
+Si yo pongo K igual a 2,
+
+Voy a tener dos centroides.
+
+Y muy probablemente uno esté acá
+
+y otro supongo que está por ahí, ¿no?
+
+Ahora, para esto, todo esto va a estar en un clúster,
+
+todo esto va a estar en otro clúster,
+
+van a estar este clúster y este clúster.
+
+Y las distancias promedio a centroide
+
+van a ser igual más grandes o más chicas.
+
+Y van a ser bastante más chicas, ¿no?
+
+O sea que va a bajar bastante, digamos acá.
+
+Entonces tenemos eso de acá.
+
+Si yo ahora permito tres centroides,
+
+totalmente uno está acá y otro está acá.
+
+Pero el clúster que tengamos sean estos y estos.
+
+En donde la distancia ya no es esto a todos esos como lejos,
+
+sino que es a estos grupitos.
+
+¿Va a bajar o no va a bajar?
+
+¿Va a bajar tanto como antes?
+
+No, pero va a bajar.
+
+Y si ahora yo parto, uso K igual a 4, ¿dónde se me va el otro centroide?
+
+Yo no lo sé, supongamos que se me va acá.
+
+Me va a quedar un grupo acá y otro grupo acá.
+
+Y este centroide va a estar acá y este va a estar acá.
+
+Va a bajar tanto como antes, de hecho probablemente baje un poquito.
+
+Entonces lo que vamos a tener es que de ahí en adelante la cosa se va a empezar a aplanar.
+
+de agregar un centroide, es como que no reduce tanto como reducía antes.
+
+El codo es eso, o sea,
+
+que en el dataset tenés, como naturalmente,
+
+cada clúster, ¿no?
+
+O cinco clúster, por decir algo.
+
+Bueno, te va a ir bajando el error bien hasta cinco,
+
+y después de cinco en adelante ya no tanto, ¿no?
+
+Ok, eso sería lo que estaría captando el codo.
+
+El problema es cuando vos haces el gráfico,
+
+que te pasa en la práctica,
+
+y en vez de encontrar el codo,
+
+encontrar
+
+que es súper común, diga.
+
+Entonces, lo del codo
+
+está bueno,
+
+pero no siempre pasa.
+
+Hay algunas reglas también, medidas como
+
+de lo que es,
+
+en este caso,
+
+no sé tanto cómo sería,
+
+pero sería como
+
+lo que reduzca el 80%
+
+del total Winner's Last Prevaluation.
+
+Hay como algunos pesos así,
+
+pero son todos.
+
+Esto tiene un sabor muy grande de explorar los datos,
+
+ver si los clústeres tienen sentido,
+
+si uno dice, ah, este grupo tiene sentido o no, digamos.
+
+Y la clase que viene con un ejercicio que a mí me gusta,
+
+espero poder transmitirle, digamos,
+
+que hay un componente de explorar los clústeres importantes.
+
+Sí.
+
+Te hablo que me gusta un poco de ver la interpretación,
+
+una vez que ya tienen muchos atributos, muchas variables,
+
+porque son dos, bueno, por ahí es edad y ingreso,
+
+y bueno, acá están tales y tal grupo.
+
+Pero por eso una vez que tenés muchos,
+
+¿cómo lo visualizas?
+
+Es difícil, ahí digamos.
+
+Pues, pasa que ya empecé a combinar cosas
+
+que como que me adelanto un poquito
+
+sobre Mascina,
+
+pero puede ser que sirva
+
+hacer una reducción de dimensionalidad
+
+antes de hacer clúster
+
+para hacerlo un poco más interpretable,
+
+o no.
+
+O, al final esta clase un poquito,
+
+damos un segundito,
+
+pero lo vamos a ver en el código,
+
+una estrategia que podría hacer para decir,
+
+¿Por qué esta observación
+
+pertence al clúster 1 y no al 7?
+
+Pero damos un segundito, digamos.
+
+Pero también es desafiante,
+
+no te voy a mentir, digamos.
+
+Todo esto es como más
+
+imploratorio, vas a tener que hacer gráficos
+
+y tratar de ver qué es lo que capta cada uno
+
+de los clústeres, cosas por el estilo.
+
+Bien.
+
+Un detalle.
+
+Lo último, y vamos
+
+a código.
+
+Está muy casado Andrés, ¿no?
+
+Atención.
+
+Mira que se lo escucha siempre gritar al costado.
+
+Y yo me olvidé el reloj, entonces tengo miedo
+
+que se haya pasado la hora porque no grita más Andrés.
+
+Pero no es el caso.
+
+Bien.
+
+Fíjense esto de acá.
+
+Si yo les pregunto, che,
+
+hay variable index
+
+pero tomemos que es el tiempo
+
+no pasa nada, que es una serie de tiempo
+
+a los fines es lo mismo
+
+y si yo les digo
+
+¿cuáles de las dos líneas
+
+de las dos series son más parecidas entre sí?
+
+¿esta rosita con la naranja
+
+o esta rosita con la verde
+
+o esta verde con esta naranja?
+
+¿cuáles son más parecidas entre sí?
+
+¿cómo, cómo?
+
+la naranja con la rosa
+
+la naranja con la rosa
+
+voy a decir que es más parecida.
+
+¿Alguien tiene una opinión diferente?
+
+¿Por qué?
+
+Están respaladas, son la misma contradimensión.
+
+Como que van de la mano, ¿no?
+
+Ok.
+
+Para mí las dos están bien.
+
+Las dos respuestas están bien.
+
+Pasa que depende qué querés medir en el fondo.
+
+Estas dos están separadas,
+
+menos, están como más solapadas.
+
+Y de hecho, si yo hago distancia euclidia,
+
+así, entre estas dos curvas,
+
+es esto al cuadrado, más esto al cuadrado,
+
+más esto al cuadrado, más esto al cuadrado,
+
+más esto al cuadrado, son estas diferencias
+
+en cada punto al cuadrado la suma de eso, ¿no?
+
+Mientras que entre esta y esta
+
+son esta diferencia al cuadrado,
+
+que es mucho más grande.
+
+Entonces, indudablemente, estas son más cercanas.
+
+Si yo las tengo así nomás, ¿no?
+
+Pero hay algo que es muy notorio,
+
+que es, hay dos que van muy de la mano
+
+y otra que no lo va tanto, ¿no?
+
+Entonces, distancia euclidia, así nomás, no te lo va a tomar a esto.
+
+Estas dos son cercanas porque tienen niveles cercanos,
+
+no que estas dos son cercanas porque están correlacionadas.
+
+Cuando una sube, la otra también sube.
+
+Cuando una baja, la otra también baja.
+
+Esto básicamente es decir,
+
+sería como que yo tengo un dataset que tengo tiempo y tengo n series.
+
+¿Está?
+
+Y yo lo que tengo es que una de estas es la naranja,
+
+otra de estas es la verde y otra de estas es la rosita.
+
+¿Estamos?
+
+Una estrategia que se usa mucho en Clustering
+
+para decir, che, que en vez de captar que estas dos son similares,
+
+que capte que estas dos son más similares entre sí,
+
+es calcular los Z-scores que ustedes ya vimos,
+
+digamos que es dividir por la media y la liberación estándar,
+
+pero diferente
+
+no a nivel de fila
+
+pero no a nivel de columna
+
+sino a nivel de fila
+
+entonces cuando uno tiene algo así
+
+calculo la media de acá
+
+la dirección estándar acá
+
+la media de acá, la dirección estándar acá
+
+la media de acá y la dirección estándar acá
+
+y divido cada uno de estos valores
+
+por su media, perdón, el resto de la media
+
+divido por la dirección estándar
+
+¿qué es lo que haces ahí?
+
+haces
+
+que cada una de las series
+
+que es, esté centrada en cero y que tenga una amplitud similar, básicamente.
+
+Entonces, cuando vos sientes a las dos en cero y le pongas como una amplitud similar,
+
+estas dos van a estar súper solapadas, van a ser prácticamente idénticas,
+
+mientras que esta, de hecho, seguramente se va a hacer como más ancha
+
+para que sea una amplitud similar, y va a ir bastante más a contramando.
+
+Y cuando vos hagas distancia euclidia sobre las series normalizadas,
+
+¿Qué es lo que vas a encontrar?
+
+Bueno, chequeé
+
+que
+
+la verde y la naranja son más similares
+
+entre sí que respecto a la rosita.
+
+¿Estamos?
+
+Entonces, nada, cosas para tener en cuenta
+
+sobre todo en serie de tiempo.
+
+Ahora veamos el último
+
+bloque de código y terminamos
+
+por hoy.
+
+El último bloque de código usa este dataset
+
+que también está en el UCI.
+
+es un paper muy viejo,
+
+y se van a dar cuenta directamente
+
+por los tipos de variables que tienen que ser un paper muy viejo,
+
+que son,
+
+el área metropolitana de Boston
+
+la dividen esta gente,
+
+que sería equivalente a unos radios sensales,
+
+a zonas geográficas conexas del área.
+
+Uno puede poner un mapa y visualizarlo,
+
+puede hacer algunas fositas.
+
+Y para cada uno de esos radios,
+
+grupo de manzanas,
+
+veamos el shape que tiene esto,
+
+la forma, son 506
+
+radios sensales,
+
+se miden
+
+14 cosas,
+
+y las 14 cosas que se miden
+
+son estas de acá,
+
+nivel de crimen,
+
+vamos a ver si lo podemos abrir,
+
+bueno, acá es downtown,
+
+proporción del área
+
+residencial,
+
+zonificada para lotes, que tienen más de este tamaño,
+
+proporción de acres non-rental para negocios,
+
+son todos como atributos así del área,
+
+y algunos que son rarísimos para esta época,
+
+porque hay edad de ahí, pero población de,
+
+proporción de población de gente de color,
+
+por ejemplo ponen, o de,
+
+hay edad de lotes que es rarísimo también,
+
+lower status population,
+
+que no queda muy claro qué es, pero lo han medido,
+
+Es un dataset.
+
+De hecho, no les voy a mentir.
+
+SakiLen no te lo deja bajar más porque
+
+dice, no, este dataset no va, digamos.
+
+Pero para Cluster tiene algunas cositas
+
+que están buenas en términos estadísticos,
+
+no en lo que mide, digamos, sino en lo que vamos
+
+a encontrar. Cargamos
+
+los datos.
+
+Ay, no.
+
+Esperen que hice lo que hago en...
+
+Cargamos los datos.
+
+Este es el head.
+
+Cada una de las variables que son numéricas.
+
+Esta es info.
+
+Son todos floats.
+
+No tienen missings.
+
+¿Ok?
+
+Pongo describe que te da para cada variable.
+
+Estadísticas descriptivas.
+
+Déjenme que se imprima mejor.
+
+que se count, está bien, la media,
+
+están divididas en el mínimo, los cuartiles, el máximo,
+
+para las 14 variables.
+
+Y ahora lo que voy a hacer es
+
+plotear las primeras 5 columnas.
+
+1, 2, 3, 4, 5 columnas.
+
+Lo ploteo, lo muestro,
+
+y me da esto.
+
+Bien
+
+Cuando el Zucre usó
+
+Variable a variable
+
+El dataset tiene esta pinta
+
+No tiene mucha pinta
+
+De que esas clases dando vueltas
+
+Uno lo ve y es
+
+No parece tanto
+
+Pero bueno, eso no impide que nos
+
+Tovemos k-medias
+
+Y vamos a hacerlo
+
+Venimos acá
+
+Y yo, che, ¿cómo se hace K-Medias en
+
+Tacking Learn? Bueno, hay
+
+un modulito, hay una funcionalita
+
+que es K-Means, ¿no?
+
+Que es muy fácil, le digo la cantidad de clusters
+
+le voy a decir cuántas iteraciones va a ser
+
+porque ese while que yo le dije
+
+converge eventualmente, pero por ahí
+
+dice, che, hago 30 nomás y ya se acabó
+
+digamos que la última cambia un poquito
+
+y la cantidad de veces que lo inicio
+
+por ese comportamiento aleatorio, se va a quedar con la
+
+mejora de los 20, con la que minimice más la función
+
+objetivo de los 20, ¿no?
+
+Viene acá, le pasó los datos y hace el fit.
+
+Un segundo.
+
+Hizo 20 veces el algoritmo, no demora nada.
+
+Y acá lo que dice, una vez que fitió, por ejemplo,
+
+me puedo explicar cuáles son los centroides.
+
+Y los centroides son estos.
+
+Fíjense que hay un vector.
+
+Uno, dos, tres, cuatro, cinco, seis, siete.
+
+Siete, sí.
+
+Uno, dos, tres, cuatro, cinco, seis, siete.
+
+Ok, es para cada una de las dimensiones
+
+del dataset donde está el centroide
+
+de ese cluster
+
+Y de hecho yo puedo venir y para cada uno
+
+para los que entren off y que hacen los labels que tienen
+
+Que sea la primera observación
+
+para ese cluster 6, la segunda 3
+
+la tercera 3, la cuarta
+
+3, después 6 y así
+
+hay una 5, otra del 0 y lo que sea
+
+¿Está?
+
+Genial
+
+Ahora lo que voy a hacer
+
+va a ser
+
+esta curuita
+
+¿no?
+
+y
+
+voy a venir
+
+y voy a iterar
+
+para valores de K
+
+de 1 a 20
+
+voy a correr el algoritmo
+
+voy a hacer el feed básicamente
+
+y voy a guardar
+
+armarme este data frame
+
+que va a ser practicada
+
+cuánto es la función
+
+objetivo practicada
+
+cuánto es
+
+¿no?
+
+que en Sighting Learn
+
+se da inercia
+
+pero es lo mismo
+
+lo hacemos
+
+terminó
+
+bien
+
+lo pasamos a un data frame
+
+y es lo que le decía
+
+esto
+
+es el data frame que voy a visualizar con K
+
+esta es linarcia con K
+
+esta es linarcia y así
+
+vengo acá
+
+y lo grafico
+
+y me da eso
+
+evolución de la fusión objetiva a medida que cada
+
+aumenta
+
+y ustedes dirían que el codo
+
+si hay un codo, ¿dónde está?
+
+1
+
+2, 3, 4
+
+yo también lo veo en 4
+
+alguno lo puede ver en menos, puede decir
+
+en 3, yo lo veo en 4
+
+de hecho está jacodeado ya en el código que es
+
+4
+
+entonces decimos, bueno, 4 parece ser
+
+el valor
+
+el número natural
+
+el cluster que tiene el dataset.
+
+Venimos acá
+
+y lo que voy a hacer acá es
+
+graficar
+
+todas las combinaciones,
+
+todos los pares de variables
+
+y colorearlas por el cluster que se le asignó.
+
+Que es lo que hace el libro, por ejemplo.
+
+Este graficito es un poquito pesado,
+
+va a demorar un segundo.
+
+y está
+
+¿alguien vea algún patrón ahí?
+
+es durísimo ese gráfico
+
+¿pero ustedes dirían
+
+que hay alguna variable
+
+que está más asociada
+
+que otra
+
+al clúster en el que termina
+
+una observación?
+
+Tags.
+
+Tags.
+
+Ok.
+
+¿Alguna otra más?
+
+Que le diga a Chet.
+
+Algo hay.
+
+No está tan mezclada esa.
+
+Zn
+
+hasta Z.
+
+Sí, pero acá tenés azul.
+
+acá tenés azul, ¿no?
+
+Acá es cierto que en el medio parece que hay más.
+
+B, ¿no?
+
+También parece un poquitito, ¿no?
+
+¿Está?
+
+Qué raro, ¿no?
+
+Pero parece que Slash se enfocó en dos variables principalmente,
+
+no tanto en las demás.
+
+Ok, me ponías todo, pero sí.
+
+No sos recursante vos.
+
+Así que, ¿qué pasó?
+
+Todo es rapidísimo.
+
+Y cuando uno viene acá,
+
+puede ver que justamente tags y b
+
+son las dos variables que tienen más varianza.
+
+Porque ese tags tiene una media 408,
+
+un máximo 711.
+
+Las otras son de 24, de 12.
+
+y
+
+B
+
+un máximo de 3.96
+
+una media de 3.56
+
+un mínimo de 0
+
+o sea, tiene un rango de variación mucho más alto
+
+una varianza mucho más alto
+
+que otras variables que son como
+
+a veces son proporciones, son cosas por el estilo
+
+entonces
+
+tiene mayor varianza
+
+y no tenemos que perder
+
+no tenemos que perder
+
+de foco, no tenemos que olvidarnos que venimos
+
+usamos distancia euclidia
+
+cuando usamos distancia euclidia es sensible
+
+a las
+
+variables de mayor varianza
+
+entonces uno tendría que normalizar
+
+no es exactamente la normalización
+
+esta por fila
+
+que hicimos con el serie de tiempos
+
+sino que es la normalización que vimos siempre
+
+por columna
+
+entonces lo que voy a hacer ahora
+
+es que
+
+por ahí
+
+tiene más sentido normalizar
+
+o no, digamos.
+
+Pero antes voy a hacer otra cosa,
+
+y que va en la línea de tu pregunta.
+
+Che, no sé cómo interpretar los clusters.
+
+Y fíjense,
+
+yo tengo
+
+el data frame,
+
+que son solo las X,
+
+y ¿qué hace un cluster?
+
+Un cluster básicamente lo que hace es decir,
+
+che, estos 1, estos 3,
+
+estos 1, estos 5,
+
+estos 2, estos 1.
+
+Podría haber sido, che, para hacerlo más fácil todavía,
+
+este es el A, clúster A, este es el A, este es el C, A, B, B, D,
+
+y así, para que sean bien claros que son categorías los clústeres,
+
+que no son números, que el clúster 4 no es dos veces el 2.
+
+¿Cómo podría hacer yo para ver cómo se asocian las X a un clúster?
+
+Para decir, che, esta observación cayó en el clúster A,
+
+¿por qué tiene estas características?
+
+Hice tu gesto, ahora quiero saber qué es.
+
+No, lo había hecho bastante.
+
+¿Cómo?
+
+Vamos un poquito más.
+
+Algo que hayamos visto en esta materia, que uno diría,
+
+pero pará, por ahí puedo usar esto porque está bueno para entender cómo se asocian variables.
+
+¿No veo ningún gráfico que le guste esta materia hasta en lo que vamos?
+
+Ninguno.
+
+Validez y un coloset no debe ser.
+
+Decido más cercano, está difícil.
+
+Estoy listando las cosas que vimos.
+
+Métrica de clasificación, no.
+
+Es que vos no, ¿qué vimos en la materia
+
+que no estoy mencionando?
+
+¿Qué puede ser útil para esto?
+
+Árboles.
+
+¿Por qué?
+
+¿Y cómo podrías usar un árbol ahí?
+
+Yo tengo las X
+
+Y esto es C, el cluster
+
+Pero bueno, porque C podría haberle llamado
+
+Si querés, te hace sentir más cómodo
+
+Y llega
+
+¿Qué podríamos haber hecho?
+
+un árbol
+
+prediciendo eso así es
+
+perfecto, y lo ves
+
+y ahí ya tenés
+
+che
+
+no es un y
+
+si no es que estabas haciendo un árbol
+
+con un kit mucho más descriptivo
+
+que se entre en un árbol para ver
+
+por qué esta observación terminó en el cluster que terminó
+
+¿está?
+
+ver qué variables
+
+y qué valores
+
+de cada variable hacen
+
+que un clúster termine
+
+en determinado clúster.
+
+Y eso es lo que voy a hacer.
+
+Acá.
+
+Yo entreno con 4.
+
+Con 4.
+
+Esperen, esperen, esperen
+
+que me estoy perdiendo.
+
+Entreno con 4.
+
+Y...
+
+Ah, volví a ver a explicar lo mismo que antes que Pavo.
+
+Y tengo este árbol.
+
+Que me quedó horrible.
+
+Pero tengo que...
+
+¿Qué te dice este árbol?
+
+Que al todo el dataset primero...
+
+los plitea por tags, que es lo que habíamos dicho, fue la primera variable, pues que dijeron, ¿no?
+
+Y si tags es, no es menor a 351.5, tag pertenece al clúster 4.
+
+Si no, vuelve a aparecer por tags y dice, che, si no es menor a 567, termina casi todas en el clúster 2, ¿está?
+
+Y después se fija en B, que es la que dijeron ustedes, y dice, che, si es menor a 225, termina el clúster,
+
+Si no es menor a tanto, dice no hay.
+
+Entonces, te partió en los cuatro grupitos.
+
+Y de hecho, uno lo ve y ustedes ya lo vieron,
+
+muy despiertos, y te capta esto.
+
+Dice, che, si tax es menor a un valor, clúster uno.
+
+Si no, si es menor a tanto, clúster dos.
+
+Que ahí se mezclaban esas dos que estaban sueltas.
+
+Y si no, se fijaban en B y decían si es menor a tanto,
+
+clúster tres y si no, cuatro.
+
+Eso es lo que dice Che,
+
+eso está encontrando K medias en los datos.
+
+Bueno, no parece, digamos.
+
+O por ahí sí, qué sé yo, por ahí sirve.
+
+Depende del problema en el que uno esté, ¿no?
+
+Pero uno, como que te pide un poco el problema,
+
+es Che, bueno, pero vamos a cargar los datos,
+
+a ver si encuentras algo con más sentido.
+
+¿Va?
+
+Y acá el único ejercicio que estoy haciendo es,
+
+bueno, Che, voy a hacer el mismo ejercicio,
+
+probar K igual a 1 a 20,
+
+pero hago un pipeline donde primero
+
+estandarizo y después hago K medias.
+
+es tener eso a nivel de columna
+
+hago eso
+
+y me da que la evolución
+
+tiene
+
+esta pinta
+
+y el codo
+
+se lo fue
+
+y es un poquito así
+
+entonces ahí uno dice
+
+bueno, elijo algún valor
+
+1, 2, 3, 4, 5, 6
+
+yo lo voy a dejar en 4
+
+entonces fíjense
+
+veo cuál es el clúster
+
+de 4
+
+Armo el mismo dataframe
+
+Entro en el mismo árbol
+
+Y ahora sí sucede que
+
+Este
+
+No veo nada de hecho
+
+Un segundo
+
+Vamos a ver
+
+Creo
+
+Esto es mañoso
+
+Bueno, yo veo un poquito más
+
+Taz es lo que usa
+
+Después usa Zn
+
+Una que no estaba antes
+
+Después usa Chas
+
+Que por ejemplo V no está más
+
+Y logra separar en grupos
+
+Cada uno, por ejemplo, Cluster 4
+
+Una mezcla todavía
+
+Este no está muy bien separado
+
+Y este es Cluster 2
+
+O sea, acá estamos definiendo
+
+Una profundidad máxima
+
+Sí, esto es
+
+Solo para visualizar
+
+en el momento que haces
+
+el árbol muy profundo, profundidad 20
+
+ya no se entiende nada
+
+idealmente a vos te gustaría que con una
+
+profundidad pequeña, ya te quede como
+
+sería un 3, acá ha sido un
+
+3, en el bar bajito, ¿no?
+
+entonces para tratar de entender qué es lo que está
+
+acá por los plásticos
+
+bueno
+
+eso
+
+es todo
+
+por hoy
+
+avance con el TP, el hito 2
+
+el de superar el 10%
+
+ha medido que está
+
+pero empieza a mejorar
+
+y seguimos la clase que viene
+
+chicos
+

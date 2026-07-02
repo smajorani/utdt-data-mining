@@ -1,0 +1,10 @@
+# Datos de la competencia: exceden el límite de 100 MB de GitHub (train 211 MB, zip API 155 MB).
+# Se descargan desde la página de la competencia en Kaggle.
+competition_data/
+
+# Config local de Claude Code (permisos por máquina)
+.claude/settings.local.json
+
+# Artefactos de Python/Jupyter
+.ipynb_checkpoints/
+__pycache__/

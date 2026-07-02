@@ -1,0 +1,16 @@
+
+Overview
+En esta competencia, el objetivo es desarrollar un modelo de aprendizaje automático capaz de predecir si una reproducción en Spotify corresponde a un caso de abandono temprano. Para ello, contarán con datos anonimizados de historiales de escucha, incluyendo información temporal, características del dispositivo, país de conexión, metadatos del contenido reproducido y variables asociadas al contexto de reproducción.
+
+Los participantes deberán entrenar sus modelos utilizando un conjunto de datos de entrenamiento y generar predicciones probabilísticas sobre un conjunto de evaluación. Las soluciones serán evaluadas según la métrica ROC-AUC.
+
+La competencia forma parte de la materia Minería de Datos del programa MiM+AI de la Universidad Torcuato Di Tella (UTDT). Está orientada a estudiantes y tiene fines educativos. Busca poner en práctica conceptos de ciencia de datos, ingeniería de atributos, validación de modelos, uso de fuentes de información adicionales y evaluación de resultados en un entorno competitivo.
+
+Start
+
+a month ago
+Close
+
+15 days to go
+Citation
+Julieta De Antonio, ramirogalvez, and Tomas Insua. Predicción de Abandono Temprano en Spotify - 2026. https://kaggle.com/competitions/prediccion-de-abandono-temprano-en-spotify-2026, 2026. Kaggle.

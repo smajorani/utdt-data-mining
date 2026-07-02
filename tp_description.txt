@@ -1,0 +1,112 @@
+Predicción de Abandono Temprano en Spotify
+En este trabajo práctico, crearán un sistema con el propósito de predecir si una reproducción en Spotify
+corresponde a un caso de abandono temprano. Para ello, entrenarán modelos de aprendizaje automático
+sobre una base de reproducciones previamente registradas.
+El trabajo práctico se deberá resolver en grupos de 2 integrantes.
+La evaluación tendrá en cuenta 3 componentes: 1) el resultado del sistema en el leaderboard privado, 2) la
+calidad del informe entregado y 3) la claridad del código entregado.
+Los sistemas propuestos por los diferentes grupos competirán a través de la plataforma Kaggle. El link para
+acceder y registrarse a la competencia se encuentra disponible en el Campus Virtual de la materia.
+En el campus también cuentan con un link para descargar un archivo comprimido que contiene los siguientes
+archivos:
+● - train_data.txt: contiene los datos de entrenamiento.
+● - test_data.txt: contiene los datos de evaluación. Este conjunto de datos no contiene la columna
+ms_played.
+● - submission_example.csv: archivo de ejemplo con el formato que deben subir a Kaggle.
+● - spotify_api_data.zip: archivo comprimido con información adicional obtenida de la API de
+Spotify para canciones y episodios presentes en los datos.
+En la página de la competencia se indica qué es cada una de las variables que contiene el dataset provisto.
+Allí también se indican las reglas de la competencia. A saber:
+● La métrica de evaluación será ROC-AUC.
+● Un 30% elegido al azar de los datos de evaluación da lugar al puntaje del leaderboard público. Este
+valor les servirá de guía para evaluar su desempeño, pero la evaluación final se realizará sobre el
+restante 70%. Esta evaluación final corresponde al leaderboard privado, que podrán ver una vez
+cerrada la competencia.
+● Cada grupo podrá realizar, a lo sumo, 3 submits diarios (¡no dejen todo para último momento!).
+El archivo a subir debe tener dos columnas obs_id y target. La columna target debe contener una
+probabilidad entre 0 y 1 de que la observación corresponda a un caso de abandono temprano.
+El uso de spotify_api_data.zip es opcional. Este archivo contiene metadatos adicionales que pueden ser
+utilizados para enriquecer los modelos, por ejemplo información asociada a canciones, álbumes, artistas o
+episodios. Los grupos que decidan utilizar estos datos deberán documentar en el informe cómo los
+procesaron y cómo los vincularon con los datos principales.
+Criterios de evaluación del TP
+1) Performance en el leaderboard privado y actividad en Kaggle (30% de la nota final). Las
+soluciones propuestas deben alcanzar una buena performance. Esto implica superar ampliamente
+los benchmarks propuestos y no quedar excesivamente debajo (en términos de AUC) de aquellos
+grupos que tengan la mejor performance.
+IMPORTANTE:
+a) Se penalizará a aquellos grupos que hagan pocos submits.
+b) Para el domingo 14/6 inclusive, cada equipo debe haber realizado un primer submit. No
+importa que el mismo tenga una mala performance. El objetivo de este submit es que, para
+dicha fecha, ya se encuentren familiarizados con el funcionamiento de Kaggle. Esto es
+condición necesaria para aprobar el TP.
+c) Para el domingo 21/6 inclusive, el equipo debe subir al thread correspondiente en Kaggle un
+gráfico donde se puedan ver patrones interesantes de los datos y defenderlos. Vamos a
+detallar más sobre esto en clases.
+d) Para el domingo 28/6 inclusive, cada equipo debe haber realizado, al menos, un submit cuya
+performance sea un 10% mayor al benchmark básico. Esto es condición necesaria para
+aprobar el TP.
+2) Código. Deberán entregar el código que implemente íntegramente la solución presentada en el
+informe (25% de la nota final). Este deberá consistir en un único script o notebook en Python que
+incluya todos los pasos del desarrollo: generación de gráficos, creación de variables, selección y
+entrenamiento del modelo, entre otros. El archivo debe poder ejecutarse de principio a fin sin errores
+y debe estar escrito de manera clara y legible, de modo que cualquier persona externa al grupo
+pueda comprenderlo.
+3) Informe. Se debe entregar un informe que presente la solución propuesta (45% de la nota final). El
+mismo debe tener como máximo 6 carillas (pudiendo ser menor, siempre y cuando cubra lo que se
+pide). El informe debe llevar adelante una descripción de la estrategia que utilizaron para generar sus
+predicciones. Idealmente el informe debe hacer referencia a secciones de dicho código que muestren
+cómo fue que llevaron adelante lo que reportan. A lo largo del informe pueden ir reportando los
+desafíos a los que se enfrentaron y cómo los superaron (por ej.: “los datos eran muy voluminosos y
+no se podían cargar en su totalidad en memoria, de modo que optamos por usar una muestra elegida
+de … manera”, “entrenar un modelo demora un tiempo considerable, de modo que no realizamos una
+búsqueda exhaustiva de hiperparámetros, entonces elegimos los hiperparámetros de acuerdo al
+criterio …”).
+Secciones a incorporar en el informe:
+A continuación se lista la estructura que debe seguir el informe:
+1. Análisis exploratorio de datos. No debe ser hiper exhaustivo, pero se pide que sí se
+incorporen los siguientes puntos:
+a. Debe contener al menos dos figuras que muestren algún/algunos insights adquiridos
+y el informe los debe detallar.
+b. Debe mencionar cualquier característica de los datos que les haya llamado
+particularmente la atención (a modo de ejemplo, podría mencionar algunos de los
+siguientes puntos: valores missings en los predictores, predictores con poca
+varianza).
+2. Selección de variables / Ingeniería de atributos probada. Detalles:
+a. Además de mencionar qué decisiones tomaron (por ej: no considerar la variable X),
+mencionen brevemente los motivos por el cual tomaron dicha decisión (por ej:
+“optamos por no considerar la variable X por no poseer prácticamente variabilidad”).
+b. Esta sección puede presentar pruebas que no hayan sido usadas en el modelo final,
+en cuyo caso se debe explicar por qué no se las usó y el motivo por el que creen que
+no funcionó. A modo de ejemplo, algunas opciones que podrían probar son:
+i. Crear atributos de fecha (ej.: hora, minuto, día de la semana, etc.).
+ii. Discretizar atributos continuos.
+iii. Hacer transformaciones de atributos numéricos (por ej. transformaciones
+logarítmicas).
+iv. Hacer bin-counting de variables categóricas que crean que pueden tener
+poder predictivo, pero no puedan manipular por la alta cantidad de valores
+distintos que poseen.
+3. Proponer, justificar y utilizar un sistema de validación adecuado.
+a. Justifiquen brevemente la decisión tomada.
+b. Analicen si los valores de performance obtenidos en validación se condicen con los
+obtenidos en la plataforma de Kaggle sobre el conjunto de evaluación. Si no dieran
+los mismos valores, propongan brevemente una hipótesis del motivo por el cual se
+da esto.
+4. Detallar el/los algoritmo/s de aprendizaje usado/s y los hiperparámetros
+seleccionados.
+a. Mencionen los distintos algoritmos probados.
+b. Detallen brevemente la estrategia que utilizaron para encontrar buenos
+hiperparámetros para el algoritmo final seleccionado.
+c. En caso de ensamblar distintos modelos, mencionen cómo fue hecho esto y si
+mejoró o no el resultado.
+5. Detallar del total de tiempo que asignaron al trabajo práctico, cuánto dedicaron a cada uno
+de los ítems anteriores.
+Fechas y modalidad de entrega
+● Se podrán realizar submits en Kaggle hasta el jueves 16/7 inclusive. Pasado ese momento, se
+cerrará la competencia y se harán públicos los scores del leaderboard privado.
+● El informe y el código podrán entregarlos hasta el domingo 19/7 inclusive. Para ello deben enviar por
+mail el código y el informe, en formato PDF, a datamining.mim@gmail.com. En el correo deben estar
+copiados todos los integrantes del grupo y se debe identificar qué nombre le pusieron a su equipo en
+Kaggle.
+● Sólo 1 integrante del grupo debe realizar la entrega, poniendo en copia a todos los demás
+integrantes.

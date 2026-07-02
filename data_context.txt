@@ -1,0 +1,58 @@
+Dataset Description
+Archivos
+train_data.txt - Contiene las observaciones con fecha anterior a 2024-09-01. Incluye la columna ms_played, que indica cuántos milisegundos duró la reproducción observada. Esta información está disponible sólo en entrenamiento.
+
+test_data.txt - Incluye las observaciones a partir de 2024-09-01. En este conjunto de datos se ha eliminado la columna ms_played para simular el escenario de competencia: no se conoce el resultado real y debe predecirse.
+
+submission_example.csv - Es una plantilla de envío basada en el subconjunto de test, con las mismas obs_id que aparecen en test_data.txt y valores aleatorios en la columna target. Sirve para verificar el formato correcto antes de generar predicciones reales.
+
+spotify_api_data.zip - Archivo comprimido con metadatos adicionales obtenidos de la API de Spotify para canciones y episodios presentes en los datos. Su uso es opcional.
+
+Columnas
+obs_id: Identificador global único de cada registro.
+
+user_id: Identificador anonimizado del usuario. Permite agrupar reproducciones de un mismo usuario sin revelar su identidad.
+
+ts: Fecha y hora de inicio de la reproducción, redondeada hacia abajo al múltiplo de 30 minutos más cercano.
+
+ms_played: Duración observada de la reproducción, medida en milisegundos. Esta columna sólo está presente en train_data.txt.
+
+platform_family: Familia general de plataforma o dispositivo desde donde se realizó la reproducción, por ejemplo android, ios, windows, macos, linux, web, other o unknown.
+
+conn_country: País de conexión asociado a la reproducción.
+
+master_metadata_track_name: Nombre de la canción, si la reproducción corresponde a una canción.
+
+master_metadata_album_artist_name: Nombre del artista o grupo, si la reproducción corresponde a una canción.
+
+master_metadata_album_album_name: Nombre del álbum, si la reproducción corresponde a una canción.
+
+spotify_track_uri: URI de Spotify de la canción, si corresponde.
+
+episode_name: Nombre del episodio, si la reproducción corresponde a un podcast.
+
+episode_show_name: Nombre del show al que pertenece el episodio, si corresponde.
+
+spotify_episode_uri: URI de Spotify del episodio, si corresponde.
+
+audiobook_title: Título del audiolibro, si la reproducción corresponde a un audiolibro.
+
+audiobook_uri: URI de Spotify del audiolibro, si corresponde.
+
+audiobook_chapter_uri: URI del capítulo del audiolibro, si corresponde.
+
+audiobook_chapter_title: Nombre del capítulo del audiolibro, si corresponde.
+
+shuffle: Indica si el modo aleatorio estaba activado.
+
+offline: Indica si la reproducción se realizó en modo offline.
+
+offline_timestamp: Marca de tiempo asociada al modo offline, cuando está disponible. También se encuentra redondeada hacia abajo al múltiplo de 30 minutos más cercano.
+
+incognito_mode: Indica si el usuario estaba utilizando modo incógnito.
+
+Formato de entrega
+El archivo a subir a Kaggle debe tener exactamente dos columnas:
+
+obs_id: identificador de la observación en test_data.txt.
+target: probabilidad estimada, entre 0 y 1, de que la reproducción corresponda a un caso de abandono temprano.
