@@ -1,0 +1,163 @@
+[22:45:36] Corrida iniciada
+[22:45:36] FASE 1/5 — Grilla del árbol: 72 combinaciones x 4 folds temporales
+[22:45:44]   árbol 1/72 | {'max_depth': 4, 'min_samples_leaf': 1, 'min_samples_split': 2, 'min_impurity_decrease': 0.0} | AUC CV 0.6560
+[22:45:51]   árbol 2/72 | {'max_depth': 4, 'min_samples_leaf': 1, 'min_samples_split': 2, 'min_impurity_decrease': 0.0001} | AUC CV 0.6557
+[22:46:16]   árbol 3/72 | {'max_depth': 4, 'min_samples_leaf': 1, 'min_samples_split': 50, 'min_impurity_decrease': 0.0} | AUC CV 0.6560
+[22:46:42]   árbol 4/72 | {'max_depth': 4, 'min_samples_leaf': 1, 'min_samples_split': 50, 'min_impurity_decrease': 0.0001} | AUC CV 0.6557
+[22:46:49]   árbol 5/72 | {'max_depth': 4, 'min_samples_leaf': 20, 'min_samples_split': 2, 'min_impurity_decrease': 0.0} | AUC CV 0.6560
+[22:46:56]   árbol 6/72 | {'max_depth': 4, 'min_samples_leaf': 20, 'min_samples_split': 2, 'min_impurity_decrease': 0.0001} | AUC CV 0.6557
+[22:47:07]   árbol 7/72 | {'max_depth': 4, 'min_samples_leaf': 20, 'min_samples_split': 50, 'min_impurity_decrease': 0.0} | AUC CV 0.6560
+[22:47:16]   árbol 8/72 | {'max_depth': 4, 'min_samples_leaf': 20, 'min_samples_split': 50, 'min_impurity_decrease': 0.0001} | AUC CV 0.6557
+[22:47:37]   árbol 9/72 | {'max_depth': 4, 'min_samples_leaf': 100, 'min_samples_split': 2, 'min_impurity_decrease': 0.0} | AUC CV 0.6560
+[22:47:46]   árbol 10/72 | {'max_depth': 4, 'min_samples_leaf': 100, 'min_samples_split': 2, 'min_impurity_decrease': 0.0001} | AUC CV 0.6557
+[22:47:54]   árbol 11/72 | {'max_depth': 4, 'min_samples_leaf': 100, 'min_samples_split': 50, 'min_impurity_decrease': 0.0} | AUC CV 0.6560
+[22:48:02]   árbol 12/72 | {'max_depth': 4, 'min_samples_leaf': 100, 'min_samples_split': 50, 'min_impurity_decrease': 0.0001} | AUC CV 0.6557
+[22:48:11]   árbol 13/72 | {'max_depth': 6, 'min_samples_leaf': 1, 'min_samples_split': 2, 'min_impurity_decrease': 0.0} | AUC CV 0.6614
+[22:48:20]   árbol 14/72 | {'max_depth': 6, 'min_samples_leaf': 1, 'min_samples_split': 2, 'min_impurity_decrease': 0.0001} | AUC CV 0.6621
+[22:48:31]   árbol 15/72 | {'max_depth': 6, 'min_samples_leaf': 1, 'min_samples_split': 50, 'min_impurity_decrease': 0.0} | AUC CV 0.6614
+[22:48:39]   árbol 16/72 | {'max_depth': 6, 'min_samples_leaf': 1, 'min_samples_split': 50, 'min_impurity_decrease': 0.0001} | AUC CV 0.6621
+[22:48:48]   árbol 17/72 | {'max_depth': 6, 'min_samples_leaf': 20, 'min_samples_split': 2, 'min_impurity_decrease': 0.0} | AUC CV 0.6613
+[22:48:56]   árbol 18/72 | {'max_depth': 6, 'min_samples_leaf': 20, 'min_samples_split': 2, 'min_impurity_decrease': 0.0001} | AUC CV 0.6621
+[22:49:05]   árbol 19/72 | {'max_depth': 6, 'min_samples_leaf': 20, 'min_samples_split': 50, 'min_impurity_decrease': 0.0} | AUC CV 0.6613
+[22:49:13]   árbol 20/72 | {'max_depth': 6, 'min_samples_leaf': 20, 'min_samples_split': 50, 'min_impurity_decrease': 0.0001} | AUC CV 0.6621
+[22:49:24]   árbol 21/72 | {'max_depth': 6, 'min_samples_leaf': 100, 'min_samples_split': 2, 'min_impurity_decrease': 0.0} | AUC CV 0.6617
+[22:49:34]   árbol 22/72 | {'max_depth': 6, 'min_samples_leaf': 100, 'min_samples_split': 2, 'min_impurity_decrease': 0.0001} | AUC CV 0.6621
+[22:49:45]   árbol 23/72 | {'max_depth': 6, 'min_samples_leaf': 100, 'min_samples_split': 50, 'min_impurity_decrease': 0.0} | AUC CV 0.6617
+[22:49:55]   árbol 24/72 | {'max_depth': 6, 'min_samples_leaf': 100, 'min_samples_split': 50, 'min_impurity_decrease': 0.0001} | AUC CV 0.6621
+[22:50:08]   árbol 25/72 | {'max_depth': 8, 'min_samples_leaf': 1, 'min_samples_split': 2, 'min_impurity_decrease': 0.0} | AUC CV 0.6753
+[22:50:18]   árbol 26/72 | {'max_depth': 8, 'min_samples_leaf': 1, 'min_samples_split': 2, 'min_impurity_decrease': 0.0001} | AUC CV 0.6753
+[22:50:30]   árbol 27/72 | {'max_depth': 8, 'min_samples_leaf': 1, 'min_samples_split': 50, 'min_impurity_decrease': 0.0} | AUC CV 0.6757
+[22:50:41]   árbol 28/72 | {'max_depth': 8, 'min_samples_leaf': 1, 'min_samples_split': 50, 'min_impurity_decrease': 0.0001} | AUC CV 0.6753
+[22:50:54]   árbol 29/72 | {'max_depth': 8, 'min_samples_leaf': 20, 'min_samples_split': 2, 'min_impurity_decrease': 0.0} | AUC CV 0.6762
+[22:51:06]   árbol 30/72 | {'max_depth': 8, 'min_samples_leaf': 20, 'min_samples_split': 2, 'min_impurity_decrease': 0.0001} | AUC CV 0.6753
+[22:51:21]   árbol 31/72 | {'max_depth': 8, 'min_samples_leaf': 20, 'min_samples_split': 50, 'min_impurity_decrease': 0.0} | AUC CV 0.6762
+[22:51:34]   árbol 32/72 | {'max_depth': 8, 'min_samples_leaf': 20, 'min_samples_split': 50, 'min_impurity_decrease': 0.0001} | AUC CV 0.6753
+[22:51:47]   árbol 33/72 | {'max_depth': 8, 'min_samples_leaf': 100, 'min_samples_split': 2, 'min_impurity_decrease': 0.0} | AUC CV 0.6749
+[22:51:59]   árbol 34/72 | {'max_depth': 8, 'min_samples_leaf': 100, 'min_samples_split': 2, 'min_impurity_decrease': 0.0001} | AUC CV 0.6755
+[22:52:13]   árbol 35/72 | {'max_depth': 8, 'min_samples_leaf': 100, 'min_samples_split': 50, 'min_impurity_decrease': 0.0} | AUC CV 0.6749
+[22:52:26]   árbol 36/72 | {'max_depth': 8, 'min_samples_leaf': 100, 'min_samples_split': 50, 'min_impurity_decrease': 0.0001} | AUC CV 0.6755
+[22:52:37]   árbol 37/72 | {'max_depth': 10, 'min_samples_leaf': 1, 'min_samples_split': 2, 'min_impurity_decrease': 0.0} | AUC CV 0.6725
+[22:52:47]   árbol 38/72 | {'max_depth': 10, 'min_samples_leaf': 1, 'min_samples_split': 2, 'min_impurity_decrease': 0.0001} | AUC CV 0.6746
+[22:53:02]   árbol 39/72 | {'max_depth': 10, 'min_samples_leaf': 1, 'min_samples_split': 50, 'min_impurity_decrease': 0.0} | AUC CV 0.6739
+[22:53:18]   árbol 40/72 | {'max_depth': 10, 'min_samples_leaf': 1, 'min_samples_split': 50, 'min_impurity_decrease': 0.0001} | AUC CV 0.6746
+[22:53:30]   árbol 41/72 | {'max_depth': 10, 'min_samples_leaf': 20, 'min_samples_split': 2, 'min_impurity_decrease': 0.0} | AUC CV 0.6741
+[22:53:41]   árbol 42/72 | {'max_depth': 10, 'min_samples_leaf': 20, 'min_samples_split': 2, 'min_impurity_decrease': 0.0001} | AUC CV 0.6746
+[22:53:53]   árbol 43/72 | {'max_depth': 10, 'min_samples_leaf': 20, 'min_samples_split': 50, 'min_impurity_decrease': 0.0} | AUC CV 0.6739
+[22:54:04]   árbol 44/72 | {'max_depth': 10, 'min_samples_leaf': 20, 'min_samples_split': 50, 'min_impurity_decrease': 0.0001} | AUC CV 0.6746
+[22:54:16]   árbol 45/72 | {'max_depth': 10, 'min_samples_leaf': 100, 'min_samples_split': 2, 'min_impurity_decrease': 0.0} | AUC CV 0.6723
+[22:54:27]   árbol 46/72 | {'max_depth': 10, 'min_samples_leaf': 100, 'min_samples_split': 2, 'min_impurity_decrease': 0.0001} | AUC CV 0.6748
+[22:54:39]   árbol 47/72 | {'max_depth': 10, 'min_samples_leaf': 100, 'min_samples_split': 50, 'min_impurity_decrease': 0.0} | AUC CV 0.6723
+[22:54:49]   árbol 48/72 | {'max_depth': 10, 'min_samples_leaf': 100, 'min_samples_split': 50, 'min_impurity_decrease': 0.0001} | AUC CV 0.6748
+[22:55:08]   árbol 49/72 | {'max_depth': 14, 'min_samples_leaf': 1, 'min_samples_split': 2, 'min_impurity_decrease': 0.0} | AUC CV 0.6779
+[22:55:19]   árbol 50/72 | {'max_depth': 14, 'min_samples_leaf': 1, 'min_samples_split': 2, 'min_impurity_decrease': 0.0001} | AUC CV 0.6846
+[22:55:37]   árbol 51/72 | {'max_depth': 14, 'min_samples_leaf': 1, 'min_samples_split': 50, 'min_impurity_decrease': 0.0} | AUC CV 0.6796
+[22:55:49]   árbol 52/72 | {'max_depth': 14, 'min_samples_leaf': 1, 'min_samples_split': 50, 'min_impurity_decrease': 0.0001} | AUC CV 0.6846
+[22:56:06]   árbol 53/72 | {'max_depth': 14, 'min_samples_leaf': 20, 'min_samples_split': 2, 'min_impurity_decrease': 0.0} | AUC CV 0.6804
+[22:56:18]   árbol 54/72 | {'max_depth': 14, 'min_samples_leaf': 20, 'min_samples_split': 2, 'min_impurity_decrease': 0.0001} | AUC CV 0.6846
+[22:56:35]   árbol 55/72 | {'max_depth': 14, 'min_samples_leaf': 20, 'min_samples_split': 50, 'min_impurity_decrease': 0.0} | AUC CV 0.6802
+[22:56:46]   árbol 56/72 | {'max_depth': 14, 'min_samples_leaf': 20, 'min_samples_split': 50, 'min_impurity_decrease': 0.0001} | AUC CV 0.6846
+[22:57:03]   árbol 57/72 | {'max_depth': 14, 'min_samples_leaf': 100, 'min_samples_split': 2, 'min_impurity_decrease': 0.0} | AUC CV 0.6818
+[22:57:15]   árbol 58/72 | {'max_depth': 14, 'min_samples_leaf': 100, 'min_samples_split': 2, 'min_impurity_decrease': 0.0001} | AUC CV 0.6850
+[22:57:29]   árbol 59/72 | {'max_depth': 14, 'min_samples_leaf': 100, 'min_samples_split': 50, 'min_impurity_decrease': 0.0} | AUC CV 0.6818
+[22:57:44]   árbol 60/72 | {'max_depth': 14, 'min_samples_leaf': 100, 'min_samples_split': 50, 'min_impurity_decrease': 0.0001} | AUC CV 0.6850
+[22:58:20]   árbol 61/72 | {'max_depth': 20, 'min_samples_leaf': 1, 'min_samples_split': 2, 'min_impurity_decrease': 0.0} | AUC CV 0.6656
+[22:58:32]   árbol 62/72 | {'max_depth': 20, 'min_samples_leaf': 1, 'min_samples_split': 2, 'min_impurity_decrease': 0.0001} | AUC CV 0.6849
+[22:58:57]   árbol 63/72 | {'max_depth': 20, 'min_samples_leaf': 1, 'min_samples_split': 50, 'min_impurity_decrease': 0.0} | AUC CV 0.6692
+[22:59:08]   árbol 64/72 | {'max_depth': 20, 'min_samples_leaf': 1, 'min_samples_split': 50, 'min_impurity_decrease': 0.0001} | AUC CV 0.6849
+[22:59:35]   árbol 65/72 | {'max_depth': 20, 'min_samples_leaf': 20, 'min_samples_split': 2, 'min_impurity_decrease': 0.0} | AUC CV 0.6730
+[22:59:47]   árbol 66/72 | {'max_depth': 20, 'min_samples_leaf': 20, 'min_samples_split': 2, 'min_impurity_decrease': 0.0001} | AUC CV 0.6849
+[23:00:11]   árbol 67/72 | {'max_depth': 20, 'min_samples_leaf': 20, 'min_samples_split': 50, 'min_impurity_decrease': 0.0} | AUC CV 0.6731
+[23:00:22]   árbol 68/72 | {'max_depth': 20, 'min_samples_leaf': 20, 'min_samples_split': 50, 'min_impurity_decrease': 0.0001} | AUC CV 0.6849
+[23:00:44]   árbol 69/72 | {'max_depth': 20, 'min_samples_leaf': 100, 'min_samples_split': 2, 'min_impurity_decrease': 0.0} | AUC CV 0.6785
+[23:00:56]   árbol 70/72 | {'max_depth': 20, 'min_samples_leaf': 100, 'min_samples_split': 2, 'min_impurity_decrease': 0.0001} | AUC CV 0.6849
+[23:01:17]   árbol 71/72 | {'max_depth': 20, 'min_samples_leaf': 100, 'min_samples_split': 50, 'min_impurity_decrease': 0.0} | AUC CV 0.6785
+[23:01:28]   árbol 72/72 | {'max_depth': 20, 'min_samples_leaf': 100, 'min_samples_split': 50, 'min_impurity_decrease': 0.0001} | AUC CV 0.6849
+[23:01:28] FASE 1 lista. Mejor: {'max_depth': 14, 'min_samples_leaf': 100, 'min_samples_split': 50, 'min_impurity_decrease': 0.0001} | AUC CV 0.6850
+[23:01:28] FASE 2/5 — Experimento de datos rancios: 4 ventanas x 4 folds
+[23:01:33]   ventana últimos 12 meses   | AUC CV 0.6839
+[23:01:43]   ventana últimos 24 meses   | AUC CV 0.6885
+[23:01:53]   ventana últimos 36 meses   | AUC CV 0.6877
+[23:02:08]   ventana toda la historia   | AUC CV 0.6850
+[23:02:08] FASE 2 lista. Ventana elegida: últimos 24 meses (AUC CV 0.6885)
+[23:02:10] FASE 3/5 — Selección de K para KNN: 3 candidatos x 3 folds (lento: KNN predice)
+[23:03:21]   K=  101 | ROC-AUC CV temporal = 0.6470
+[23:05:01]   K=  701 | ROC-AUC CV temporal = 0.6614
+[23:06:32]   K= 1501 | ROC-AUC CV temporal = 0.6559
+[23:06:32] FASE 3 lista. K elegido: 701
+[23:06:33] FASE 4/5 — Comparación final en test_interno (KNN predice 30k contra su muestra de 100k: tarda)
+[23:07:41] FASE 4 lista. Árbol 0.6589 vs KNN 0.6330 -> gana Árbol de decisión
+[23:07:41] Modelo final + submission (rápido; después arranca la FASE 5, la última)
+[23:07:43] FASE 5/5 — Experimento user_id: 72 combinaciones x 4 folds
+[23:07:53]   user_id 1/72 | {'max_depth': 4, 'min_samples_leaf': 1, 'min_samples_split': 2, 'min_impurity_decrease': 0.0} | AUC CV 0.6901
+[23:08:02]   user_id 2/72 | {'max_depth': 4, 'min_samples_leaf': 1, 'min_samples_split': 2, 'min_impurity_decrease': 0.0001} | AUC CV 0.6902
+[23:08:11]   user_id 3/72 | {'max_depth': 4, 'min_samples_leaf': 1, 'min_samples_split': 50, 'min_impurity_decrease': 0.0} | AUC CV 0.6901
+[23:08:19]   user_id 4/72 | {'max_depth': 4, 'min_samples_leaf': 1, 'min_samples_split': 50, 'min_impurity_decrease': 0.0001} | AUC CV 0.6902
+[23:08:28]   user_id 5/72 | {'max_depth': 4, 'min_samples_leaf': 20, 'min_samples_split': 2, 'min_impurity_decrease': 0.0} | AUC CV 0.6901
+[23:08:38]   user_id 6/72 | {'max_depth': 4, 'min_samples_leaf': 20, 'min_samples_split': 2, 'min_impurity_decrease': 0.0001} | AUC CV 0.6902
+[23:08:47]   user_id 7/72 | {'max_depth': 4, 'min_samples_leaf': 20, 'min_samples_split': 50, 'min_impurity_decrease': 0.0} | AUC CV 0.6901
+[23:08:56]   user_id 8/72 | {'max_depth': 4, 'min_samples_leaf': 20, 'min_samples_split': 50, 'min_impurity_decrease': 0.0001} | AUC CV 0.6902
+[23:09:05]   user_id 9/72 | {'max_depth': 4, 'min_samples_leaf': 100, 'min_samples_split': 2, 'min_impurity_decrease': 0.0} | AUC CV 0.6901
+[23:09:14]   user_id 10/72 | {'max_depth': 4, 'min_samples_leaf': 100, 'min_samples_split': 2, 'min_impurity_decrease': 0.0001} | AUC CV 0.6902
+[23:09:23]   user_id 11/72 | {'max_depth': 4, 'min_samples_leaf': 100, 'min_samples_split': 50, 'min_impurity_decrease': 0.0} | AUC CV 0.6901
+[23:09:31]   user_id 12/72 | {'max_depth': 4, 'min_samples_leaf': 100, 'min_samples_split': 50, 'min_impurity_decrease': 0.0001} | AUC CV 0.6902
+[23:09:43]   user_id 13/72 | {'max_depth': 6, 'min_samples_leaf': 1, 'min_samples_split': 2, 'min_impurity_decrease': 0.0} | AUC CV 0.6949
+[23:09:53]   user_id 14/72 | {'max_depth': 6, 'min_samples_leaf': 1, 'min_samples_split': 2, 'min_impurity_decrease': 0.0001} | AUC CV 0.6957
+[23:10:03]   user_id 15/72 | {'max_depth': 6, 'min_samples_leaf': 1, 'min_samples_split': 50, 'min_impurity_decrease': 0.0} | AUC CV 0.6949
+[23:10:12]   user_id 16/72 | {'max_depth': 6, 'min_samples_leaf': 1, 'min_samples_split': 50, 'min_impurity_decrease': 0.0001} | AUC CV 0.6957
+[23:10:22]   user_id 17/72 | {'max_depth': 6, 'min_samples_leaf': 20, 'min_samples_split': 2, 'min_impurity_decrease': 0.0} | AUC CV 0.6949
+[23:10:32]   user_id 18/72 | {'max_depth': 6, 'min_samples_leaf': 20, 'min_samples_split': 2, 'min_impurity_decrease': 0.0001} | AUC CV 0.6957
+[23:10:43]   user_id 19/72 | {'max_depth': 6, 'min_samples_leaf': 20, 'min_samples_split': 50, 'min_impurity_decrease': 0.0} | AUC CV 0.6949
+[23:10:53]   user_id 20/72 | {'max_depth': 6, 'min_samples_leaf': 20, 'min_samples_split': 50, 'min_impurity_decrease': 0.0001} | AUC CV 0.6957
+[23:11:04]   user_id 21/72 | {'max_depth': 6, 'min_samples_leaf': 100, 'min_samples_split': 2, 'min_impurity_decrease': 0.0} | AUC CV 0.6953
+[23:11:14]   user_id 22/72 | {'max_depth': 6, 'min_samples_leaf': 100, 'min_samples_split': 2, 'min_impurity_decrease': 0.0001} | AUC CV 0.6957
+[23:11:23]   user_id 23/72 | {'max_depth': 6, 'min_samples_leaf': 100, 'min_samples_split': 50, 'min_impurity_decrease': 0.0} | AUC CV 0.6953
+[23:11:33]   user_id 24/72 | {'max_depth': 6, 'min_samples_leaf': 100, 'min_samples_split': 50, 'min_impurity_decrease': 0.0001} | AUC CV 0.6957
+[23:11:44]   user_id 25/72 | {'max_depth': 8, 'min_samples_leaf': 1, 'min_samples_split': 2, 'min_impurity_decrease': 0.0} | AUC CV 0.6975
+[23:11:56]   user_id 26/72 | {'max_depth': 8, 'min_samples_leaf': 1, 'min_samples_split': 2, 'min_impurity_decrease': 0.0001} | AUC CV 0.6996
+[23:12:08]   user_id 27/72 | {'max_depth': 8, 'min_samples_leaf': 1, 'min_samples_split': 50, 'min_impurity_decrease': 0.0} | AUC CV 0.6983
+[23:12:19]   user_id 28/72 | {'max_depth': 8, 'min_samples_leaf': 1, 'min_samples_split': 50, 'min_impurity_decrease': 0.0001} | AUC CV 0.6996
+[23:12:31]   user_id 29/72 | {'max_depth': 8, 'min_samples_leaf': 20, 'min_samples_split': 2, 'min_impurity_decrease': 0.0} | AUC CV 0.6980
+[23:12:42]   user_id 30/72 | {'max_depth': 8, 'min_samples_leaf': 20, 'min_samples_split': 2, 'min_impurity_decrease': 0.0001} | AUC CV 0.6996
+[23:12:55]   user_id 31/72 | {'max_depth': 8, 'min_samples_leaf': 20, 'min_samples_split': 50, 'min_impurity_decrease': 0.0} | AUC CV 0.6980
+[23:13:06]   user_id 32/72 | {'max_depth': 8, 'min_samples_leaf': 20, 'min_samples_split': 50, 'min_impurity_decrease': 0.0001} | AUC CV 0.6996
+[23:13:17]   user_id 33/72 | {'max_depth': 8, 'min_samples_leaf': 100, 'min_samples_split': 2, 'min_impurity_decrease': 0.0} | AUC CV 0.6981
+[23:13:28]   user_id 34/72 | {'max_depth': 8, 'min_samples_leaf': 100, 'min_samples_split': 2, 'min_impurity_decrease': 0.0001} | AUC CV 0.6993
+[23:13:40]   user_id 35/72 | {'max_depth': 8, 'min_samples_leaf': 100, 'min_samples_split': 50, 'min_impurity_decrease': 0.0} | AUC CV 0.6981
+[23:13:51]   user_id 36/72 | {'max_depth': 8, 'min_samples_leaf': 100, 'min_samples_split': 50, 'min_impurity_decrease': 0.0001} | AUC CV 0.6993
+[23:14:07]   user_id 37/72 | {'max_depth': 10, 'min_samples_leaf': 1, 'min_samples_split': 2, 'min_impurity_decrease': 0.0} | AUC CV 0.6910
+[23:14:18]   user_id 38/72 | {'max_depth': 10, 'min_samples_leaf': 1, 'min_samples_split': 2, 'min_impurity_decrease': 0.0001} | AUC CV 0.6994
+[23:14:32]   user_id 39/72 | {'max_depth': 10, 'min_samples_leaf': 1, 'min_samples_split': 50, 'min_impurity_decrease': 0.0} | AUC CV 0.6926
+[23:14:44]   user_id 40/72 | {'max_depth': 10, 'min_samples_leaf': 1, 'min_samples_split': 50, 'min_impurity_decrease': 0.0001} | AUC CV 0.6994
+[23:14:58]   user_id 41/72 | {'max_depth': 10, 'min_samples_leaf': 20, 'min_samples_split': 2, 'min_impurity_decrease': 0.0} | AUC CV 0.6925
+[23:15:11]   user_id 42/72 | {'max_depth': 10, 'min_samples_leaf': 20, 'min_samples_split': 2, 'min_impurity_decrease': 0.0001} | AUC CV 0.6994
+[23:15:27]   user_id 43/72 | {'max_depth': 10, 'min_samples_leaf': 20, 'min_samples_split': 50, 'min_impurity_decrease': 0.0} | AUC CV 0.6925
+[23:15:42]   user_id 44/72 | {'max_depth': 10, 'min_samples_leaf': 20, 'min_samples_split': 50, 'min_impurity_decrease': 0.0001} | AUC CV 0.6994
+[23:15:56]   user_id 45/72 | {'max_depth': 10, 'min_samples_leaf': 100, 'min_samples_split': 2, 'min_impurity_decrease': 0.0} | AUC CV 0.6959
+[23:16:08]   user_id 46/72 | {'max_depth': 10, 'min_samples_leaf': 100, 'min_samples_split': 2, 'min_impurity_decrease': 0.0001} | AUC CV 0.6985
+[23:16:23]   user_id 47/72 | {'max_depth': 10, 'min_samples_leaf': 100, 'min_samples_split': 50, 'min_impurity_decrease': 0.0} | AUC CV 0.6959
+[23:16:35]   user_id 48/72 | {'max_depth': 10, 'min_samples_leaf': 100, 'min_samples_split': 50, 'min_impurity_decrease': 0.0001} | AUC CV 0.6985
+[23:17:01]   user_id 49/72 | {'max_depth': 14, 'min_samples_leaf': 1, 'min_samples_split': 2, 'min_impurity_decrease': 0.0} | AUC CV 0.6839
+[23:17:14]   user_id 50/72 | {'max_depth': 14, 'min_samples_leaf': 1, 'min_samples_split': 2, 'min_impurity_decrease': 0.0001} | AUC CV 0.6987
+[23:17:40]   user_id 51/72 | {'max_depth': 14, 'min_samples_leaf': 1, 'min_samples_split': 50, 'min_impurity_decrease': 0.0} | AUC CV 0.6872
+[23:17:53]   user_id 52/72 | {'max_depth': 14, 'min_samples_leaf': 1, 'min_samples_split': 50, 'min_impurity_decrease': 0.0001} | AUC CV 0.6987
+[23:18:18]   user_id 53/72 | {'max_depth': 14, 'min_samples_leaf': 20, 'min_samples_split': 2, 'min_impurity_decrease': 0.0} | AUC CV 0.6913
+[23:18:31]   user_id 54/72 | {'max_depth': 14, 'min_samples_leaf': 20, 'min_samples_split': 2, 'min_impurity_decrease': 0.0001} | AUC CV 0.6987
+[23:19:02]   user_id 55/72 | {'max_depth': 14, 'min_samples_leaf': 20, 'min_samples_split': 50, 'min_impurity_decrease': 0.0} | AUC CV 0.6913
+[23:19:13]   user_id 56/72 | {'max_depth': 14, 'min_samples_leaf': 20, 'min_samples_split': 50, 'min_impurity_decrease': 0.0001} | AUC CV 0.6987
+[23:19:32]   user_id 57/72 | {'max_depth': 14, 'min_samples_leaf': 100, 'min_samples_split': 2, 'min_impurity_decrease': 0.0} | AUC CV 0.6965
+[23:19:45]   user_id 58/72 | {'max_depth': 14, 'min_samples_leaf': 100, 'min_samples_split': 2, 'min_impurity_decrease': 0.0001} | AUC CV 0.6976
+[23:20:04]   user_id 59/72 | {'max_depth': 14, 'min_samples_leaf': 100, 'min_samples_split': 50, 'min_impurity_decrease': 0.0} | AUC CV 0.6965
+[23:20:16]   user_id 60/72 | {'max_depth': 14, 'min_samples_leaf': 100, 'min_samples_split': 50, 'min_impurity_decrease': 0.0001} | AUC CV 0.6976
+[23:20:55]   user_id 61/72 | {'max_depth': 20, 'min_samples_leaf': 1, 'min_samples_split': 2, 'min_impurity_decrease': 0.0} | AUC CV 0.6699
+[23:21:07]   user_id 62/72 | {'max_depth': 20, 'min_samples_leaf': 1, 'min_samples_split': 2, 'min_impurity_decrease': 0.0001} | AUC CV 0.6988
+[23:21:39]   user_id 63/72 | {'max_depth': 20, 'min_samples_leaf': 1, 'min_samples_split': 50, 'min_impurity_decrease': 0.0} | AUC CV 0.6778
+[23:21:54]   user_id 64/72 | {'max_depth': 20, 'min_samples_leaf': 1, 'min_samples_split': 50, 'min_impurity_decrease': 0.0001} | AUC CV 0.6988
+[23:22:25]   user_id 65/72 | {'max_depth': 20, 'min_samples_leaf': 20, 'min_samples_split': 2, 'min_impurity_decrease': 0.0} | AUC CV 0.6852
+[23:22:38]   user_id 66/72 | {'max_depth': 20, 'min_samples_leaf': 20, 'min_samples_split': 2, 'min_impurity_decrease': 0.0001} | AUC CV 0.6988
+[23:23:18]   user_id 67/72 | {'max_depth': 20, 'min_samples_leaf': 20, 'min_samples_split': 50, 'min_impurity_decrease': 0.0} | AUC CV 0.6855
+[23:23:32]   user_id 68/72 | {'max_depth': 20, 'min_samples_leaf': 20, 'min_samples_split': 50, 'min_impurity_decrease': 0.0001} | AUC CV 0.6988
+[23:24:02]   user_id 69/72 | {'max_depth': 20, 'min_samples_leaf': 100, 'min_samples_split': 2, 'min_impurity_decrease': 0.0} | AUC CV 0.6962
+[23:24:20]   user_id 70/72 | {'max_depth': 20, 'min_samples_leaf': 100, 'min_samples_split': 2, 'min_impurity_decrease': 0.0001} | AUC CV 0.6978
+[23:25:06]   user_id 71/72 | {'max_depth': 20, 'min_samples_leaf': 100, 'min_samples_split': 50, 'min_impurity_decrease': 0.0} | AUC CV 0.6962
+[23:25:21]   user_id 72/72 | {'max_depth': 20, 'min_samples_leaf': 100, 'min_samples_split': 50, 'min_impurity_decrease': 0.0001} | AUC CV 0.6978
+[23:25:21] FASE 5 lista. CON user_id 0.6996 vs SIN 0.6850 (+0.0146). Corrida completa.
