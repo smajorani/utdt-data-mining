@@ -1,0 +1,30 @@
+[17:28:26] Ensamble XGB+LGB -- xgboost 3.2.0 | lightgbm 4.6.0 | optuna 4.9.0
+[17:28:30] train 774,642 | test_interno 136,702 | tasa abandono 0.2780
+[17:28:38] base heredada lista (numericas + API + historial + vecindad)
+[17:28:44] 4 folds precomputados | train por fold [123091, 213635, 243646, 198472] | 156 columnas
+[17:28:44] === XGBoost (receta heredada) ===
+[17:30:02] XGBoost -> AUC CV 0.8586 | folds ['0.8085', '0.8557', '0.9061', '0.8639'] | rondas 410 | 78s
+[17:30:02] sanidad: reproduce el 0.8586 del rescate? 0.8586
+[17:30:02] === LightGBM: Optuna corto (12 trials) ===
+[17:31:02] [LGB trial  1/12] leaves= 63 lr=0.030 ff=0.79 bf=0.80 -> AUC CV 0.8581 | mejor 0.8581
+[17:31:19] [LGB trial  2/12] leaves= 42 lr=0.092 ff=0.87 bf=0.84 -> AUC CV 0.8567 | mejor 0.8581
+[17:31:49] [LGB trial  3/12] leaves= 17 lr=0.081 ff=0.80 bf=0.88 -> AUC CV 0.8556 | mejor 0.8581
+[17:33:05] [LGB trial  4/12] leaves=158 lr=0.028 ff=0.59 bf=0.67 -> AUC CV 0.8591 | mejor 0.8591
+[17:34:19] [LGB trial  5/12] leaves= 50 lr=0.032 ff=0.81 bf=0.66 -> AUC CV 0.8583 | mejor 0.8591
+[17:34:47] [LGB trial  6/12] leaves= 54 lr=0.071 ff=0.60 bf=0.81 -> AUC CV 0.8579 | mejor 0.8591
+[17:35:59] [LGB trial  7/12] leaves= 83 lr=0.026 ff=0.53 bf=0.98 -> AUC CV 0.8589 | mejor 0.8591
+[17:37:13] [LGB trial  8/12] leaves= 35 lr=0.023 ff=0.84 bf=0.78 -> AUC CV 0.8573 | mejor 0.8591
+[17:37:42] [LGB trial  9/12] leaves= 16 lr=0.086 ff=0.63 bf=0.87 -> AUC CV 0.8561 | mejor 0.8591
+[17:39:05] [LGB trial 10/12] leaves= 70 lr=0.027 ff=0.98 bf=0.91 -> AUC CV 0.8577 | mejor 0.8591
+[17:40:04] [LGB trial 11/12] leaves=234 lr=0.049 ff=0.69 bf=0.61 -> AUC CV 0.8580 | mejor 0.8591
+[17:41:07] [LGB trial 12/12] leaves=164 lr=0.038 ff=0.52 bf=1.00 -> AUC CV 0.8591 | mejor 0.8591
+[17:41:07] LightGBM Optuna terminado en 11.1 min
+[17:42:32] LightGBM mejor -> AUC CV 0.8591 | folds ['0.8087', '0.8564', '0.9062', '0.8652'] | rondas 268
+[17:42:32] comparacion individual: XGBoost 0.8586 vs. LightGBM 0.8591 (+0.0006)
+[17:42:32] diversidad: correlacion Pearson 0.9902 | Spearman 0.9884 (mas baja = mas margen para el promedio)
+[17:42:37] === Peso del ensamble ===
+[17:42:37] w=1.0 (XGB solo) 0.8586 | w=0.0 (LGB solo) 0.8591
+[17:42:37] mejor w=0.40 -> AUC CV ensamble 0.8597 (vs. XGB 0.8586 +0.0011 | vs. LGB 0.8591 +0.0006)
+[17:43:05] TEST_INTERNO (unica mirada): ensamble 0.8624 | XGB 0.8612 | LGB 0.8619 (ensamble vs. rescate +0.0012)
+[17:43:38] submission guardada: submission_ensemble_lgbm.csv (51570 filas, w=0.40, XGB 410 rondas + LGB 268 rondas)
+[17:43:38] RESUMEN FINAL ensamble: AUC CV 0.8597 (XGB solo 0.8586, +0.0011) | test_interno 0.8624 | w=0.40 | Pearson 0.9902

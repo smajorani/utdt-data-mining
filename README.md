@@ -4,7 +4,7 @@ Competencia Kaggle: predecir la probabilidad de que una reproducción de Spotify
 
 ## Contenido
 
-- `notebooks/` — un notebook por clase (`tp_spotify_claseN_<tema>.ipynb`, cada uno hereda la base mínima del anterior y suma el contenido nuevo) más los notebooks post-clases (`tp_spotify_historial_fino.ipynb`, ...). Cerca de la entrega se consolida en el notebook único que pide la consigna.
+- `notebooks/` — un notebook por clase (`tp_spotify_claseN_<tema>.ipynb`, cada uno hereda la base mínima del anterior y suma el contenido nuevo) más los notebooks post-clases (`07_tp_spotify_historial_fino.ipynb`, ...). Cerca de la entrega se consolida en el notebook único que pide la consigna.
 - `submissions/` — submissions generadas por cada notebook (más `submission_example.csv`, el formato de ejemplo de la competencia).
 - `logs/` — progreso de las corridas largas (una línea por evaluación, con timestamp; se puede seguir en vivo con un tail).
 - `context.md` — estado vivo del proyecto (decisiones, resultados, pendientes).
