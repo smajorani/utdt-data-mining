@@ -1,0 +1,29 @@
+[01:58:12] Vecindad de bloques -- xgboost 3.2.0
+[01:58:17] train cargado: 911,344 filas | tasa de abandono 0.2780
+[01:58:20] numericas heredadas listas (Clases 3-4)
+[01:58:25] API + historial de cancion listos | cobertura API 99.9%
+[01:58:25] === Sanidad: reproducir la referencia del historial fino ===
+[01:59:55] referencia heredada (esperado 0.8466)            -> AUC CV 0.8466 | folds [0.7939 0.8454 0.8960 0.8510] | rondas prom 358 |   91s
+[01:59:55] sanidad OK: referencia 0.8466 (151 columnas)
+[02:00:02] features de vecindad listas | bloque previo activo en 70.8% de las filas | racha mediana 2 bloques
+[02:00:03] === Vecindad de bloques (acumulativo, referencia 0.8466) ===
+[02:01:26] + V1 bloques contiguos                           -> AUC CV 0.8576 | folds [0.8068 0.8565 0.9048 0.8624] | rondas prom 318 |   84s
+[02:01:27]     ADOPTADO: V1 bloques contiguos (+0.0110)
+[02:02:49] + V2 ventanas +-2h                               -> AUC CV 0.8578 | folds [0.8064 0.8569 0.9050 0.8627] | rondas prom 318 |   82s
+[02:02:49]     ADOPTADO: V2 ventanas +-2h (+0.0001)
+[02:04:06] + V3 posicion en el dia                          -> AUC CV 0.8574 | folds [0.8053 0.8571 0.9049 0.8621] | rondas prom 286 |   77s
+[02:04:06]     rechazado: V3 posicion en el dia (-0.0004)
+[02:05:46] + V4 racha de bloques                            -> AUC CV 0.8577 | folds [0.8066 0.8569 0.9050 0.8623] | rondas prom 333 |  101s
+[02:05:46]     rechazado: V4 racha de bloques (-0.0000)
+[02:05:46] cierre vecindad: AUC CV 0.8578 (+0.0112 vs. herencia) | adoptadas: ['bucket_prev_count', 'bucket_next_count', 'plays_2h_antes', 'plays_2h_despues']
+[02:05:46] === Re-test de ventana (feature set final) ===
+[02:06:53] ventana 12 meses                                 -> AUC CV 0.8558 | folds [0.8075 0.8549 0.9029 0.8579] | rondas prom 253 |   66s
+[02:08:18] ventana 24 meses                                 -> AUC CV 0.8578 | folds [0.8064 0.8569 0.9050 0.8627] | rondas prom 318 |   85s
+[02:09:33] ventana 36 meses                                 -> AUC CV 0.8572 | folds [0.8054 0.8567 0.9028 0.8639] | rondas prom 331 |   75s
+[02:11:15] ventana toda la historia                         -> AUC CV 0.8574 | folds [0.8065 0.8556 0.9044 0.8630] | rondas prom 382 |  102s
+[02:11:16] sanidad: 24 meses reproduce el cierre de la vecindad? 0.8578 vs. 0.8578
+[02:11:16] decision de ventana: 24 meses -> AUC CV de cierre 0.8578 | NROUNDS_V=318
+[02:11:40] TEST_INTERNO (unica mirada): vecindad 0.8565 vs. historial 0.8432 (+0.0133)
+[02:11:46] test de Kaggle preparado: 51,570 filas | bloque previo activo en 73.8% de las filas
+[02:11:54] submission guardada: submission_vecindad_bloques.csv (51570 filas, 318 rondas, train 218,339 filas a 24 meses)
+[02:11:54] RESUMEN FINAL vecindad: AUC CV 0.8578 (historial: 0.8466, +0.0112) | test_interno 0.8565 (historial: 0.8432, +0.0133) | adoptadas ['bucket_prev_count', 'bucket_next_count', 'plays_2h_antes', 'plays_2h_despues'] | ventana 24 meses
