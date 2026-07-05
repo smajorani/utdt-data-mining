@@ -1,0 +1,81 @@
+[19:57:01] Clase 5 -- xgboost 3.2.0 | optuna 4.9.0
+[19:57:06] train cargado: 911,344 filas | tasa de abandono 0.2780
+[19:57:08] numericas heredadas listas (gap_min, bucket_count_30min, pos_en_bucket, bucket_count_dia, gap_siguiente)
+[19:57:08] === Sanidad: reproducir la referencia de la Clase 4 ===
+[19:57:43] referencia heredada (esperado 0.8368)                -> AUC CV 0.8368 | folds [0.7825 0.8381 0.8855 0.8410] | rondas prom 222 |   35s
+[19:57:43] sanidad OK: referencia 0.8368 (141 columnas)
+[19:57:43] === Bloque A: features de la API ===
+[19:57:43] api_features.pkl: 135,655 URIs (133,959 tracks, 1,696 episodes)
+[19:57:46] cobertura de la API: 99.9% de las filas | por tipo: episode 82.7% | track 100.0%
+[19:57:46] sanidad mecanica: 2,040 filas con duracion<30s -> target=1 en 93.2% (no ~100%: metadata actual vs. version historica del tema)
+[19:57:46] antiguedad negativa (release posterior a la escucha, se deja): 0.02% de las filas de train
+[19:57:47] evaluacion acumulativa de la API (referencia 0.8368):
+[19:58:30] + duracion_ms (duracion_ms)                          -> AUC CV 0.8402 | folds [0.7861 0.8417 0.8883 0.8445] | rondas prom 244 |   43s
+[19:58:30]     ADOPTADO: duracion_ms (+0.0034)
+[19:59:06] + mecanicas target (dur_menor_30s, carga_bucket)     -> AUC CV 0.8405 | folds [0.7844 0.8424 0.8894 0.8456] | rondas prom 198 |   36s
+[19:59:06]     ADOPTADO: mecanicas target (+0.0003)
+[19:59:43] + popularity (popularity)                            -> AUC CV 0.8409 | folds [0.7855 0.8428 0.8897 0.8456] | rondas prom 194 |   37s
+[19:59:43]     ADOPTADO: popularity (+0.0004)
+[20:00:27] + antiguedad_dias (antiguedad_dias)                  -> AUC CV 0.8415 | folds [0.7870 0.8430 0.8901 0.8457] | rondas prom 254 |   43s
+[20:00:27]     ADOPTADO: antiguedad_dias (+0.0006)
+[20:01:07] + metadata menor (explicit_num, track_number, album_total_tracks) -> AUC CV 0.8419 | folds [0.7871 0.8431 0.8911 0.8460] | rondas prom 263 |   40s
+[20:01:07]     ADOPTADO: metadata menor (+0.0004)
+[20:01:07] cierre Bloque A: AUC CV 0.8419 (+0.0051 vs. herencia) | numericas: 14 (['duracion_ms', 'dur_menor_30s', 'carga_bucket', 'popularity', 'antiguedad_dias', 'explicit_num', 'track_number', 'album_total_tracks'] adoptadas)
+[20:01:07] === Bloque B: clustering aplicado ===
+[20:01:07] jerarquico a escala TP: 774,642 filas -> 300,034,726,761 distancias unicas ~ 2.4 TB de RAM solo para la matriz -- inviable, tal cual pincho en la demo de la clase
+[20:01:08] perfiles horarios calculados: 10 usuarios x 24 horas
+[20:01:08] dendrograma de usuarios generado (jerarquico SI es viable con N=10)
+[20:01:08] matriz de canciones para K-means: 114,276 tracks x 6 features (solo URIs vistas en df_train)
+[20:01:20] codo K-means calculado (K=2..12)
+[20:01:22] K-means K=5: tracks de train por cluster [59054, 7324, 5750, 85, 42063]
+[20:01:24] K-means K=10: tracks de train por cluster [13663, 12317, 85, 34110, 7319, 26017, 17887, 31, 2460, 387]
+[20:01:25] cluster como atributo, contra la CV (referencia 0.8419):
+[20:02:12] + track_cluster K=5                                  -> AUC CV 0.8418 | folds [0.7875 0.8426 0.8910 0.8460] | rondas prom 274 |   47s
+[20:03:04] + track_cluster K=10                                 -> AUC CV 0.8417 | folds [0.7871 0.8431 0.8908 0.8460] | rondas prom 280 |   52s
+[20:03:04]     rechazado track_cluster (mejor: K=5, -0.0001) -- las numericas crudas de la API ya llevan esa informacion al modelo
+[20:03:04] cierre Bloque B: AUC CV 0.8419 | categoricas: 9 | numericas: 14
+[20:03:07] === Bloque C: Optuna (matriz 774,642 x 149, folds precalculados) ===
+[20:03:46] [trial  1/30] depth= 6 eta=0.050 mcw=  1 sub=0.80 col=1.00 gamma=0.00 -> AUC CV 0.8419 | rondas prom 263 | mejor hasta ahora 0.8419
+[20:03:59] [trial  2/30] depth= 5 eta=0.268 mcw= 54 sub=0.84 col=0.49 gamma=0.31 -> AUC CV 0.8378 | rondas prom  70 | mejor hasta ahora 0.8419
+[20:04:22] [trial  3/30] depth= 3 eta=0.220 mcw= 23 sub=0.88 col=0.41 gamma=1.94 -> AUC CV 0.8379 | rondas prom 173 | mejor hasta ahora 0.8419
+[20:04:46] [trial  4/30] depth= 9 eta=0.049 mcw=  2 sub=0.67 col=0.58 gamma=1.05 -> AUC CV 0.8405 | rondas prom 115 | mejor hasta ahora 0.8419
+[20:05:21] [trial  5/30] depth= 6 eta=0.059 mcw= 25 sub=0.66 col=0.58 gamma=0.73 -> AUC CV 0.8409 | rondas prom 221 | mejor hasta ahora 0.8419
+[20:05:33] [trial  6/30] depth= 6 eta=0.183 mcw=  2 sub=0.81 col=0.76 gamma=0.09 -> AUC CV 0.8402 | rondas prom  62 | mejor hasta ahora 0.8419
+[20:06:07] [trial  7/30] depth= 7 eta=0.044 mcw=  1 sub=0.98 col=0.98 gamma=1.62 -> AUC CV 0.8415 | rondas prom 214 | mejor hasta ahora 0.8419
+[20:06:56] [trial  8/30] depth= 5 eta=0.038 mcw= 40 sub=0.78 col=0.47 gamma=0.99 -> AUC CV 0.8373 | rondas prom 300 | mejor hasta ahora 0.8419
+[20:07:16] [trial  9/30] depth= 3 eta=0.243 mcw=  3 sub=0.87 col=0.59 gamma=1.04 -> AUC CV 0.8377 | rondas prom 148 | mejor hasta ahora 0.8419
+[20:08:06] [trial 10/30] depth= 7 eta=0.046 mcw=247 sub=0.91 col=0.96 gamma=1.79 -> AUC CV 0.8389 | rondas prom 296 | mejor hasta ahora 0.8419
+[20:08:23] [trial 11/30] depth=10 eta=0.109 mcw=  8 sub=0.74 col=0.82 gamma=1.47 -> AUC CV 0.8393 | rondas prom  61 | mejor hasta ahora 0.8419
+[20:08:45] [trial 12/30] depth= 8 eta=0.074 mcw=  1 sub=1.00 col=1.00 gamma=0.64 -> AUC CV 0.8406 | rondas prom 110 | mejor hasta ahora 0.8419
+[20:09:42] [trial 13/30] depth= 7 eta=0.034 mcw=  1 sub=0.98 col=0.89 gamma=1.54 -> AUC CV 0.8418 | rondas prom 310 | mejor hasta ahora 0.8419
+[20:10:48] [trial 14/30] depth= 5 eta=0.030 mcw=  6 sub=0.61 col=0.86 gamma=1.35 -> AUC CV 0.8404 | rondas prom 406 | mejor hasta ahora 0.8419
+[20:11:12] [trial 15/30] depth= 8 eta=0.079 mcw=  1 sub=0.93 col=0.89 gamma=0.01 -> AUC CV 0.8411 | rondas prom  96 | mejor hasta ahora 0.8419
+[20:12:29] [trial 16/30] depth= 7 eta=0.030 mcw=  1 sub=0.73 col=0.74 gamma=0.45 -> AUC CV 0.8418 | rondas prom 320 | mejor hasta ahora 0.8419
+[20:13:32] [trial 17/30] depth= 4 eta=0.066 mcw=  5 sub=0.72 col=0.69 gamma=0.33 -> AUC CV 0.8400 | rondas prom 319 | mejor hasta ahora 0.8419
+[20:13:56] [trial 18/30] depth= 6 eta=0.117 mcw=  1 sub=0.77 col=0.70 gamma=0.39 -> AUC CV 0.8412 | rondas prom 110 | mejor hasta ahora 0.8419
+[20:14:17] [trial 19/30] depth= 8 eta=0.099 mcw=  3 sub=0.69 col=0.77 gamma=0.53 -> AUC CV 0.8409 | rondas prom  77 | mejor hasta ahora 0.8419
+[20:14:51] [trial 20/30] depth= 9 eta=0.039 mcw= 11 sub=0.81 col=0.65 gamma=0.18 -> AUC CV 0.8407 | rondas prom 150 | mejor hasta ahora 0.8419
+[20:15:44] [trial 21/30] depth= 4 eta=0.055 mcw=  2 sub=0.62 col=0.92 gamma=0.81 -> AUC CV 0.8401 | rondas prom 343 | mejor hasta ahora 0.8419
+[20:16:41] [trial 22/30] depth= 7 eta=0.030 mcw=  1 sub=0.95 col=0.86 gamma=1.28 -> AUC CV 0.8420 | rondas prom 341 | mejor hasta ahora 0.8420
+[20:17:39] [trial 23/30] depth= 7 eta=0.031 mcw=  1 sub=0.74 col=0.82 gamma=1.18 -> AUC CV 0.8418 | rondas prom 315 | mejor hasta ahora 0.8420
+[20:18:32] [trial 24/30] depth= 6 eta=0.038 mcw=  1 sub=0.94 col=0.83 gamma=0.50 -> AUC CV 0.8418 | rondas prom 329 | mejor hasta ahora 0.8420
+[20:19:12] [trial 25/30] depth= 8 eta=0.042 mcw=  3 sub=0.84 col=0.93 gamma=0.19 -> AUC CV 0.8418 | rondas prom 203 | mejor hasta ahora 0.8420
+[20:20:09] [trial 26/30] depth= 7 eta=0.030 mcw=  2 sub=0.80 col=0.79 gamma=0.84 -> AUC CV 0.8420 | rondas prom 330 | mejor hasta ahora 0.8420
+[20:20:39] [trial 27/30] depth= 9 eta=0.053 mcw=  2 sub=0.80 col=0.94 gamma=1.24 -> AUC CV 0.8411 | rondas prom 137 | mejor hasta ahora 0.8420
+[20:21:36] [trial 28/30] depth= 6 eta=0.035 mcw=  4 sub=0.85 col=0.79 gamma=0.90 -> AUC CV 0.8418 | rondas prom 351 | mejor hasta ahora 0.8420
+[20:22:15] [trial 29/30] depth= 5 eta=0.059 mcw= 11 sub=0.89 col=0.86 gamma=1.70 -> AUC CV 0.8404 | rondas prom 245 | mejor hasta ahora 0.8420
+[20:22:43] [trial 30/30] depth= 5 eta=0.147 mcw=249 sub=0.83 col=0.94 gamma=1.23 -> AUC CV 0.8378 | rondas prom 167 | mejor hasta ahora 0.8420
+[20:22:43] Optuna terminado en 19.6 min
+[20:22:43] sanidad: trial 1 (receta heredada encolada) reproduce el cierre del Bloque B? 0.8419 vs. 0.8419
+[20:22:43] receta de cierre: NUEVA de Optuna (trial 26) -> AUC CV 0.8420 (+0.0002 vs. heredada sobre este feature set)
+[20:22:44] === Re-test de ventana (receta y feature set finales) ===
+[20:23:26] ventana 12 meses                                     -> AUC CV 0.8400 | folds [0.7871 0.8426 0.8897 0.8406] | rondas prom 262 |   42s
+[20:24:25] ventana 24 meses                                     -> AUC CV 0.8420 | folds [0.7872 0.8428 0.8915 0.8465] | rondas prom 330 |   60s
+[20:25:41] ventana 36 meses                                     -> AUC CV 0.8415 | folds [0.7869 0.8434 0.8886 0.8471] | rondas prom 382 |   75s
+[20:27:17] ventana toda la historia                             -> AUC CV 0.8410 | folds [0.7871 0.8419 0.8898 0.8452] | rondas prom 402 |   96s
+[20:27:17] sanidad: 24 meses reproduce el cierre del Bloque C? 0.8420 vs. 0.8420
+[20:27:17] decision de ventana: 24 meses -> AUC CV de cierre 0.8420 | NROUNDS_5=330
+[20:27:42] TEST_INTERNO (unica mirada): Clase 5 0.8377 vs. Clase 4 0.8247 (+0.0130)
+[20:27:44] test de Kaggle preparado: 51,570 filas | cobertura API 100.0%
+[20:27:52] submission guardada: submission_clase5_api_optuna.csv (51570 filas, 330 rondas, train 218,339 filas a 24 meses)
+[20:27:52] RESUMEN FINAL Clase 5: AUC CV 0.8420 (Clase 4: 0.8368, +0.0052) | test_interno 0.8377 (Clase 4: 0.8247, +0.0130) | receta {'max_depth': 7, 'eta': 0.030223664895420776, 'min_child_weight': 2, 'subsample': 0.7963585977878456, 'colsample_bytree': 0.79208902443077, 'gamma': 0.8414960952850874} | ventana 24 meses
