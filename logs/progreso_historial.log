@@ -1,0 +1,58 @@
+[22:36:34] Historial fino -- xgboost 3.2.0 | optuna 4.9.0
+[22:36:38] train cargado: 911,344 filas | tasa de abandono 0.2780
+[22:36:40] numericas heredadas listas (Clases 3-4)
+[22:36:43] columnas de la API listas | cobertura 99.9%
+[22:36:43] === Sanidad: reproducir la referencia de la Clase 5 ===
+[22:37:35] referencia heredada (esperado 0.8420)                -> AUC CV 0.8420 | folds [0.7872 0.8428 0.8915 0.8465] | rondas prom 330 |   52s
+[22:37:35] sanidad OK: referencia 0.8420 (149 columnas)
+[22:37:37] historial de metadata listo | re-escuchas de cancion: 81.8% de las filas | re-escuchas de artista: 96.7%
+[22:37:37] === H1/H2: historial de metadata (referencia 0.8420) ===
+[22:38:39] + H1 (usuario, cancion) metadata                     -> AUC CV 0.8466 | folds [0.7939 0.8454 0.8960 0.8510] | rondas prom 358 |   61s
+[22:38:39]     ADOPTADO: H1 (usuario, cancion) metadata (+0.0046)
+[22:39:34] + H2 (usuario, artista) metadata                     -> AUC CV 0.8463 | folds [0.7921 0.8457 0.8960 0.8514] | rondas prom 282 |   55s
+[22:39:34]     rechazado: H2 (usuario, artista) metadata (-0.0002)
+[22:39:34] cierre H1/H2: AUC CV 0.8466 (+0.0046)
+[22:39:34] === H3-H5: skip-rates con disciplina de borde (referencia 0.8466) ===
+[22:40:30] + H3 skip-rate (usuario, cancion)                    -> AUC CV 0.8413 | folds [0.7908 0.8329 0.8934 0.8480] | rondas prom 266 |   56s
+[22:40:30]     rechazado: H3 skip-rate (usuario, cancion) (-0.0053)
+[22:41:23] + H4 skip-rate (usuario, artista)                    -> AUC CV 0.8405 | folds [0.7849 0.8406 0.8898 0.8468] | rondas prom 241 |   53s
+[22:41:23]     rechazado: H4 skip-rate (usuario, artista) (-0.0060)
+[22:41:59] + H5 skip-rates globales (usuario; cancion)          -> AUC CV 0.8400 | folds [0.7897 0.8313 0.8932 0.8459] | rondas prom 146 |   35s
+[22:41:59]     rechazado: H5 skip-rates globales (usuario; cancion) (-0.0065)
+[22:41:59] cierre historial: AUC CV 0.8466 (+0.0046 vs. herencia) | metadata: ['u_track_veces', 'u_track_recencia'] | target-hist: []
+[22:41:59] sin columnas de target-historial adoptadas: el control de fuga no aplica
+[22:42:03] === Re-tuneo Optuna (151 columnas, folds precalculados) ===
+[22:43:09] [trial  1/20] depth= 7 eta=0.030 mcw=  2 sub=0.80 col=0.79 gamma=0.84 -> AUC CV 0.8466 | rondas prom 358 | mejor hasta ahora 0.8466
+[22:43:24] [trial  2/20] depth= 5 eta=0.268 mcw= 54 sub=0.84 col=0.49 gamma=0.31 -> AUC CV 0.8431 | rondas prom  78 | mejor hasta ahora 0.8466
+[22:43:44] [trial  3/20] depth= 3 eta=0.220 mcw= 23 sub=0.88 col=0.41 gamma=1.94 -> AUC CV 0.8416 | rondas prom 129 | mejor hasta ahora 0.8466
+[22:44:15] [trial  4/20] depth= 9 eta=0.049 mcw=  2 sub=0.67 col=0.58 gamma=1.05 -> AUC CV 0.8457 | rondas prom 134 | mejor hasta ahora 0.8466
+[22:44:54] [trial  5/20] depth= 6 eta=0.059 mcw= 25 sub=0.66 col=0.58 gamma=0.73 -> AUC CV 0.8454 | rondas prom 221 | mejor hasta ahora 0.8466
+[22:45:10] [trial  6/20] depth= 6 eta=0.183 mcw=  2 sub=0.81 col=0.76 gamma=0.09 -> AUC CV 0.8437 | rondas prom  66 | mejor hasta ahora 0.8466
+[22:45:46] [trial  7/20] depth= 7 eta=0.044 mcw=  1 sub=0.98 col=0.98 gamma=1.62 -> AUC CV 0.8456 | rondas prom 196 | mejor hasta ahora 0.8466
+[22:46:28] [trial  8/20] depth= 5 eta=0.038 mcw= 40 sub=0.78 col=0.47 gamma=0.99 -> AUC CV 0.8413 | rondas prom 269 | mejor hasta ahora 0.8466
+[22:46:49] [trial  9/20] depth= 3 eta=0.243 mcw=  3 sub=0.87 col=0.59 gamma=1.04 -> AUC CV 0.8416 | rondas prom 127 | mejor hasta ahora 0.8466
+[22:47:41] [trial 10/20] depth= 7 eta=0.046 mcw=247 sub=0.91 col=0.96 gamma=1.79 -> AUC CV 0.8430 | rondas prom 315 | mejor hasta ahora 0.8466
+[22:48:01] [trial 11/20] depth=10 eta=0.109 mcw=  8 sub=0.74 col=0.80 gamma=1.47 -> AUC CV 0.8443 | rondas prom  57 | mejor hasta ahora 0.8466
+[22:48:52] [trial 12/20] depth=10 eta=0.030 mcw=  1 sub=0.60 col=0.72 gamma=0.71 -> AUC CV 0.8458 | rondas prom 214 | mejor hasta ahora 0.8466
+[22:49:44] [trial 13/20] depth= 9 eta=0.032 mcw=  1 sub=0.61 col=0.76 gamma=0.49 -> AUC CV 0.8460 | rondas prom 214 | mejor hasta ahora 0.8466
+[22:50:09] [trial 14/20] depth= 8 eta=0.073 mcw=  6 sub=0.73 col=0.86 gamma=0.51 -> AUC CV 0.8453 | rondas prom 103 | mejor hasta ahora 0.8466
+[22:50:59] [trial 15/20] depth= 8 eta=0.032 mcw=  1 sub=1.00 col=0.70 gamma=0.02 -> AUC CV 0.8461 | rondas prom 259 | mejor hasta ahora 0.8466
+[22:51:26] [trial 16/20] depth= 8 eta=0.077 mcw=  7 sub=1.00 col=0.67 gamma=0.06 -> AUC CV 0.8455 | rondas prom 119 | mejor hasta ahora 0.8466
+[22:52:21] [trial 17/20] depth= 8 eta=0.031 mcw=  1 sub=0.94 col=0.87 gamma=1.33 -> AUC CV 0.8460 | rondas prom 278 | mejor hasta ahora 0.8466
+[22:52:49] [trial 18/20] depth= 7 eta=0.062 mcw=  4 sub=0.94 col=0.68 gamma=0.29 -> AUC CV 0.8457 | rondas prom 136 | mejor hasta ahora 0.8466
+[22:53:42] [trial 19/20] depth= 5 eta=0.040 mcw= 11 sub=0.81 col=0.86 gamma=1.24 -> AUC CV 0.8447 | rondas prom 344 | mejor hasta ahora 0.8466
+[22:53:56] [trial 20/20] depth= 9 eta=0.131 mcw=  1 sub=0.72 col=0.65 gamma=0.66 -> AUC CV 0.8440 | rondas prom  50 | mejor hasta ahora 0.8466
+[22:53:56] Optuna terminado en 11.9 min
+[22:53:56] sanidad: trial 1 (receta heredada) reproduce el cierre del cuerpo? 0.8466 vs. 0.8466
+[22:53:56] receta de cierre: la heredada (ningun trial la supero) -> AUC CV 0.8466 (+0.0000 vs. heredada)
+[22:53:56] === Re-test de ventana (receta y feature set finales) ===
+[22:54:40] ventana 12 meses                                     -> AUC CV 0.8448 | folds [0.7946 0.8449 0.8937 0.8458] | rondas prom 260 |   44s
+[22:55:50] ventana 24 meses                                     -> AUC CV 0.8466 | folds [0.7939 0.8454 0.8960 0.8510] | rondas prom 358 |   70s
+[22:56:56] ventana 36 meses                                     -> AUC CV 0.8452 | folds [0.7904 0.8456 0.8932 0.8517] | rondas prom 304 |   66s
+[22:58:29] ventana toda la historia                             -> AUC CV 0.8450 | folds [0.7920 0.8441 0.8942 0.8496] | rondas prom 374 |   93s
+[22:58:29] sanidad: 24 meses reproduce el cierre de Optuna? 0.8466 vs. 0.8466
+[22:58:29] decision de ventana: 24 meses -> AUC CV de cierre 0.8466 | NROUNDS_H=358
+[22:58:56] TEST_INTERNO (unica mirada): historial 0.8432 vs. Clase 5 0.8377 (+0.0055)
+[22:58:59] test de Kaggle preparado: 51,570 filas | re-escuchas de cancion en test: 87.9%
+[22:59:07] submission guardada: submission_historial_fino.csv (51570 filas, 358 rondas, train 218,339 filas a 24 meses)
+[22:59:07] RESUMEN FINAL historial: AUC CV 0.8466 (Clase 5: 0.8420, +0.0046) | test_interno 0.8432 (Clase 5: 0.8377, +0.0055) | receta {'max_depth': 7, 'eta': 0.030223664895420776, 'min_child_weight': 2, 'subsample': 0.7963585977878456, 'colsample_bytree': 0.79208902443077, 'gamma': 0.8414960952850874} | ventana 24 meses
