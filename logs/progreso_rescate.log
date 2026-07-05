@@ -1,0 +1,44 @@
+[15:58:21] Rescate de skip-rates -- xgboost 3.2.0
+[15:58:25] train 774,642 | test_interno 136,702 | tasa abandono 0.2780
+[15:58:32] base heredada lista (numericas + API + historial de cancion + vecindad)
+[15:58:32] === Sanidad: reproducir la referencia de la vecindad ===
+[15:59:26] referencia heredada (esperado 0.8578)              -> AUC CV 0.8578 | folds [0.8064 0.8569 0.9050 0.8627] | rondas prom 318 |   55s
+[15:59:26] sanidad OK: referencia 0.8578 (155 columnas)
+[15:59:26] === R1: suavizado global de u_track_skip_rate (referencia 0.8578) ===
+[16:00:31] R1 u_track_skip_rate alpha=1                       -> AUC CV 0.8575 | folds [0.8071 0.8551 0.9047 0.8632] | rondas prom 358 |   65s
+[16:00:31]     alpha=1    -> 0.8575 (-0.0002)
+[16:01:42] R1 u_track_skip_rate alpha=10                      -> AUC CV 0.8583 | folds [0.8079 0.8564 0.9053 0.8638] | rondas prom 394 |   70s
+[16:01:42]     alpha=10   -> 0.8583 (+0.0006)
+[16:02:42] R1 u_track_skip_rate alpha=50                      -> AUC CV 0.8583 | folds [0.8079 0.8559 0.9057 0.8636] | rondas prom 330 |   61s
+[16:02:42]     alpha=50   -> 0.8583 (+0.0005)
+[16:03:58] R1 u_track_skip_rate alpha=200                     -> AUC CV 0.8586 | folds [0.8085 0.8557 0.9061 0.8639] | rondas prom 410 |   75s
+[16:03:58]     alpha=200  -> 0.8586 (+0.0008)
+[16:03:58] R1 mejor: alpha=200 -> 0.8586 (+0.0008 vs. referencia)
+[16:03:58] === R2: backoff jerarquico (usuario) de u_track_skip_rate (referencia 0.8578) ===
+[16:05:11] R2 u_track_skip_rate(backoff) alpha=1              -> AUC CV 0.8563 | folds [0.8060 0.8542 0.9025 0.8625] | rondas prom 392 |   73s
+[16:05:11]     alpha=1    -> 0.8563 (-0.0014)
+[16:06:19] R2 u_track_skip_rate(backoff) alpha=10             -> AUC CV 0.8565 | folds [0.8067 0.8542 0.9024 0.8629] | rondas prom 360 |   68s
+[16:06:19]     alpha=10   -> 0.8565 (-0.0012)
+[16:07:24] R2 u_track_skip_rate(backoff) alpha=50             -> AUC CV 0.8570 | folds [0.8078 0.8553 0.9026 0.8623] | rondas prom 324 |   65s
+[16:07:24]     alpha=50   -> 0.8570 (-0.0008)
+[16:08:23] R2 u_track_skip_rate(backoff) alpha=200            -> AUC CV 0.8574 | folds [0.8097 0.8560 0.9024 0.8616] | rondas prom 285 |   58s
+[16:08:23]     alpha=200  -> 0.8574 (-0.0003)
+[16:08:23] R2 mejor: alpha=200 -> 0.8574 (-0.0003 vs. referencia)
+[16:08:23] mejor grano fino: prior global, alpha=200 -> 0.8586
+[16:08:23] === Acumulacion de niveles gruesos (referencia 0.8586, alpha=200) ===
+[16:09:46] + u_art_skip_rate                                  -> AUC CV 0.8579 | folds [0.8090 0.8554 0.9042 0.8628] | rondas prom 406 |   83s
+[16:09:46]     rechazado: u_art_skip_rate (-0.0007)
+[16:11:03] + user_skip_rate                                   -> AUC CV 0.8579 | folds [0.8087 0.8556 0.9052 0.8620] | rondas prom 359 |   77s
+[16:11:03]     rechazado: user_skip_rate (-0.0007)
+[16:12:32] + track_skip_rate                                  -> AUC CV 0.8584 | folds [0.8083 0.8561 0.9058 0.8635] | rondas prom 436 |   88s
+[16:12:32]     rechazado: track_skip_rate (-0.0001)
+[16:12:32] cierre del rescate: AUC CV 0.8586 (+0.0008 vs. vecindad) | skip-rates adoptados: ['u_track_skip_rate'] | alpha=200
+[16:12:32] === Re-test de ventana (feature set con skip-rates rescatados) ===
+[16:13:23] ventana 12 meses                                   -> AUC CV 0.8568 | folds [0.8084 0.8550 0.9031 0.8607] | rondas prom 294 |   51s
+[16:14:45] ventana 24 meses                                   -> AUC CV 0.8586 | folds [0.8085 0.8557 0.9061 0.8639] | rondas prom 410 |   82s
+[16:16:12] ventana 36 meses                                   -> AUC CV 0.8577 | folds [0.8073 0.8552 0.9039 0.8643] | rondas prom 378 |   88s
+[16:18:19] ventana toda la historia                           -> AUC CV 0.8581 | folds [0.8077 0.8550 0.9050 0.8646] | rondas prom 474 |  127s
+[16:18:19] decision de ventana: 24 meses -> AUC CV 0.8586 | NROUNDS_R=410
+[16:18:50] TEST_INTERNO (unica mirada): rescate 0.8612 vs. vecindad 0.8565 (+0.0047)
+[16:19:06] submission guardada: submission_rescate_skiprate.csv (51570 filas, 410 rondas, 24 meses)
+[16:19:06] RESUMEN FINAL rescate: AUC CV 0.8586 (vecindad 0.8578, +0.0008) | test_interno 0.8612 (+0.0047) | skip-rates ['u_track_skip_rate'] | alpha 200
