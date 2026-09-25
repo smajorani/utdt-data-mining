@@ -11,3 +11,4 @@ clases/
 # Artefactos de Python/Jupyter
 .ipynb_checkpoints/
 __pycache__/
+ 
