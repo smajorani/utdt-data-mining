@@ -2,6 +2,9 @@
 # Se descargan desde la página de la competencia en Kaggle.
 competition_data/
 
+# Desgrabaciones de las clases teóricas (material del curso, no se publica)
+clases/
+
 # Config local de Claude Code (permisos por máquina)
 .claude/settings.local.json
 
