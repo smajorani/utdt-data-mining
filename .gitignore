@@ -1,8 +1,6 @@
 # Datos de la competencia: exceden el límite de 100 MB de GitHub (train 211 MB, zip API 155 MB).
 # Se descargan desde la página de la competencia en Kaggle.
 competition_data/
-
-# Desgrabaciones de las clases teóricas (material del curso, no se publica)
 clases/
 
 # Config local de Claude Code (permisos por máquina)
